@@ -685,7 +685,7 @@ a.info-pill:hover { color: #38bdf8; }
     border-top: 1px solid rgba(56, 189, 248, 0.15);
 }
 
-/* Responsive — MOBILE ONLY (max-width: 900px) */
+/* Responsive — MOBILE ONLY (max-width: 900px) — UNCHANGED */
 @media (max-width: 900px) {
     .navbar { padding: 14px 4%; }
     .logo { height: 34px; }
@@ -759,7 +759,14 @@ a.info-pill:hover { color: #38bdf8; }
 
 /* Responsive — DESKTOP/PC ONLY (min-width: 901px) */
 @media (min-width: 901px) {
+    .hero-section {
+        padding-top: 55px;
+    }
+    .hero-left h1 {
+        font-size: 3.6rem;
+    }
     .glass-hero-img {
-        height: 400px;
+        max-width: 480px;
+        height: 440px;
     }
 }
