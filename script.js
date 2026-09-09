@@ -109,3 +109,31 @@ function setupScrollReveal() {
 }
 
 setupScrollReveal();
+
+// ============ Logo Intro Overlay ============
+(function () {
+    const overlay = document.getElementById("introOverlay");
+    if (!overlay) return;
+
+    const INTRO_DURATION_MS = 4400;   // must match --intro-duration in style.css
+    const HOLD_AFTER_MS = 300;        // brief pause after logo settles before fading out
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    document.body.style.overflow = "hidden";
+
+    let removed = false;
+    function removeOverlay() {
+        if (removed) return;
+        removed = true;
+        if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
+        document.body.style.overflow = "";
+    }
+
+    function finishIntro() {
+        overlay.classList.add("intro-fade-out");
+        overlay.addEventListener("transitionend", removeOverlay, { once: true });
+        setTimeout(removeOverlay, 900); // fallback in case transitionend doesn't fire
+    }
+
+    setTimeout(finishIntro, reducedMotion ? 700 : INTRO_DURATION_MS + HOLD_AFTER_MS);
+})();
