@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Implify Visuals | Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
@@ -12,7 +14,7 @@
 <!-- Header / Navigation -->
 <header class="navbar">
     <div class="logo-container">
-        <img src="images/logo.png" alt="Implify Visuals" class="logo">
+        <img src="images/logo.png" alt="Implify Visuals" class="logo" width="38" height="38" decoding="async">
         <span class="logo-text">Implify Visuals</span>
     </div>
     <nav class="nav-links" id="navLinks">
@@ -37,7 +39,7 @@
         </div>
     </div>
     <div class="hero-right">
-        <video class="glass-hero-img" autoplay loop muted playsinline>
+        <video class="glass-hero-img" autoplay loop muted playsinline preload="auto">
             <source src="images/hand-icons.mp4" type="video/mp4">
         </video>
     </div>
@@ -46,10 +48,10 @@
 <!-- Stats Section -->
 <section class="stats-section">
     <div class="stats-container">
-        <div class="stat-card"><h3>400+</h3><p>DESIGNS</p></div>
-        <div class="stat-card"><h3>2+</h3><p>YEARS OF EXPERIENCE</p></div>
-        <div class="stat-card"><h3>50+</h3><p>SATISFIED CLIENTS</p></div>
-        <div class="stat-card"><h3>100%</h3><p>EXPERT</p></div>
+        <div class="stat-card"><h3>400+</h3><p>PROJECTS CREATED</p></div>
+        <div class="stat-card"><h3>2+</h3><p>YEARS CREATING</p></div>
+        <div class="stat-card"><h3>50+</h3><p>PROJECTS DELIVERED</p></div>
+        <div class="stat-card"><h3>100%</h3><p>CREATIVE FOCUS</p></div>
     </div>
 </section>
 
@@ -78,7 +80,7 @@
     </div>
     <div class="about-right">
         <div class="profile-card-wrapper">
-            <img src="images/miracle.jpg" alt="Miracle" class="profile-img">
+            <img src="images/miracle.jpg" alt="Miracle" class="profile-img" loading="lazy" decoding="async">
             <div class="profile-tag"><span class="profile-icon">👤</span> Miracle</div>
         </div>
     </div>
@@ -120,7 +122,7 @@
                 <a href="#services" class="btn btn-outline-sm">Continue Process</a>
             </div>
             <div class="process-img-box">
-                <img src="images/process.gif" alt="Process Animation" class="process-gif">
+                <img src="images/process.gif" alt="Process Animation" class="process-gif" loading="lazy" decoding="async">
             </div>
         </div>
     </div>
@@ -161,7 +163,7 @@
         </div>
         <div class="dual-card elevate-card">
             <h3>Ready To Elevate Your Brand</h3>
-            <img src="images/elevate.gif" alt="Elevate Graphic" class="dual-gif">
+            <img src="images/elevate.gif" alt="Elevate Graphic" class="dual-gif" loading="lazy" decoding="async">
             <div class="elevate-btns">
                 <a href="https://wa.me/2348121986430" target="_blank" class="btn btn-primary-xs">Chat On WhatsApp</a>
                 <a href="https://www.instagram.com/classixmedia2367?igsi=MTNrM2lpNmk4ZG9rcw==" target="_blank" class="btn btn-outline-xs">View Instagram</a>
@@ -210,7 +212,7 @@
     <h2 class="section-title">My Portfolio</h2>
     <div class="portfolio-outer-frame">
         <div class="portfolio-card-relative">
-            <img src="images/portfolio-collage.png" alt="Portfolio Collage" class="portfolio-img">
+            <img src="images/portfolio-collage.png" alt="Portfolio Collage" class="portfolio-img" loading="lazy" decoding="async">
             <a href="https://www.behance.net/chibuikeisrael" target="_blank" class="behance-overlay-btn">
                 <span class="behance-icon">Bē</span> Visit on Behance
             </a>
@@ -268,6 +270,7 @@
                         <option>UI/UX Design</option>
                         <option>Motion Graphics / Video Editing</option>
                         <option>Social Media Designs</option>
+                        <option>Others</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -286,6 +289,6 @@
     <p>© <span id="year"></span> Implify Visuals. All rights reserved.</p>
 </footer>
 
-<script src="script.js"></script>
+<script src="script.js" defer></script>
 </body>
 </html>
