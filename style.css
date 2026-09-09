@@ -787,3 +787,145 @@ a.info-pill:hover { color: #38bdf8; }
     .navbar { padding: 12px 4%; }
     .stat-card h3 { font-size: 1.6rem; }
 }
+
+/* ============ LOGO INTRO ANIMATION ============ */
+:root {
+    --intro-duration: 4.4s;
+    --intro-logo-size: 84px;
+    --intro-glow-intensity: 0.55;
+    --intro-bg-glow-intensity: 0.35;
+    --intro-ease: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.intro-overlay {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    z-index: 99999;
+    background: radial-gradient(ellipse 900px 600px at 50% 40%, rgba(31,63,214, var(--intro-bg-glow-intensity)), #020617 70%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.intro-overlay.intro-fade-out {
+    transition: opacity 0.5s ease;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.intro-stage {
+    position: relative;
+    width: 220px;
+    height: 220px;
+}
+
+.intro-blob {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #38bdf8, #0055ff);
+}
+
+.intro-core {
+    width: 44px;
+    height: 44px;
+    transform: translate(-50%, -50%);
+    animation: introCoreStretch var(--intro-duration) var(--intro-ease) forwards;
+}
+
+.intro-piece {
+    width: 20px;
+    height: 20px;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.6);
+}
+
+.intro-piece-1 { animation: introPiece1 var(--intro-duration) var(--intro-ease) forwards; width: 18px; height: 18px; }
+.intro-piece-2 { animation: introPiece2 var(--intro-duration) var(--intro-ease) forwards; width: 22px; height: 22px; }
+.intro-piece-3 { animation: introPiece3 var(--intro-duration) var(--intro-ease) forwards; width: 16px; height: 16px; }
+.intro-piece-4 { animation: introPiece4 var(--intro-duration) var(--intro-ease) forwards; width: 20px; height: 20px; }
+.intro-piece-5 { animation: introPiece5 var(--intro-duration) var(--intro-ease) forwards; width: 19px; height: 19px; }
+.intro-piece-6 { animation: introPiece6 var(--intro-duration) var(--intro-ease) forwards; width: 17px; height: 17px; }
+
+.intro-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: var(--intro-logo-size);
+    height: auto;
+    transform: translate(-50%, -50%) scale(0.7);
+    opacity: 0;
+    filter: drop-shadow(0 0 0 rgba(56,189,248,0));
+    animation: introLogoReveal var(--intro-duration) var(--intro-ease) forwards;
+}
+
+@keyframes introCoreStretch {
+    0%, 11%   { transform: translate(-50%, -50%) scaleY(1) scaleX(1); opacity: 1; }
+    27%       { transform: translate(-50%, -50%) scaleY(2.6) scaleX(0.55); opacity: 1; }
+    33%, 100% { transform: translate(-50%, -50%) scaleY(2.6) scaleX(0.55); opacity: 0; }
+}
+
+@keyframes introPiece1 {
+    0%, 26%   { opacity: 0; transform: translate(-50%, -50%) translate(0,0) scale(0.6); }
+    40%       { opacity: 1; transform: translate(-50%, -50%) translate(-58px,-46px) scale(1); }
+    70%       { opacity: 1; transform: translate(-50%, -50%) translate(-64px,-50px) scale(1); }
+    86%       { opacity: 1; transform: translate(-50%, -50%) translate(0,0) scale(0.5); }
+    90%, 100% { opacity: 0; transform: translate(-50%, -50%) translate(0,0) scale(0); }
+}
+@keyframes introPiece2 {
+    0%, 27%   { opacity: 0; transform: translate(-50%, -50%) translate(0,0) scale(0.6); }
+    41%       { opacity: 1; transform: translate(-50%, -50%) translate(60px,-44px) scale(1); }
+    71%       { opacity: 1; transform: translate(-50%, -50%) translate(66px,-48px) scale(1); }
+    87%       { opacity: 1; transform: translate(-50%, -50%) translate(0,0) scale(0.5); }
+    91%, 100% { opacity: 0; transform: translate(-50%, -50%) translate(0,0) scale(0); }
+}
+@keyframes introPiece3 {
+    0%, 28%   { opacity: 0; transform: translate(-50%, -50%) translate(0,0) scale(0.6); }
+    42%       { opacity: 1; transform: translate(-50%, -50%) translate(-80px,10px) scale(1); }
+    69%       { opacity: 1; transform: translate(-50%, -50%) translate(-86px,14px) scale(1); }
+    85%       { opacity: 1; transform: translate(-50%, -50%) translate(0,0) scale(0.5); }
+    89%, 100% { opacity: 0; transform: translate(-50%, -50%) translate(0,0) scale(0); }
+}
+@keyframes introPiece4 {
+    0%, 26%   { opacity: 0; transform: translate(-50%, -50%) translate(0,0) scale(0.6); }
+    39%       { opacity: 1; transform: translate(-50%, -50%) translate(82px,14px) scale(1); }
+    72%       { opacity: 1; transform: translate(-50%, -50%) translate(88px,18px) scale(1); }
+    88%       { opacity: 1; transform: translate(-50%, -50%) translate(0,0) scale(0.5); }
+    92%, 100% { opacity: 0; transform: translate(-50%, -50%) translate(0,0) scale(0); }
+}
+@keyframes introPiece5 {
+    0%, 29%   { opacity: 0; transform: translate(-50%, -50%) translate(0,0) scale(0.6); }
+    43%       { opacity: 1; transform: translate(-50%, -50%) translate(-40px,70px) scale(1); }
+    68%       { opacity: 1; transform: translate(-50%, -50%) translate(-44px,76px) scale(1); }
+    84%       { opacity: 1; transform: translate(-50%, -50%) translate(0,0) scale(0.5); }
+    88%, 100% { opacity: 0; transform: translate(-50%, -50%) translate(0,0) scale(0); }
+}
+@keyframes introPiece6 {
+    0%, 25%   { opacity: 0; transform: translate(-50%, -50%) translate(0,0) scale(0.6); }
+    38%       { opacity: 1; transform: translate(-50%, -50%) translate(42px,72px) scale(1); }
+    73%       { opacity: 1; transform: translate(-50%, -50%) translate(46px,78px) scale(1); }
+    89%       { opacity: 1; transform: translate(-50%, -50%) translate(0,0) scale(0.5); }
+    93%, 100% { opacity: 0; transform: translate(-50%, -50%) translate(0,0) scale(0); }
+}
+
+@keyframes introLogoReveal {
+    0%, 84%   { opacity: 0; transform: translate(-50%, -50%) scale(0.7); filter: drop-shadow(0 0 0 rgba(56,189,248,0)); }
+    92%       { opacity: 1; transform: translate(-50%, -50%) scale(1); filter: drop-shadow(0 0 14px rgba(56,189,248, var(--intro-glow-intensity))); }
+    100%      { opacity: 1; transform: translate(-50%, -50%) scale(1); filter: drop-shadow(0 0 14px rgba(56,189,248, var(--intro-glow-intensity))); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .intro-core, .intro-piece { display: none; }
+    .intro-logo {
+        animation: none;
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+        filter: drop-shadow(0 0 14px rgba(56,189,248, var(--intro-glow-intensity)));
+        transition: opacity 0.4s ease;
+    }
+}
