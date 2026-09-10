@@ -115,7 +115,7 @@ setupScrollReveal();
     const overlay = document.getElementById("introOverlay");
     if (!overlay) return;
 
-    const INTRO_DURATION_MS = 4400;   // must match --intro-duration in style.css
+    const INTRO_DURATION_MS = 5000;   // must match --intro-duration in style.css
     const HOLD_AFTER_MS = 300;        // brief pause after logo settles before fading out
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
