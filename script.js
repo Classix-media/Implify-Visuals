@@ -49,57 +49,6 @@ const reviewNextBtn = document.getElementById("reviewNext");
 if (reviewTrack && reviewDotsWrap && reviewPrevBtn && reviewNextBtn) {
   const totalReviews = reviewTrack.children.length;
   let currentReview = 0;
-const WHATSAPP_NUMBER = "2348121986430";
-
-const yearEl = document.getElementById("year");
-if (yearEl) yearEl.textContent = new Date().getFullYear();
-
-// Mobile nav toggle
-const navToggle = document.getElementById("navToggle");
-const navLinks = document.getElementById("navLinks");
-if (navToggle && navLinks) {
-  navToggle.addEventListener("click", () => {
-    const isOpen = navLinks.classList.toggle("open");
-    navToggle.setAttribute("aria-expanded", isOpen);
-  });
-  navLinks.querySelectorAll("a").forEach(link => {
-    link.addEventListener("click", () => navLinks.classList.remove("open"));
-  });
-}
-
-const form = document.getElementById("contactForm");
-if (form) {
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    const firstName = document.getElementById("firstName").value.trim();
-    const lastName = document.getElementById("lastName").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const service = document.getElementById("service").value;
-    const message = document.getElementById("message").value.trim();
-
-    const text =
-`Hi Implify Visuals, I'd like to start a project.
-
-Name: ${firstName} ${lastName}
-Email: ${email}
-Service: ${service}
-Project details: ${message}`;
-
-    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
-    window.open(url, "_blank");
-  });
-}
-
-// Clients Reviews Carousel
-const reviewTrack = document.getElementById("reviewTrack");
-const reviewDotsWrap = document.getElementById("reviewDots");
-const reviewPrevBtn = document.getElementById("reviewPrev");
-const reviewNextBtn = document.getElementById("reviewNext");
-
-if (reviewTrack && reviewDotsWrap && reviewPrevBtn && reviewNextBtn) {
-  const totalReviews = reviewTrack.children.length;
-  let currentReview = 0;
   let autoplayTimer;
 
   for (let i = 0; i < totalReviews; i++) {
@@ -166,7 +115,7 @@ setupScrollReveal();
     const overlay = document.getElementById("introOverlay");
     if (!overlay) return;
 
-    const INTRO_DURATION_MS = 7000;   // must match --intro-duration in style.css
+    const INTRO_DURATION_MS = 5000;   // must match --intro-duration in style.css
     const HOLD_AFTER_MS = 300;        // brief pause after logo settles before fading out
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
