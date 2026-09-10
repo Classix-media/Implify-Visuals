@@ -790,10 +790,10 @@ a.info-pill:hover { color: #38bdf8; }
 
 /* ============ LOGO INTRO ANIMATION ============ */
 :root {
-    --intro-duration: 4.4s;
+    --intro-duration: 5s;
     --intro-logo-size: 84px;
     --intro-glow-intensity: 0.55;
-    --intro-bg-glow-intensity: 0.35;
+    --intro-bg-glow-intensity: 0.4;
     --intro-ease: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
@@ -804,7 +804,10 @@ a.info-pill:hover { color: #38bdf8; }
     height: 100vh;
     height: 100dvh;
     z-index: 99999;
-    background: radial-gradient(ellipse 900px 600px at 50% 40%, rgba(31,63,214, var(--intro-bg-glow-intensity)), #020617 70%);
+    background-color: #020617;
+    background-image:
+        radial-gradient(ellipse 70% 55% at 50% 38%, rgba(31,63,214, var(--intro-bg-glow-intensity)), transparent 70%),
+        radial-gradient(ellipse 60% 50% at 50% 65%, rgba(63,208,255, 0.14), transparent 70%);
     display: flex;
     align-items: center;
     justify-content: center;
