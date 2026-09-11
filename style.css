@@ -932,3 +932,129 @@ a.info-pill:hover { color: #38bdf8; }
         transition: opacity 0.4s ease;
     }
 }
+
+
+/* ============ RESPONSIVE + LOW-END DEVICE HARDENING ============
+   Keeps the existing visual design while making spacing, typography,
+   cards and media adapt smoothly to narrow/low-resolution screens. */
+
+/* Prevent flex/grid children from forcing horizontal overflow. */
+.hero-left, .hero-right,
+.about-left, .about-right,
+.clarity-grid > *, .dual-grid > *,
+.services-triple-grid > *, .contact-grid > *,
+.portfolio-outer-frame > *, .reviews-carousel,
+.form-group { min-width: 0; }
+
+/* Fluid headings instead of a few abrupt fixed jumps. */
+.hero-left h1 { font-size: clamp(2.35rem, 6vw, 3.6rem); }
+.about-left h2, .contact-left h2 { font-size: clamp(2rem, 4.8vw, 2.6rem); }
+.section-title { font-size: clamp(2rem, 4.5vw, 2.4rem); }
+
+/* Flexible grid tracks prevent cards from becoming cramped. */
+.clarity-grid,
+.dual-grid,
+.contact-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.services-triple-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+/* Media always stays inside its box. */
+img, video, picture { max-width: 100%; }
+picture { display: block; }
+picture img { width: 100%; height: auto; }
+.profile-card-wrapper picture { position: absolute; inset: 0; width: 100%; height: 100%; }
+.profile-card-wrapper picture .profile-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* Reserve media space so slower phones do not get large layout jumps. */
+.process-img-box { aspect-ratio: 800 / 458; min-height: 0; }
+.process-gif { width: 100%; height: 100%; object-fit: cover; }
+.dual-gif { aspect-ratio: 800 / 456; height: auto; object-fit: contain; }
+
+/* Long email/URL text should wrap rather than push the viewport wider. */
+.info-pill, .faq-text, .need-card, .service-card, .review-card,
+.contact-left p, .contact-form { overflow-wrap: anywhere; }
+
+/* Smaller devices: stack intentionally, with comfortable touch targets. */
+@media (max-width: 900px) {
+    .hero-section { gap: 24px; }
+    .hero-left { flex-basis: 100%; }
+    .hero-right { flex-basis: 100%; }
+
+    .stats-container { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .stat-card { min-width: 0; }
+
+    .clarity-grid, .dual-grid, .services-triple-grid, .contact-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .portfolio-outer-frame { padding: 16px; gap: 14px; }
+    .portfolio-card-relative { flex-basis: auto; min-width: 0; }
+
+    .reviews-carousel { width: 100%; }
+    .review-track-wrapper { min-width: 0; }
+    .review-arrow { width: 40px; height: 40px; }
+
+    .form-group input, .form-group select, .form-group textarea {
+        min-width: 0;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 520px) {
+    .navbar { padding-left: 4%; padding-right: 4%; }
+    .logo-container { gap: 7px; min-width: 0; }
+    .logo-text { font-size: 0.92rem; }
+
+    .hero-section { padding-left: 5%; padding-right: 5%; padding-top: 45px; }
+    .hero-left h1 { font-size: clamp(2.15rem, 10vw, 2.75rem); line-height: 1.1; }
+    .hero-left p { font-size: 0.98rem; }
+    .hero-buttons { gap: 10px; }
+    .btn { padding: 11px 18px; }
+
+    .stats-section { padding: 0 5%; }
+    .stats-container { gap: 10px; padding: 12px; }
+    .stat-card { padding: 13px 8px; }
+    .stat-card h3 { font-size: clamp(1.45rem, 7vw, 1.9rem); }
+
+    .about-section,
+    .clarity-section,
+    .tools-elevate-section,
+    .portfolio-section,
+    .reviews-section,
+    .contact-section { padding-left: 5%; padding-right: 5%; }
+
+    .faq-card, .need-card, .dual-card, .tools-card { padding: 20px; }
+    .service-card { padding: 22px; }
+    .service-card h2 { font-size: 1.7rem; }
+
+    .portfolio-outer-frame { padding: 10px; border-radius: 20px; }
+    .behance-overlay-btn { padding: 9px 15px; font-size: 0.8rem; }
+    .portfolio-side-stack { gap: 10px; }
+    .side-stack-btn { min-height: 48px; }
+
+    .reviews-carousel { gap: 6px; }
+    .review-card { padding: 24px 16px; }
+    .review-quote { font-size: 0.98rem; }
+}
+
+@media (max-width: 380px) {
+    .logo-text { font-size: 0.85rem; }
+    .nav-toggle span { width: 20px; }
+    .hero-section { padding-left: 4%; padding-right: 4%; }
+    .hero-left h1 { font-size: 2.15rem; }
+    .hero-left p { font-size: 0.93rem; }
+    .hero-buttons { width: 100%; }
+    .hero-buttons .btn { width: 100%; text-align: center; }
+
+    .stats-container { grid-template-columns: minmax(0, 1fr); }
+    .faq-item { gap: 10px; }
+    .faq-num { width: 26px; height: 26px; font-size: 0.78rem; }
+    .tool-pill { white-space: normal; text-align: center; }
+    .review-arrow { width: 34px; height: 34px; font-size: 1.15rem; }
+}
+
+@media (max-width: 340px) {
+    .hero-left h1 { font-size: 2rem; }
+    .logo { height: 31px; }
+    .logo-text { font-size: 0.8rem; }
+    .faq-card, .need-card, .dual-card, .tools-card { padding: 16px; }
+}
