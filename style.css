@@ -1058,3 +1058,117 @@ picture img { width: 100%; height: auto; }
     .logo-text { font-size: 0.8rem; }
     .faq-card, .need-card, .dual-card, .tools-card { padding: 16px; }
 }
+
+
+/* ============ TARGETED CROSS-BROWSER HERO + TOOLS CONSISTENCY ============
+   Keeps the existing visual styling while making the two reported areas
+   use predictable tracks at common viewport widths. */
+
+.hero-section {
+    align-items: center;
+}
+
+.hero-left,
+.hero-right {
+    box-sizing: border-box;
+}
+
+.hero-left {
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+.hero-right {
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+.hero-left h1 {
+    font-size: clamp(2.2rem, 4.4vw, 3rem);
+}
+
+.hero-left p {
+    font-size: clamp(0.95rem, 1.35vw, 1.05rem);
+}
+
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-items: stretch;
+}
+
+.stat-card {
+    min-width: 0;
+    width: auto;
+    box-sizing: border-box;
+}
+
+/* Tools use fixed responsive tracks rather than content-width flex items.
+   This prevents browser font-measurement differences from moving pills
+   unpredictably between rows. */
+.tools-pills {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    align-items: stretch;
+}
+
+.tool-pill {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    white-space: normal;
+    min-height: 38px;
+}
+
+@media (max-width: 900px) {
+    .hero-left,
+    .hero-right {
+        flex: 1 1 100%;
+    }
+
+    .stats-container {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .tools-pills {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 520px) {
+    .tools-pills {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .tool-pill {
+        min-height: 40px;
+        padding: 8px 10px;
+    }
+}
+
+@media (max-width: 380px) {
+    .tools-pills {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+    }
+
+    .tool-pill {
+        font-size: 0.78rem;
+        padding: 8px 6px;
+    }
+}
+
+@media (max-width: 340px) {
+    .tools-pills {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .tool-pill {
+        font-size: 0.74rem;
+    }
+}
