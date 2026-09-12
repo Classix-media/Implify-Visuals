@@ -314,14 +314,16 @@ setupScrollReveal();
     syncCarouselMode();
 })();
 
-/* FINAL7 — Premium upward scroll reveals. Layout, carousel and existing interactions remain unchanged. */
+
+/* FINAL8 — Premium upward scroll reveals.
+   Glass-safe: .hero-section and .hero-right are deliberately NOT transformed,
+   preserving the MP4's existing mix-blend-mode/mask visual treatment. */
 (() => {
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduceMotion || !('IntersectionObserver' in window)) return;
 
-  const sections = Array.from(document.querySelectorAll('section, .marquee-wrapper'));
   const sectionSelectors = [
-    '.hero-section', '.stats-section', '.marquee-wrapper', '.about-section',
+    '.stats-section', '.marquee-wrapper', '.about-section',
     '.clarity-section', '.tools-elevate-section', '.strategy-section',
     '.past-projects-section', '.reviews-section', '.portfolio-section',
     '.contact-section'
@@ -330,6 +332,9 @@ setupScrollReveal();
   sectionSelectors.forEach(selector => {
     document.querySelectorAll(selector).forEach(el => el.classList.add('scroll-reveal'));
   });
+
+  // Reveal the hero copy only. Do not transform the hero section or glass media.
+  document.querySelectorAll('.hero-left').forEach(el => el.classList.add('scroll-reveal'));
 
   const staggerSelectors = [
     '.stats-container', '.services-triple-grid', '.tools-pills', '.strategy-cards',

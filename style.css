@@ -2713,8 +2713,10 @@ html {
     .expect-item p { font-size: 0.75rem; }
 }
 
-/* FINAL7 — Premium scroll reveal system
-   Adds subtle upward reveals to existing and new sections without changing layout. */
+/* ============ FINAL8 — PREMIUM SCROLL REVEALS, GLASS-SAFE ============
+   The hero media must remain in its original blending context so the MP4's
+   dark background stays visually blended away. The hero text can reveal
+   independently without applying transforms to the glass video or its parent. */
 @media (prefers-reduced-motion: no-preference) {
   .scroll-reveal {
     opacity: 0;
@@ -2722,12 +2724,10 @@ html {
     transition: opacity 700ms cubic-bezier(.22,1,.36,1), transform 700ms cubic-bezier(.22,1,.36,1);
     will-change: opacity, transform;
   }
-
   .scroll-reveal.is-visible {
     opacity: 1;
     transform: translate3d(0, 0, 0);
   }
-
   .scroll-reveal-stagger > * {
     opacity: 0;
     transform: translate3d(0, 26px, 0);
@@ -2735,25 +2735,21 @@ html {
     transition-delay: var(--reveal-delay, 0ms);
     will-change: opacity, transform;
   }
-
   .scroll-reveal-stagger.is-visible > * {
     opacity: 1;
     transform: translate3d(0, 0, 0);
   }
-
   .scroll-reveal-stagger > *:nth-child(1) { --reveal-delay: 0ms; }
   .scroll-reveal-stagger > *:nth-child(2) { --reveal-delay: 80ms; }
   .scroll-reveal-stagger > *:nth-child(3) { --reveal-delay: 160ms; }
   .scroll-reveal-stagger > *:nth-child(4) { --reveal-delay: 240ms; }
   .scroll-reveal-stagger > *:nth-child(5) { --reveal-delay: 320ms; }
   .scroll-reveal-stagger > *:nth-child(6) { --reveal-delay: 400ms; }
-
   @media (max-width: 520px) {
     .scroll-reveal { transform: translate3d(0, 24px, 0); transition-duration: 600ms; }
     .scroll-reveal-stagger > * { transform: translate3d(0, 18px, 0); transition-duration: 560ms; }
   }
 }
-
 @media (prefers-reduced-motion: reduce) {
   .scroll-reveal,
   .scroll-reveal-stagger > * {
