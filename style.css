@@ -2180,3 +2180,68 @@ html {
         max-height: 230px;
     }
 }
+
+/* ============ FINAL GLASS ANIMATION SIZE + BREATHING ROOM ============
+   Restores the glass animation to its normal visual size while keeping the
+   full hand/finger visible. Uses the same rules across mobile browsers. */
+@media (max-width: 900px) {
+    .hero-right {
+        width: 100%;
+        overflow: visible;
+        margin-top: 38px;
+        margin-bottom: 8px;
+        padding: 6px 0 6px;
+        box-sizing: border-box;
+    }
+
+    .glass-hero-img {
+        display: block;
+        width: min(100%, 420px);
+        max-width: 420px;
+        height: 300px;
+        max-height: none;
+        margin: 0 auto;
+        object-fit: contain;
+        object-position: center;
+    }
+}
+
+@media (max-width: 520px) {
+    .hero-right {
+        margin-top: 36px;
+        margin-bottom: 8px;
+        padding: 6px 0 6px;
+    }
+
+    .glass-hero-img {
+        width: 100%;
+        max-width: 420px;
+        height: 300px;
+        max-height: none;
+    }
+}
+
+@media (max-width: 380px) {
+    .hero-right {
+        margin-top: 34px;
+        margin-bottom: 6px;
+        padding: 6px 0 5px;
+    }
+
+    .glass-hero-img {
+        width: 100%;
+        max-width: 360px;
+        height: 285px;
+        max-height: none;
+    }
+}
+
+@media (max-width: 340px) {
+    .hero-right {
+        margin-top: 32px;
+    }
+
+    .glass-hero-img {
+        height: 275px;
+    }
+}
