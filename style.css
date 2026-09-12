@@ -2758,3 +2758,36 @@ html {
     transition: none !important;
   }
 }
+
+
+/* FINAL9 — Desktop Past Projects reveal as ONE unified gallery.
+   All four images are prepared first, then the complete 4-up row rises together.
+   Mobile carousel behavior remains unchanged. */
+@media (min-width: 901px) {
+  .past-projects-column .projects-stage {
+    opacity: 0;
+    transform: translate3d(0, 34px, 0);
+    transition: opacity 700ms cubic-bezier(.22,1,.36,1), transform 700ms cubic-bezier(.22,1,.36,1);
+    will-change: opacity, transform;
+  }
+  .past-projects-column .projects-stage.gallery-ready.is-visible {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+  .past-projects-column .projects-stage.gallery-loading {
+    pointer-events: none;
+  }
+}
+@media (max-width: 900px) {
+  .past-projects-column .projects-stage {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .past-projects-column .projects-stage {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

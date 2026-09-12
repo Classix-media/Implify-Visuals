@@ -338,7 +338,7 @@ setupScrollReveal();
 
   const staggerSelectors = [
     '.stats-container', '.services-triple-grid', '.tools-pills', '.strategy-cards',
-    '.past-projects-column .projects-stage', '.past-projects-layout',
+    '.past-projects-layout',
     '.reviews-carousel', '.portfolio-outer-frame', '.clarity-grid', '.dual-grid',
     '.contact-grid', '.what-to-expect-column'
   ];
@@ -346,6 +346,32 @@ setupScrollReveal();
   staggerSelectors.forEach(selector => {
     document.querySelectorAll(selector).forEach(el => el.classList.add('scroll-reveal-stagger'));
   });
+
+  // FINAL9: Desktop gallery is treated as one visual unit.
+  // Preload/decode all four project images before allowing the row to reveal,
+  // preventing one card from appearing before the others.
+  const galleryStage = document.querySelector('.past-projects-column .projects-stage');
+  if (galleryStage && !window.matchMedia('(max-width: 900px)').matches) {
+    galleryStage.classList.add('gallery-loading');
+    const galleryImages = Array.from(galleryStage.querySelectorAll('img'));
+    const prepareImage = (img) => {
+      if (img.complete && img.naturalWidth > 0) {
+        return img.decode ? img.decode().catch(() => {}) : Promise.resolve();
+      }
+      return new Promise(resolve => {
+        const done = () => {
+          if (img.decode) img.decode().catch(() => {}).finally(resolve);
+          else resolve();
+        };
+        img.addEventListener('load', done, { once: true });
+        img.addEventListener('error', resolve, { once: true });
+      });
+    };
+    Promise.all(galleryImages.map(prepareImage)).then(() => {
+      galleryStage.classList.remove('gallery-loading');
+      galleryStage.classList.add('gallery-ready');
+    });
+  }
 
   const observer = new IntersectionObserver((entries, obs) => {
     entries.forEach(entry => {
@@ -359,4 +385,5 @@ setupScrollReveal();
   });
 
   document.querySelectorAll('.scroll-reveal, .scroll-reveal-stagger').forEach(el => observer.observe(el));
+  if (galleryStage) observer.observe(galleryStage);
 })();
