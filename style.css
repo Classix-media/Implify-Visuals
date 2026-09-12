@@ -2089,3 +2089,94 @@ html {
         row-gap: 50px;
     }
 }
+
+/* ============ FINAL SMARTPHONE HERO + PROJECTS MICRO-BALANCE ============
+   Final narrow-screen correction. Keeps the approved design while preventing
+   browser-dependent text compression and preventing the hand animation from
+   being cropped by a forced box height. */
+@media (max-width: 900px) {
+    .hero-section {
+        max-width: none;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .hero-left {
+        width: 100%;
+        max-width: 550px;
+    }
+
+    .hero-right {
+        width: 100%;
+        overflow: visible;
+        margin-top: 34px;
+        margin-bottom: 4px;
+    }
+
+    .glass-hero-img {
+        width: min(100%, 420px);
+        height: auto;
+        max-height: 270px;
+        object-fit: contain;
+        object-position: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .past-projects-layout {
+        row-gap: 42px;
+    }
+}
+
+@media (max-width: 520px) {
+    .hero-right {
+        margin-top: 34px;
+        margin-bottom: 2px;
+        padding: 4px 0 2px;
+    }
+
+    .glass-hero-img {
+        width: min(100%, 390px);
+        max-height: 265px;
+    }
+
+    .past-projects-section {
+        margin-top: 28px;
+        margin-bottom: 64px;
+    }
+
+    .past-projects-layout {
+        row-gap: 44px;
+    }
+}
+
+@media (max-width: 380px) {
+    .hero-right {
+        margin-top: 32px;
+        padding-top: 5px;
+    }
+
+    .glass-hero-img {
+        width: min(100%, 350px);
+        max-height: 245px;
+    }
+
+    .past-projects-section {
+        margin-top: 24px;
+        margin-bottom: 58px;
+    }
+
+    .past-projects-layout {
+        row-gap: 42px;
+    }
+}
+
+@media (max-width: 340px) {
+    .hero-right {
+        margin-top: 30px;
+    }
+
+    .glass-hero-img {
+        max-height: 230px;
+    }
+}
