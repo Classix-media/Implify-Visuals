@@ -1182,3 +1182,294 @@ picture img { width: 100%; height: auto; }
         margin-top: clamp(52px, 10vw, 72px);
     }
 }
+
+/* ============ IMPLIFY HERO TYPOGRAPHY + STRATEGY SECTION ============
+   Targeted visual update. Existing cards, sections, imagery and JS remain intact. */
+.hero-section {
+    align-items: flex-start;
+}
+
+.hero-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: clamp(14px, 2.5vw, 24px);
+    margin: 0 0 clamp(24px, 3vw, 34px);
+    color: rgba(148, 163, 184, 0.88);
+    font-size: clamp(0.62rem, 1vw, 0.78rem);
+    font-weight: 700;
+    letter-spacing: clamp(2.2px, 0.42vw, 4px);
+    line-height: 1;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.hero-eyebrow-line {
+    width: clamp(38px, 5vw, 58px);
+    height: 2px;
+    flex: 0 0 auto;
+    background: linear-gradient(90deg, #38bdf8, #0055ff);
+    border-radius: 999px;
+}
+
+.hero-left h1 {
+    font-family: 'Sora', sans-serif;
+    font-size: clamp(3rem, 6.4vw, 5rem);
+    line-height: 0.98;
+    font-weight: 800;
+    letter-spacing: -0.045em;
+    margin: 0 0 clamp(24px, 3vw, 32px);
+}
+
+.accent-text {
+    background: linear-gradient(110deg, #38bdf8 0%, #008cff 45%, #0055ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-left p {
+    font-size: clamp(1rem, 1.35vw, 1.12rem);
+    line-height: 1.55;
+    max-width: 48ch;
+    margin-bottom: clamp(28px, 3.2vw, 38px);
+}
+
+.hero-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    width: min(100%, 400px);
+}
+
+.hero-buttons .btn {
+    width: min(100%, 400px);
+    box-sizing: border-box;
+    text-align: center;
+    padding: 16px 24px;
+    border-radius: 999px;
+    font-size: clamp(0.82rem, 1vw, 0.94rem);
+    letter-spacing: 0.01em;
+}
+
+.hero-buttons .btn-primary {
+    box-shadow: 0 0 22px rgba(0, 85, 255, 0.42);
+}
+
+.hero-buttons .btn-primary span {
+    margin-left: 7px;
+    font-size: 1.15em;
+}
+
+.hero-right {
+    align-self: flex-start;
+}
+
+/* The requested extra breathing room for the glass animation on narrow screens. */
+@media (max-width: 900px) {
+    .hero-section {
+        padding-top: clamp(54px, 9vw, 76px);
+    }
+
+    .hero-left h1 {
+        font-size: clamp(2.9rem, 12vw, 4rem);
+        line-height: 1;
+    }
+
+    .hero-right {
+        margin-top: clamp(64px, 12vw, 88px);
+    }
+}
+
+@media (max-width: 520px) {
+    .hero-eyebrow {
+        gap: 13px;
+        margin-bottom: 24px;
+        letter-spacing: 2.4px;
+    }
+
+    .hero-eyebrow-line {
+        width: 38px;
+    }
+
+    .hero-left h1 {
+        font-size: clamp(2.7rem, 13.2vw, 3.5rem);
+    }
+
+    .hero-buttons,
+    .hero-buttons .btn {
+        width: 100%;
+    }
+
+    .hero-right {
+        margin-top: 72px;
+    }
+}
+
+@media (max-width: 380px) {
+    .hero-eyebrow {
+        gap: 10px;
+        font-size: 0.59rem;
+        letter-spacing: 1.9px;
+    }
+
+    .hero-eyebrow-line {
+        width: 30px;
+    }
+
+    .hero-left h1 {
+        font-size: 2.55rem;
+    }
+
+    .hero-left p {
+        font-size: 0.94rem;
+    }
+
+    .hero-buttons .btn {
+        padding: 14px 18px;
+    }
+
+    .hero-right {
+        margin-top: 68px;
+    }
+}
+
+/* ============ STRATEGIC APPROACH — NON-CLICKABLE CARDS ============ */
+.strategy-section {
+    padding: 0 8% 110px;
+}
+
+.strategy-heading {
+    max-width: 760px;
+    margin: 0 auto 46px;
+    text-align: center;
+}
+
+.strategy-label {
+    display: inline-block;
+    margin-bottom: 16px;
+    color: rgba(148, 163, 184, 0.78);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.strategy-heading h2 {
+    margin: 0 0 18px;
+    font-family: 'Sora', sans-serif;
+    font-size: clamp(2rem, 4.2vw, 3.3rem);
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+    color: #fff;
+}
+
+.strategy-heading p {
+    max-width: 62ch;
+    margin: 0 auto;
+    color: #94a3b8;
+    font-size: clamp(0.94rem, 1.2vw, 1.04rem);
+    line-height: 1.7;
+}
+
+.strategy-cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    max-width: 1050px;
+    margin: 0 auto;
+}
+
+.strategy-card {
+    position: relative;
+    min-width: 0;
+    min-height: 285px;
+    box-sizing: border-box;
+    padding: 32px;
+    border: 1px solid rgba(56, 189, 248, 0.18);
+    border-radius: 24px;
+    background:
+        radial-gradient(circle at 85% 10%, rgba(0, 85, 255, 0.14), transparent 38%),
+        linear-gradient(145deg, rgba(31, 63, 214, 0.22), rgba(2, 6, 23, 0.72));
+    box-shadow: 0 0 35px rgba(0, 85, 255, 0.09);
+    overflow: hidden;
+}
+
+.strategy-card::after {
+    content: '';
+    position: absolute;
+    inset: auto 24px 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.5), transparent);
+}
+
+.strategy-number {
+    display: block;
+    margin-bottom: 48px;
+    color: #38bdf8;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+}
+
+.strategy-card h3 {
+    margin: 0 0 12px;
+    font-family: 'Sora', sans-serif;
+    color: #fff;
+    font-size: clamp(1.35rem, 2.2vw, 1.7rem);
+    line-height: 1.15;
+}
+
+.strategy-card p {
+    margin: 0 0 30px;
+    color: #94a3b8;
+    font-size: 0.96rem;
+    line-height: 1.65;
+    max-width: 52ch;
+}
+
+.strategy-meta {
+    color: #38bdf8;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+}
+
+@media (max-width: 900px) {
+    .strategy-section {
+        padding-left: 6%;
+        padding-right: 6%;
+        padding-bottom: 80px;
+    }
+
+    .strategy-cards {
+        grid-template-columns: 1fr;
+        max-width: 680px;
+    }
+}
+
+@media (max-width: 520px) {
+    .strategy-section {
+        padding-left: 6%;
+        padding-right: 6%;
+    }
+
+    .strategy-heading {
+        margin-bottom: 32px;
+    }
+
+    .strategy-label {
+        font-size: 0.63rem;
+        letter-spacing: 2.2px;
+    }
+
+    .strategy-card {
+        min-height: 0;
+        padding: 26px 24px 30px;
+        border-radius: 22px;
+    }
+
+    .strategy-number {
+        margin-bottom: 38px;
+    }
+}

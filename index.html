@@ -10,36 +10,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-
-<style>
-.hero-eyebrow {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    margin: 0 0 24px;
-    color: rgba(148, 163, 184, 0.9);
-    font-size: clamp(0.68rem, 1.2vw, 0.82rem);
-    font-weight: 700;
-    letter-spacing: clamp(2px, 0.45vw, 4px);
-    line-height: 1;
-    text-transform: uppercase;
-    white-space: nowrap;
-}
-.hero-eyebrow-line {
-    width: clamp(38px, 5vw, 58px);
-    height: 2px;
-    flex: 0 0 auto;
-    background: linear-gradient(90deg, #38bdf8, #0055ff);
-    border-radius: 999px;
-}
-@media (max-width: 520px) {
-    .hero-eyebrow { gap: 14px; margin-bottom: 20px; letter-spacing: 2.5px; }
-}
-@media (max-width: 380px) {
-    .hero-eyebrow { gap: 10px; font-size: 0.62rem; letter-spacing: 2px; }
-    .hero-eyebrow-line { width: 32px; }
-}
-</style>
 </head>
 <body>
 
@@ -53,7 +23,7 @@
         <div class="intro-blob intro-piece intro-piece-4"></div>
         <div class="intro-blob intro-piece intro-piece-5"></div>
         <div class="intro-blob intro-piece intro-piece-6"></div>
-        <img src="images/logo.png" alt="" class="intro-logo">
+        <img src="images/logo.png" alt="" class="intro-logo" width="3264" height="3264" decoding="async">
     </div>
 </div>
 
@@ -82,10 +52,10 @@
             <span>IMPLIFY VISUALS PORTFOLIO</span>
         </div>
         <h1>Ideas,<br><span class="accent-text">made visual.</span></h1>
-        <p>I create visual identities, digital experiences, and motion graphics that make brands impossible to ignore.</p>
+        <p>I design visual identities, digital experiences, and motion graphics that give brands a clear and consistent visual presence.</p>
         <div class="hero-buttons">
-            <a href="https://forms.gle/xWNmMZTiQ8Zz9apw8" target="_blank" class="btn btn-primary">START A PROJECT</a>
-            <a href="#work" class="btn btn-outline">VIEW MY WORK &gt;</a>
+            <a href="#work" class="btn btn-primary">VIEW MY WORK <span aria-hidden="true">→</span></a>
+            <a href="https://forms.gle/xWNmMZTiQ8Zz9apw8" target="_blank" class="btn btn-outline">START A PROJECT</a>
         </div>
     </div>
     <div class="hero-right">
@@ -130,7 +100,10 @@
     </div>
     <div class="about-right">
         <div class="profile-card-wrapper">
-            <img src="images/miracle.jpg" alt="Miracle" class="profile-img" loading="lazy" decoding="async">
+            <picture>
+                    <source srcset="images/miracle-q95.webp" type="image/webp">
+                    <img src="images/miracle.jpg" alt="Miracle" class="profile-img" width="2377" height="3264" loading="lazy" decoding="async">
+                </picture>
             <div class="profile-tag"><span class="profile-icon">👤</span> Miracle</div>
         </div>
     </div>
@@ -172,7 +145,9 @@
                 <a href="#services" class="btn btn-outline-sm">Continue Process</a>
             </div>
             <div class="process-img-box">
-                <img src="images/process.gif" alt="Process Animation" class="process-gif" loading="lazy" decoding="async">
+                <video class="process-gif" autoplay loop muted playsinline preload="metadata" width="800" height="458" aria-label="Process Animation">
+                    <source src="images/process.mp4" type="video/mp4">
+                </video>
             </div>
         </div>
     </div>
@@ -213,12 +188,53 @@
         </div>
         <div class="dual-card elevate-card">
             <h3>Ready To Elevate Your Brand</h3>
-            <img src="images/elevate.gif" alt="Elevate Graphic" class="dual-gif" loading="lazy" decoding="async">
+            <video class="dual-gif" autoplay loop muted playsinline preload="metadata" width="800" height="456" aria-label="Elevate Graphic">
+                <source src="images/elevate.mp4" type="video/mp4">
+            </video>
             <div class="elevate-btns">
                 <a href="https://wa.me/2348121986430" target="_blank" class="btn btn-primary-xs">Chat On WhatsApp</a>
                 <a href="https://www.instagram.com/implify_visuals/" target="_blank" class="btn btn-outline-xs">View Instagram</a>
             </div>
         </div>
+    </div>
+</section>
+
+<!-- Strategic Approach Section -->
+<section class="strategy-section">
+    <div class="strategy-heading">
+        <span class="strategy-label">HOW I APPROACH THE WORK</span>
+        <h2>A clear process behind<br><span class="accent-text">every visual.</span></h2>
+        <p>Good design starts with understanding the problem. Each project moves through a simple, focused process so the final work has purpose behind it.</p>
+    </div>
+
+    <div class="strategy-cards">
+        <article class="strategy-card">
+            <span class="strategy-number">01</span>
+            <h3>Understand</h3>
+            <p>We start with your goal, audience, message, and context so the design has a clear job to do.</p>
+            <span class="strategy-meta">CLARITY FIRST</span>
+        </article>
+
+        <article class="strategy-card">
+            <span class="strategy-number">02</span>
+            <h3>Define</h3>
+            <p>The brief becomes a focused visual direction — the right style, hierarchy, tone, and deliverables.</p>
+            <span class="strategy-meta">DIRECTION &amp; FOCUS</span>
+        </article>
+
+        <article class="strategy-card">
+            <span class="strategy-number">03</span>
+            <h3>Design</h3>
+            <p>Ideas are developed into polished visuals with attention to composition, detail, consistency, and motion where needed.</p>
+            <span class="strategy-meta">IDEA TO EXECUTION</span>
+        </article>
+
+        <article class="strategy-card">
+            <span class="strategy-number">04</span>
+            <h3>Refine &amp; Deliver</h3>
+            <p>Feedback helps shape the final direction, then the finished assets are prepared cleanly for their intended use.</p>
+            <span class="strategy-meta">POLISH &amp; DELIVERY</span>
+        </article>
     </div>
 </section>
 
@@ -262,7 +278,10 @@
     <h2 class="section-title">My Portfolio</h2>
     <div class="portfolio-outer-frame">
         <div class="portfolio-card-relative">
-            <img src="images/portfolio-collage.png" alt="Portfolio Collage" class="portfolio-img" loading="lazy" decoding="async">
+            <picture>
+                    <source srcset="images/portfolio-collage-q95.webp" type="image/webp">
+                    <img src="images/portfolio-collage.png" alt="Portfolio Collage" class="portfolio-img" width="3264" height="1088" loading="lazy" decoding="async">
+                </picture>
             <a href="https://www.behance.net/chibuikeisrael" target="_blank" class="behance-overlay-btn">
                 <span class="behance-icon">Bē</span> Visit on Behance
             </a>
