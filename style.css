@@ -1172,3 +1172,13 @@ picture img { width: 100%; height: auto; }
         font-size: 0.74rem;
     }
 }
+
+
+/* ============ FINAL HERO MEDIA SPACING — MOBILE ONLY ============
+   Keeps the existing hero layout intact while giving the glass animation
+   consistent breathing room below the hero copy/buttons on stacked layouts. */
+@media (max-width: 900px) {
+    .hero-right {
+        margin-top: clamp(52px, 10vw, 72px);
+    }
+}
