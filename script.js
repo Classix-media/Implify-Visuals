@@ -137,3 +137,152 @@ setupScrollReveal();
 
     setTimeout(finishIntro, reducedMotion ? 700 : INTRO_DURATION_MS + HOLD_AFTER_MS);
 })();
+
+/* ============ PAST PROJECTS SHOWCASE CAROUSEL ============ */
+(function initPastProjectsCarousel() {
+    const carousel = document.getElementById('projectsCarousel');
+    if (!carousel) return;
+
+    const stage = document.getElementById('projectsStage');
+    const slides = Array.from(carousel.querySelectorAll('.project-slide'));
+    const dots = Array.from(carousel.querySelectorAll('.project-dot'));
+    const prev = document.getElementById('projectsPrev');
+    const next = document.getElementById('projectsNext');
+
+    if (!stage || slides.length < 2) return;
+
+    let current = 0;
+    let timer = null;
+    let startX = 0;
+    let startY = 0;
+    let pointerActive = false;
+    let suppressClick = false;
+
+    const AUTOPLAY_MS = 5200;
+    const SWIPE_THRESHOLD = 45;
+
+    function setSlide(index, direction = 1) {
+        current = (index + slides.length) % slides.length;
+
+        slides.forEach((slide, i) => {
+            slide.classList.toggle('is-active', i === current);
+            slide.setAttribute('aria-hidden', i === current ? 'false' : 'true');
+            if (i !== current) {
+                slide.style.transform = '';
+            }
+        });
+
+        dots.forEach((dot, i) => {
+            const active = i === current;
+            dot.classList.toggle('is-active', active);
+            dot.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+
+        carousel.dataset.direction = direction > 0 ? 'next' : 'prev';
+    }
+
+    function nextSlide() {
+        setSlide(current + 1, 1);
+        restartAutoplay();
+    }
+
+    function prevSlide() {
+        setSlide(current - 1, -1);
+        restartAutoplay();
+    }
+
+    function stopAutoplay() {
+        if (timer) {
+            window.clearInterval(timer);
+            timer = null;
+        }
+    }
+
+    function startAutoplay() {
+        stopAutoplay();
+        if (document.hidden || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        timer = window.setInterval(() => setSlide(current + 1, 1), AUTOPLAY_MS);
+    }
+
+    function restartAutoplay() {
+        startAutoplay();
+    }
+
+    prev?.addEventListener('click', prevSlide);
+    next?.addEventListener('click', nextSlide);
+
+    dots.forEach((dot, i) => {
+        dot.addEventListener('click', () => {
+            if (i === current) return;
+            setSlide(i, i > current ? 1 : -1);
+            restartAutoplay();
+        });
+    });
+
+    stage.addEventListener('pointerdown', (event) => {
+        if (event.pointerType === 'mouse' && event.button !== 0) return;
+        pointerActive = true;
+        startX = event.clientX;
+        startY = event.clientY;
+        suppressClick = false;
+        stage.setPointerCapture?.(event.pointerId);
+        stopAutoplay();
+    });
+
+    stage.addEventListener('pointermove', (event) => {
+        if (!pointerActive) return;
+        const dx = event.clientX - startX;
+        const dy = event.clientY - startY;
+        if (Math.abs(dx) > 12 && Math.abs(dx) > Math.abs(dy)) {
+            suppressClick = true;
+        }
+    });
+
+    function finishPointer(event) {
+        if (!pointerActive) return;
+        pointerActive = false;
+        const dx = event.clientX - startX;
+        const dy = event.clientY - startY;
+
+        if (Math.abs(dx) >= SWIPE_THRESHOLD && Math.abs(dx) > Math.abs(dy)) {
+            if (dx < 0) nextSlide();
+            else prevSlide();
+        } else {
+            restartAutoplay();
+        }
+    }
+
+    stage.addEventListener('pointerup', finishPointer);
+    stage.addEventListener('pointercancel', finishPointer);
+
+    stage.addEventListener('click', (event) => {
+        if (suppressClick) {
+            event.preventDefault();
+            event.stopPropagation();
+            suppressClick = false;
+        }
+    }, true);
+
+    stage.addEventListener('mouseenter', stopAutoplay);
+    stage.addEventListener('mouseleave', startAutoplay);
+    stage.addEventListener('focusin', stopAutoplay);
+    stage.addEventListener('focusout', startAutoplay);
+
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) stopAutoplay();
+        else startAutoplay();
+    });
+
+    stage.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowLeft') {
+            event.preventDefault();
+            prevSlide();
+        } else if (event.key === 'ArrowRight') {
+            event.preventDefault();
+            nextSlide();
+        }
+    });
+
+    setSlide(0, 1);
+    startAutoplay();
+})();
