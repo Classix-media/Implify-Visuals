@@ -2245,3 +2245,229 @@ html {
         height: 275px;
     }
 }
+
+/* ============ FINAL PAST PROJECTS IMAGE-EDGE + GLASS SIZE CORRECTION ============
+   The project showcase now uses the image/stage itself as the rounded edge.
+   No oversized padded desktop wrapper is left around the photo. */
+.projects-carousel {
+    padding: 0;
+    border-radius: clamp(17px, 2.2vw, 28px);
+    background: transparent;
+    box-shadow: none;
+    overflow: visible;
+}
+
+.projects-carousel::before,
+.projects-carousel::after {
+    display: none;
+}
+
+.projects-stage {
+    width: 100%;
+    margin: 0;
+    border-radius: clamp(17px, 2.2vw, 28px);
+    overflow: hidden;
+}
+
+.project-link {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    overflow: hidden;
+}
+
+.project-link img {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    object-fit: contain;
+    object-position: center;
+}
+
+/* Keep the carousel itself independent in the desktop two-column layout. */
+@media (min-width: 901px) {
+    .past-projects-column .projects-carousel {
+        width: min(100%, 520px);
+        max-width: 520px;
+    }
+}
+
+/* Mobile keeps the same exact image-edge treatment. */
+@media (max-width: 900px) {
+    .past-projects-column .projects-carousel {
+        width: 100%;
+        max-width: 600px;
+    }
+}
+
+/* Glass animation: larger visual footprint, but no forced cropping and only
+   a small amount of breathing room around it. */
+@media (max-width: 900px) {
+    .hero-right {
+        width: 100%;
+        overflow: visible;
+        margin-top: 28px;
+        margin-bottom: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .glass-hero-img {
+        display: block;
+        width: min(100%, 480px);
+        max-width: 480px;
+        height: 340px;
+        max-height: none;
+        margin: 0 auto;
+        object-fit: contain;
+        object-position: center;
+    }
+}
+
+@media (max-width: 520px) {
+    .hero-right {
+        margin-top: 26px;
+        margin-bottom: 0;
+        padding: 0;
+    }
+
+    .glass-hero-img {
+        width: min(100%, 440px);
+        max-width: 440px;
+        height: 315px;
+        max-height: none;
+    }
+}
+
+@media (max-width: 380px) {
+    .hero-right {
+        margin-top: 24px;
+    }
+
+    .glass-hero-img {
+        width: min(100%, 380px);
+        max-width: 380px;
+        height: 300px;
+    }
+}
+
+@media (max-width: 340px) {
+    .hero-right {
+        margin-top: 22px;
+    }
+
+    .glass-hero-img {
+        width: 100%;
+        height: 285px;
+    }
+}
+
+/* ============ FINAL RESPONSIVE EDGE + GLASS CALIBRATION ============
+   One fluid rule-set for phones, tablets, laptops and desktop monitors. */
+.projects-carousel {
+    width: min(100%, 560px);
+    padding: 0;
+    margin: 0;
+    border-radius: clamp(18px, 2.2vw, 28px);
+    background: transparent;
+    box-shadow: none;
+    overflow: visible;
+}
+
+.projects-stage {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    min-height: 0;
+    max-height: none;
+    margin: 0;
+    border-radius: inherit;
+    overflow: hidden;
+}
+
+.project-slide,
+.project-link {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    overflow: hidden;
+}
+
+.project-link img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    border-radius: inherit;
+    object-fit: cover;
+    object-position: center;
+}
+
+@media (max-width: 900px) {
+    .projects-carousel {
+        width: min(100%, 600px);
+        max-width: 600px;
+    }
+
+    .projects-stage {
+        aspect-ratio: 4 / 5;
+        min-height: 0;
+    }
+}
+
+/* Fluid glass sizing: larger when space is available, naturally reduced on
+   smaller screens, with its intrinsic aspect ratio preserved so the finger
+   and the complete animation remain visible. */
+@media (max-width: 900px) {
+    .hero-right {
+        width: 100%;
+        overflow: visible;
+        margin-top: clamp(26px, 5vw, 34px);
+        margin-bottom: 0;
+        padding: 0;
+    }
+
+    .glass-hero-img {
+        display: block;
+        width: min(100%, 480px);
+        max-width: 480px;
+        height: auto;
+        max-height: none;
+        margin: 0 auto;
+        object-fit: contain;
+        object-position: center;
+    }
+}
+
+@media (max-width: 520px) {
+    .hero-right {
+        margin-top: 24px;
+    }
+
+    .glass-hero-img {
+        width: min(100%, 460px);
+        max-width: 460px;
+    }
+}
+
+@media (max-width: 380px) {
+    .hero-right {
+        margin-top: 22px;
+    }
+
+    .glass-hero-img {
+        width: 100%;
+        max-width: 360px;
+    }
+}
+
+@media (max-width: 340px) {
+    .hero-right {
+        margin-top: 20px;
+    }
+
+    .glass-hero-img {
+        max-width: 340px;
+    }
+}
