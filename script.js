@@ -160,9 +160,20 @@ setupScrollReveal();
 
     const AUTOPLAY_MS = 5200;
     const SWIPE_THRESHOLD = 45;
+    const mobileQuery = window.matchMedia('(max-width: 900px)');
+    const isMobileCarousel = () => mobileQuery.matches;
 
     function setSlide(index, direction = 1) {
         current = (index + slides.length) % slides.length;
+
+        if (!isMobileCarousel()) {
+            slides.forEach((slide) => {
+                slide.classList.add('is-active');
+                slide.setAttribute('aria-hidden', 'false');
+                slide.style.transform = '';
+            });
+            return;
+        }
 
         slides.forEach((slide, i) => {
             slide.classList.toggle('is-active', i === current);
@@ -200,7 +211,7 @@ setupScrollReveal();
 
     function startAutoplay() {
         stopAutoplay();
-        if (document.hidden || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        if (!isMobileCarousel() || document.hidden || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         timer = window.setInterval(() => setSlide(current + 1, 1), AUTOPLAY_MS);
     }
 
@@ -208,18 +219,19 @@ setupScrollReveal();
         startAutoplay();
     }
 
-    prev?.addEventListener('click', prevSlide);
-    next?.addEventListener('click', nextSlide);
+    prev?.addEventListener('click', () => { if (isMobileCarousel()) prevSlide(); });
+    next?.addEventListener('click', () => { if (isMobileCarousel()) nextSlide(); });
 
     dots.forEach((dot, i) => {
         dot.addEventListener('click', () => {
-            if (i === current) return;
+            if (!isMobileCarousel() || i === current) return;
             setSlide(i, i > current ? 1 : -1);
             restartAutoplay();
         });
     });
 
     stage.addEventListener('pointerdown', (event) => {
+        if (!isMobileCarousel()) return;
         if (event.pointerType === 'mouse' && event.button !== 0) return;
         pointerActive = true;
         startX = event.clientX;
@@ -230,7 +242,7 @@ setupScrollReveal();
     });
 
     stage.addEventListener('pointermove', (event) => {
-        if (!pointerActive) return;
+        if (!isMobileCarousel() || !pointerActive) return;
         const dx = event.clientX - startX;
         const dy = event.clientY - startY;
         if (Math.abs(dx) > 12 && Math.abs(dx) > Math.abs(dy)) {
@@ -239,7 +251,7 @@ setupScrollReveal();
     });
 
     function finishPointer(event) {
-        if (!pointerActive) return;
+        if (!isMobileCarousel() || !pointerActive) return;
         pointerActive = false;
         const dx = event.clientX - startX;
         const dy = event.clientY - startY;
@@ -263,10 +275,10 @@ setupScrollReveal();
         }
     }, true);
 
-    stage.addEventListener('mouseenter', stopAutoplay);
-    stage.addEventListener('mouseleave', startAutoplay);
-    stage.addEventListener('focusin', stopAutoplay);
-    stage.addEventListener('focusout', startAutoplay);
+    stage.addEventListener('mouseenter', () => { if (isMobileCarousel()) stopAutoplay(); });
+    stage.addEventListener('mouseleave', () => { if (isMobileCarousel()) startAutoplay(); });
+    stage.addEventListener('focusin', () => { if (isMobileCarousel()) stopAutoplay(); });
+    stage.addEventListener('focusout', () => { if (isMobileCarousel()) startAutoplay(); });
 
     document.addEventListener('visibilitychange', () => {
         if (document.hidden) stopAutoplay();
@@ -274,6 +286,7 @@ setupScrollReveal();
     });
 
     stage.addEventListener('keydown', (event) => {
+        if (!isMobileCarousel()) return;
         if (event.key === 'ArrowLeft') {
             event.preventDefault();
             prevSlide();
@@ -283,6 +296,62 @@ setupScrollReveal();
         }
     });
 
-    setSlide(0, 1);
-    startAutoplay();
+    const syncCarouselMode = () => {
+        if (isMobileCarousel()) {
+            setSlide(current, 1);
+            startAutoplay();
+        } else {
+            stopAutoplay();
+            slides.forEach((slide) => {
+                slide.classList.add('is-active');
+                slide.setAttribute('aria-hidden', 'false');
+                slide.style.transform = '';
+            });
+        }
+    };
+
+    mobileQuery.addEventListener?.('change', syncCarouselMode);
+    syncCarouselMode();
+})();
+
+/* FINAL7 — Premium upward scroll reveals. Layout, carousel and existing interactions remain unchanged. */
+(() => {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion || !('IntersectionObserver' in window)) return;
+
+  const sections = Array.from(document.querySelectorAll('section, .marquee-wrapper'));
+  const sectionSelectors = [
+    '.hero-section', '.stats-section', '.marquee-wrapper', '.about-section',
+    '.clarity-section', '.tools-elevate-section', '.strategy-section',
+    '.past-projects-section', '.reviews-section', '.portfolio-section',
+    '.contact-section'
+  ];
+
+  sectionSelectors.forEach(selector => {
+    document.querySelectorAll(selector).forEach(el => el.classList.add('scroll-reveal'));
+  });
+
+  const staggerSelectors = [
+    '.stats-container', '.services-triple-grid', '.tools-pills', '.strategy-cards',
+    '.past-projects-column .projects-stage', '.past-projects-layout',
+    '.reviews-carousel', '.portfolio-outer-frame', '.clarity-grid', '.dual-grid',
+    '.contact-grid', '.what-to-expect-column'
+  ];
+
+  staggerSelectors.forEach(selector => {
+    document.querySelectorAll(selector).forEach(el => el.classList.add('scroll-reveal-stagger'));
+  });
+
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-visible');
+      obs.unobserve(entry.target);
+    });
+  }, {
+    threshold: 0.12,
+    rootMargin: '0px 0px -8% 0px'
+  });
+
+  document.querySelectorAll('.scroll-reveal, .scroll-reveal-stagger').forEach(el => observer.observe(el));
 })();
