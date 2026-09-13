@@ -387,3 +387,24 @@ setupScrollReveal();
   document.querySelectorAll('.scroll-reveal, .scroll-reveal-stagger').forEach(el => observer.observe(el));
   if (galleryStage) observer.observe(galleryStage);
 })();
+
+/* FINAL12 — touch-only glow feedback. No touch transform/movement. */
+(() => {
+  const touchTargets = document.querySelectorAll('.past-projects-column .project-link, .btn, .quick-message-button, .nav-btn');
+  if (!touchTargets.length) return;
+
+  touchTargets.forEach(target => {
+    let clearTimer;
+    const clearGlow = () => {
+      window.clearTimeout(clearTimer);
+      clearTimer = window.setTimeout(() => target.classList.remove('touch-glow'), 70);
+    };
+
+    target.addEventListener('touchstart', () => {
+      window.clearTimeout(clearTimer);
+      target.classList.add('touch-glow');
+    }, { passive: true });
+    target.addEventListener('touchend', clearGlow, { passive: true });
+    target.addEventListener('touchcancel', clearGlow, { passive: true });
+  });
+})();

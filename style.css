@@ -2837,3 +2837,63 @@ html {
   backface-visibility: visible;
   -webkit-backface-visibility: visible;
 }
+
+/* ============ FINAL11 — PAST PROJECTS TOP-GAP MICRO-CALIBRATION ============
+   Desktop only: bring Past Projects closer to the section above while
+   retaining a deliberate breathing space. Smartphone/tablet spacing is untouched. */
+@media (min-width: 901px) {
+  .past-projects-section {
+    margin-top: clamp(30px, 3.4vw, 50px);
+  }
+}
+
+/* FINAL12 — restrained responsive micro-interactions
+   Desktop: clickable project cards get a very small lift/scale.
+   Touch devices: no card motion; taps receive a soft futuristic glow only. */
+@media (min-width: 901px) and (hover: hover) and (pointer: fine) {
+  .past-projects-column .project-link {
+    transition: transform 260ms cubic-bezier(.22,1,.36,1), box-shadow 260ms cubic-bezier(.22,1,.36,1);
+    transform: translate3d(0,0,0) scale(1);
+  }
+  .past-projects-column .project-link:hover {
+    transform: translate3d(0,-3px,0) scale(1.012);
+    box-shadow: 0 10px 28px rgba(30,58,232,.16);
+  }
+  .btn,
+  .quick-message-button,
+  .nav-btn {
+    transition: box-shadow 260ms ease, transform 220ms ease, border-color 220ms ease, background-color 220ms ease;
+  }
+  .btn:hover,
+  .quick-message-button:hover,
+  .nav-btn:hover {
+    box-shadow: 0 0 0 1px rgba(80,180,255,.22), 0 0 18px rgba(30,58,232,.20);
+  }
+}
+
+/* Touch feedback: glow only, never a card movement. The glow fades gently
+   after the finger leaves and also respects reduced-motion preferences. */
+@media (hover: none), (pointer: coarse) {
+  .past-projects-column .project-link,
+  .btn,
+  .quick-message-button,
+  .nav-btn {
+    -webkit-tap-highlight-color: transparent;
+    transition: box-shadow 260ms ease, opacity 180ms ease, background-color 220ms ease, border-color 220ms ease;
+  }
+  .past-projects-column .project-link.touch-glow,
+  .btn.touch-glow,
+  .quick-message-button.touch-glow,
+  .nav-btn.touch-glow {
+    box-shadow: 0 0 0 1px rgba(80,180,255,.24), 0 0 18px rgba(30,58,232,.22);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .past-projects-column .project-link,
+  .btn,
+  .quick-message-button,
+  .nav-btn {
+    transition: none !important;
+  }
+}
