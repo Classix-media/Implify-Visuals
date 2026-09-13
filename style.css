@@ -2791,3 +2791,49 @@ html {
     transition: none !important;
   }
 }
+
+
+/* ============ FINAL10 — HERO / GLASS GAP MICRO-CALIBRATION ============
+   Only spacing is adjusted. The glass video's size, blending, mask, and
+   object-fit behavior are intentionally untouched. This pulls the next
+   section closer without cropping or moving the animation itself. */
+@media (max-width: 900px) {
+  .hero-right {
+    margin-bottom: -34px;
+  }
+}
+
+@media (max-width: 520px) {
+  .hero-right {
+    margin-bottom: -38px;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero-right {
+    margin-bottom: -34px;
+  }
+}
+
+@media (max-width: 340px) {
+  .hero-right {
+    margin-bottom: -30px;
+  }
+}
+
+/* Desktop: reduce the large empty lead-in above Past Projects while keeping
+   the gallery itself, its four-up unity, and all other section spacing intact. */
+@media (min-width: 901px) {
+  .past-projects-section {
+    margin-top: clamp(42px, 5vw, 72px);
+  }
+}
+
+/* Cross-browser consistency guard: keep the glass media in its normal
+   compositing context. No transform/filter is introduced on its parent. */
+.hero-right {
+  -webkit-transform: none;
+  transform: none;
+  backface-visibility: visible;
+  -webkit-backface-visibility: visible;
+}
