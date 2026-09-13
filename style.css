@@ -2760,9 +2760,10 @@ html {
 }
 
 
-/* FINAL9 — Desktop Past Projects reveal as ONE unified gallery.
-   All four images are prepared first, then the complete 4-up row rises together.
-   Mobile carousel behavior remains unchanged. */
+/* FINAL13 — Fast desktop gallery reveal.
+   The 4-up row is no longer held invisible while all four images decode.
+   The browser can load/paint the images normally, while the entire row still
+   enters as one unified slide-up animation. Mobile carousel behavior unchanged. */
 @media (min-width: 901px) {
   .past-projects-column .projects-stage {
     opacity: 0;
@@ -2770,12 +2771,9 @@ html {
     transition: opacity 700ms cubic-bezier(.22,1,.36,1), transform 700ms cubic-bezier(.22,1,.36,1);
     will-change: opacity, transform;
   }
-  .past-projects-column .projects-stage.gallery-ready.is-visible {
+  .past-projects-column .projects-stage.is-visible {
     opacity: 1;
     transform: translate3d(0, 0, 0);
-  }
-  .past-projects-column .projects-stage.gallery-loading {
-    pointer-events: none;
   }
 }
 @media (max-width: 900px) {

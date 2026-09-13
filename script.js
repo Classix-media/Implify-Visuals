@@ -347,30 +347,28 @@ setupScrollReveal();
     document.querySelectorAll(selector).forEach(el => el.classList.add('scroll-reveal-stagger'));
   });
 
-  // FINAL9: Desktop gallery is treated as one visual unit.
-  // Preload/decode all four project images before allowing the row to reveal,
-  // preventing one card from appearing before the others.
+  // FINAL13: Desktop gallery is still one visual unit, but its reveal is NOT
+  // blocked by waiting for four image decodes. The images are eager-loaded in
+  // the HTML, so the browser can fetch and paint them as early as possible.
   const galleryStage = document.querySelector('.past-projects-column .projects-stage');
+
+  // Warm the browser's image decoder shortly before the gallery enters view.
+  // This is deliberately non-blocking: scroll animation never waits on it.
   if (galleryStage && !window.matchMedia('(max-width: 900px)').matches) {
-    galleryStage.classList.add('gallery-loading');
     const galleryImages = Array.from(galleryStage.querySelectorAll('img'));
-    const prepareImage = (img) => {
-      if (img.complete && img.naturalWidth > 0) {
-        return img.decode ? img.decode().catch(() => {}) : Promise.resolve();
-      }
-      return new Promise(resolve => {
-        const done = () => {
-          if (img.decode) img.decode().catch(() => {}).finally(resolve);
-          else resolve();
-        };
-        img.addEventListener('load', done, { once: true });
-        img.addEventListener('error', resolve, { once: true });
+    const warmGalleryImages = () => {
+      galleryImages.forEach(img => {
+        if (img.complete && img.naturalWidth > 0 && typeof img.decode === 'function') {
+          img.decode().catch(() => {});
+        }
       });
     };
-    Promise.all(galleryImages.map(prepareImage)).then(() => {
-      galleryStage.classList.remove('gallery-loading');
-      galleryStage.classList.add('gallery-ready');
-    });
+
+    if ('requestIdleCallback' in window) {
+      window.requestIdleCallback(warmGalleryImages, { timeout: 1200 });
+    } else {
+      window.setTimeout(warmGalleryImages, 350);
+    }
   }
 
   const observer = new IntersectionObserver((entries, obs) => {
@@ -385,7 +383,22 @@ setupScrollReveal();
   });
 
   document.querySelectorAll('.scroll-reveal, .scroll-reveal-stagger').forEach(el => observer.observe(el));
-  if (galleryStage) observer.observe(galleryStage);
+
+  // Give the desktop gallery its own earlier trigger so the unified row can
+  // start its slide-up while the user is approaching it, rather than waiting
+  // until the row is already deep inside the viewport.
+  if (galleryStage && !window.matchMedia('(max-width: 900px)').matches && 'IntersectionObserver' in window) {
+    const galleryObserver = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        galleryStage.classList.add('is-visible');
+        obs.unobserve(entry.target);
+      });
+    }, { threshold: 0.01, rootMargin: '0px 0px 24% 0px' });
+    galleryObserver.observe(galleryStage);
+  } else if (galleryStage) {
+    galleryStage.classList.add('is-visible');
+  }
 })();
 
 /* FINAL12 — touch-only glow feedback. No touch transform/movement. */
