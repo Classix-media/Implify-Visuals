@@ -49,7 +49,7 @@
       <form id="bookingForm" novalidate>
         <section class="booking-step active" data-step="1">
           <div class="step-kicker">START HERE</div>
-          <h2>Let’s Bring Your Vision to Life.</h2>
+          <h2>Tell us who we're building for.</h2>
           <p class="step-copy">These details stay attached to your project reference from quotation through payment.</p>
           <div class="field-grid two">
             <label class="field"><span>FULL NAME *</span><input id="clientName" autocomplete="name" required placeholder="Your full name"></label>
@@ -82,11 +82,11 @@
           <p class="step-copy" id="packageHint">Select a package below.</p>
           <div class="package-grid" id="packageChoices"></div>
           <div class="currency-row">
-            <div><span class="mini-label">BILLING CURRENCY</span><p>NGN is automated through Paystack. USD uses fixed studio pricing.</p></div>
+            <div><span class="mini-label">BILLING CURRENCY</span><p>Choose how the quotation should be presented.</p></div>
             <div class="currency-switch" role="group" aria-label="Currency">
               <button type="button" data-currency="NGN" class="currency active">₦ NGN</button>
               <button type="button" data-currency="USD" class="currency">$ USD</button>
-              
+              <button type="button" data-currency="EUR" class="currency">€ EUR</button>
             </div>
           </div>
           <div class="amount-confirm" id="amountConfirm" hidden>
@@ -132,24 +132,6 @@
       </form>
     </section>
   </main>
-
-
-  <div class="invoice-modal" id="invoiceModal" hidden aria-hidden="true">
-    <div class="invoice-backdrop" data-close-invoice></div>
-    <section class="invoice-document" role="dialog" aria-modal="true" aria-labelledby="invoiceTitle">
-      <button class="invoice-close" type="button" id="closeInvoice" aria-label="Close invoice">×</button>
-      <div class="invoice-accent"></div>
-      <header class="invoice-doc-head">
-        <div class="invoice-brand"><img src="images/logo.png" alt="Implify Visuals"><div><strong>Implify Visuals</strong><span>Creative Studio</span></div></div>
-        <div class="invoice-doc-meta"><strong id="invoiceTitle">PROJECT QUOTATION</strong><span id="invoiceRef"></span><span id="invoiceDate"></span></div>
-      </header>
-      <div class="invoice-client-block"><span>PREPARED FOR</span><strong id="invoiceClient"></strong><small id="invoiceContact"></small></div>
-      <div class="invoice-table-wrap"><table class="invoice-document-table"><thead><tr><th>Service</th><th>Package / Scope</th><th>Qty</th><th>Rate</th><th>Subtotal</th></tr></thead><tbody id="invoiceLines"></tbody></table></div>
-      <div class="invoice-bottom"><div class="invoice-notes"><span>PROJECT NOTES</span><p id="invoiceNotes"></p></div><div class="invoice-totals"><div><span>Subtotal</span><strong id="invoiceSubtotal"></strong></div><div class="invoice-total-line"><span id="invoiceStatusLabel">TOTAL</span><strong id="invoiceTotal"></strong></div></div></div>
-      <footer class="invoice-doc-footer"><span>Payment is required before project work begins. Turnaround starts after payment confirmation.</span><span id="invoiceCurrencyNote"></span></footer>
-      <div class="invoice-modal-actions"><button type="button" class="secondary-action" id="printInvoiceModal">Download / Save PDF</button><button type="button" class="primary-action" id="shareInvoiceModal">Share Invoice</button></div>
-    </section>
-  </div>
 
   <div class="toast" id="toast" role="status"></div>
   <script src="booking.js" defer></script>
