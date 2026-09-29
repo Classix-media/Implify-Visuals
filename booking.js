@@ -103,7 +103,7 @@ function renderPackages() {
     const selectedAmount = state.currency === 'NGN' ? ngnAmount : usdAmount;
     const displayAmount = selectedAmount == null ? 'Manual quote' : money(selectedAmount, state.currency);
     b.innerHTML = `<span class="package-name">${name}</span><small>${note}</small><div class="package-price">${displayAmount}</div>`;
-    b.addEventListener('click', () => { state.packageName=name; state.ngnAmount=ngnAmount; state.usdAmount=usdAmount; state.amount=state.currency === 'NGN' ? ngnAmount : usdAmount; [...wrap.children].forEach(x=>x.classList.remove('selected')); b.classList.add('selected'); const ac=$('amountConfirm'); if (ac) { ac.hidden = !Number.isFinite(state.amount); const ai=$('amountInput'); if (ai) { ai.value=''; ai.classList.remove('invalid','valid'); } const af=$('amountFeedback'); if (af) { af.className='amount-feedback'; af.textContent=''; } } });
+    b.addEventListener('click', () => { state.packageName=name; state.ngnAmount=ngnAmount; state.usdAmount=usdAmount; state.amount=state.currency === 'NGN' ? ngnAmount : usdAmount; [...wrap.children].forEach(x=>x.classList.remove('selected')); b.classList.add('selected'); });
     wrap.appendChild(b);
   });
   $('packageHint').textContent = state.service === 'Custom Project' ? 'This route produces a manual quotation.' : `Choose a ${state.service === 'Social Media Design' ? 'design quantity' : 'package'} and your billing currency.`;
@@ -234,12 +234,11 @@ function renderInvoiceDocument() {
   $('invoiceDate').textContent = new Date().toLocaleDateString('en-NG', {day:'2-digit', month:'short', year:'numeric'});
   $('invoiceClient').textContent = state.name || 'Client';
   $('invoiceContact').textContent = [state.email, state.whatsapp, state.business].filter(Boolean).join(' · ');
-  $('invoiceLines').innerHTML = `<tr><td><b>${state.service || 'Project'}</b><small>${state.packageName || 'Custom scope'}</small></td><td>${money(state.amount,state.currency)}</td><td>1</td><td class="sub">${money(state.amount,state.currency)}</td></tr>`;
+  $('invoiceLines').innerHTML = `<tr><td>${state.service || 'Project'}</td><td>${state.packageName || 'Custom scope'}</td><td>1</td><td>${money(state.amount,state.currency)}</td><td>${money(state.amount,state.currency)}</td></tr>`;
   $('invoiceNotes').textContent = state.brief || 'Project scope as discussed with Implify Visuals.';
   $('invoiceSubtotal').textContent = money(state.amount,state.currency);
   $('invoiceTotal').textContent = money(state.amount,state.currency);
-  $('invoiceStatusLabel').textContent = paid ? 'TOTAL PAID:' : 'TOTAL DUE:';
-  if ($('invoicePayStatus')) $('invoicePayStatus').textContent = paid ? 'PAID · VERIFIED' : 'AWAITING PAYMENT';
+  $('invoiceStatusLabel').textContent = paid ? 'TOTAL PAID' : 'TOTAL';
   $('invoiceCurrencyNote').textContent = state.currency === 'USD' ? 'USD studio price · fixed reference, not live FX' : 'Currency: ' + state.currency;
 }
 function openInvoice() {

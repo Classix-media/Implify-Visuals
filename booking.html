@@ -8,9 +8,8 @@
   <link rel="icon" type="image/png" href="images/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="booking.css">
-  <link rel="stylesheet" href="booking-v2.css">
 </head>
 <body>
   <div class="booking-orbit orbit-a"></div>
@@ -139,38 +138,15 @@
     <div class="invoice-backdrop" data-close-invoice></div>
     <section class="invoice-document" role="dialog" aria-modal="true" aria-labelledby="invoiceTitle">
       <button class="invoice-close" type="button" id="closeInvoice" aria-label="Close invoice">×</button>
-      <div class="inv-top">
-        <div class="inv-brandcell">
-          <img src="images/logo.png" alt="Implify Visuals">
-          <strong>Implify Visuals</strong>
-          <span>Creative Studio</span>
-        </div>
-        <div class="inv-titlecell">
-          <div class="inv-meta">
-            <span class="inv-badge" id="invoiceRef"></span>
-            <div class="inv-dates">
-              <p><b>ISSUED:</b> <span id="invoiceDate"></span></p>
-              <p><b>DUE:</b> <span>Before work begins</span></p>
-            </div>
-          </div>
-          <strong class="inv-title" id="invoiceTitle">PROJECT QUOTATION</strong>
-        </div>
-      </div>
-      <div class="inv-body">
-        <div class="invoice-client-block"><span>PREPARED FOR:</span><strong id="invoiceClient"></strong><small id="invoiceContact"></small></div>
-        <div class="invoice-table-wrap"><table class="invoice-document-table"><thead><tr><th>Description</th><th>Price</th><th>Qty</th><th>Subtotal</th></tr></thead><tbody id="invoiceLines"></tbody></table></div>
-        <div class="invoice-notes"><span>PROJECT NOTES</span><p id="invoiceNotes"></p></div>
-      </div>
-      <div class="inv-bars">
-        <div class="inv-bar blue"><span>SUBTOTAL:</span><strong id="invoiceSubtotal"></strong></div>
-        <div class="inv-bar white"><span>DISCOUNT:</span><strong>—</strong></div>
-        <div class="inv-bar blue total"><span id="invoiceStatusLabel">TOTAL DUE:</span><strong id="invoiceTotal"></strong></div>
-      </div>
-      <div class="inv-foot">
-        <div class="inv-footlogo"><img src="images/logo.png" alt=""><span>Implify<b>Visuals</b></span></div>
-        <div class="inv-paybox"><strong>SECURE PAYMENT · PAYSTACK</strong><span id="invoicePayStatus">AWAITING PAYMENT</span></div>
-      </div>
-      <div class="invoice-doc-footer"><span>Payment is required before project work begins. Turnaround starts after payment confirmation. Revisions stay within the agreed scope.</span><span id="invoiceCurrencyNote"></span></div>
+      <div class="invoice-accent"></div>
+      <header class="invoice-doc-head">
+        <div class="invoice-brand"><img src="images/logo.png" alt="Implify Visuals"><div><strong>Implify Visuals</strong><span>Creative Studio</span></div></div>
+        <div class="invoice-doc-meta"><strong id="invoiceTitle">PROJECT QUOTATION</strong><span id="invoiceRef"></span><span id="invoiceDate"></span></div>
+      </header>
+      <div class="invoice-client-block"><span>PREPARED FOR</span><strong id="invoiceClient"></strong><small id="invoiceContact"></small></div>
+      <div class="invoice-table-wrap"><table class="invoice-document-table"><thead><tr><th>Service</th><th>Package / Scope</th><th>Qty</th><th>Rate</th><th>Subtotal</th></tr></thead><tbody id="invoiceLines"></tbody></table></div>
+      <div class="invoice-bottom"><div class="invoice-notes"><span>PROJECT NOTES</span><p id="invoiceNotes"></p></div><div class="invoice-totals"><div><span>Subtotal</span><strong id="invoiceSubtotal"></strong></div><div class="invoice-total-line"><span id="invoiceStatusLabel">TOTAL</span><strong id="invoiceTotal"></strong></div></div></div>
+      <footer class="invoice-doc-footer"><span>Payment is required before project work begins. Turnaround starts after payment confirmation.</span><span id="invoiceCurrencyNote"></span></footer>
       <div class="invoice-modal-actions"><button type="button" class="secondary-action" id="printInvoiceModal">Download / Save PDF</button><button type="button" class="primary-action" id="shareInvoiceModal">Share Invoice</button></div>
     </section>
   </div>
