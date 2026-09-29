@@ -145,3 +145,7 @@ h1,h2,h3,.choice strong,.package .package-name,.package .package-price,.quote-he
 /* fix: reveal white behind the curved corner (frame stays blue only above the sheet) */
 .inv-top{background:linear-gradient(var(--cb) 44px,#fff 44px)}
 @media(max-width:700px){.inv-top{background:linear-gradient(var(--cb) 40px,#fff 40px)}}
+
+/* logo stands alone: no circle behind it */
+.inv-brandcell img,.inv-footlogo img{background:none!important;border-radius:0!important;padding:0!important;box-shadow:none!important}
+.inv-brandcell img{width:78px;height:78px}
