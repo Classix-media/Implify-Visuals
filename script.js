@@ -75,6 +75,7 @@ if (reviewTrack && reviewDotsWrap && reviewPrevBtn && reviewNextBtn) {
 
   function resetAutoplay() {
     clearInterval(autoplayTimer);
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     autoplayTimer = setInterval(nextReview, 6000);
   }
 
@@ -115,8 +116,8 @@ setupScrollReveal();
     const overlay = document.getElementById("introOverlay");
     if (!overlay) return;
 
-    const INTRO_DURATION_MS = 5000;   // must match --intro-duration in style.css
-    const HOLD_AFTER_MS = 300;        // brief pause after logo settles before fading out
+    const INTRO_DURATION_MS = 6000;   // must match --intro-duration in style.css
+    const HOLD_AFTER_MS = 0;        // brief pause after logo settles before fading out
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     document.body.style.overflow = "hidden";
@@ -420,4 +421,22 @@ setupScrollReveal();
     target.addEventListener('touchend', clearGlow, { passive: true });
     target.addEventListener('touchcancel', clearGlow, { passive: true });
   });
+})();
+
+
+/* Device-aware media guard: preserve layout while reducing heavy hero work on constrained devices. */
+(function optimizeHeroMedia(){
+  const heroVideo = document.querySelector('.glass-hero-img');
+  if (!heroVideo) return;
+  const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+  const constrained = !!(connection?.saveData || (navigator.deviceMemory && navigator.deviceMemory <= 2) || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2));
+  if (constrained) {
+    heroVideo.pause();
+    heroVideo.removeAttribute('autoplay');
+    heroVideo.preload = 'metadata';
+  }
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    heroVideo.pause();
+    heroVideo.removeAttribute('autoplay');
+  }
 })();

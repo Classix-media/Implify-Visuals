@@ -790,7 +790,7 @@ a.info-pill:hover { color: #38bdf8; }
 
 /* ============ LOGO INTRO ANIMATION ============ */
 :root {
-    --intro-duration: 5s;
+    --intro-duration: 6s;
     --intro-logo-size: 84px;
     --intro-glow-intensity: 0.55;
     --intro-bg-glow-intensity: 0.4;
@@ -917,9 +917,9 @@ a.info-pill:hover { color: #38bdf8; }
 }
 
 @keyframes introLogoReveal {
-    0%, 84%   { opacity: 0; transform: translate(-50%, -50%) scale(0.7); filter: drop-shadow(0 0 0 rgba(56,189,248,0)); }
-    92%       { opacity: 1; transform: translate(-50%, -50%) scale(1); filter: drop-shadow(0 0 14px rgba(56,189,248, var(--intro-glow-intensity))); }
-    100%      { opacity: 1; transform: translate(-50%, -50%) scale(1); filter: drop-shadow(0 0 14px rgba(56,189,248, var(--intro-glow-intensity))); }
+    0%, 55% { opacity: 0; transform: translate(-50%, -50%) scale(0.72); filter: drop-shadow(0 0 0 rgba(56,189,248,0)); }
+    64% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); filter: drop-shadow(0 0 18px rgba(56,189,248, var(--intro-glow-intensity))); }
+    72%, 100% { opacity: 1; transform: translate(-50%, -50%) scale(1); filter: drop-shadow(0 0 14px rgba(56,189,248, var(--intro-glow-intensity))); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2894,4 +2894,34 @@ html {
   .nav-btn {
     transition: none !important;
   }
+}
+
+
+/* Implify responsive consistency + low-end performance layer */
+html { overflow-x:hidden; }
+body { width:100%; min-width:0; }
+img, svg, video { max-width:100%; }
+.hero-section, .stats-container, .about-section, .clarity-section, .tools-elevate-section,
+.strategy-section, .projects-section, .reviews-section, .portfolio-section, .contact-section,
+.footer-content { width:min(1400px, 100%); margin-left:auto; margin-right:auto; }
+.hero-left h1, .strategy-heading h2, .about-left h2 { font-size:clamp(2.6rem, 6vw, 6.8rem); }
+.hero-left p, .strategy-heading p, .about-left p { max-width:min(680px, 100%); }
+.hero-section { grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr); }
+.hero-right, .hero-left, .about-left, .about-right, .contact-left, .contact-right { min-width:0; }
+.hero-buttons, .elevate-btns, .need-buttons { flex-wrap:wrap; }
+.nav-links, .nav-btn { min-width:0; }
+.project-slide img, .portfolio-image, .profile-img, .process-image, .elevate-image { max-width:100%; height:auto; }
+@media (max-width:900px){
+  .hero-section { grid-template-columns:1fr; }
+  .hero-right { width:100%; }
+  .hero-right video { width:100%; height:auto; }
+}
+@media (max-width:520px){
+  .hero-left h1, .strategy-heading h2, .about-left h2 { font-size:clamp(2.25rem, 12vw, 3.7rem); }
+  .hero-buttons .btn, .need-buttons .btn, .elevate-btns .btn { width:100%; }
+}
+/* Keep below-the-fold sections from consuming layout/paint work before they are near view. */
+@supports (content-visibility:auto) {
+  .about-section, .clarity-section, .tools-elevate-section, .strategy-section,
+  .projects-section, .reviews-section, .portfolio-section, .contact-section { content-visibility:auto; contain-intrinsic-size:900px; }
 }
