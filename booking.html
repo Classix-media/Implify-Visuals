@@ -8,7 +8,7 @@
   <link rel="icon" type="image/png" href="images/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="booking.css">
 </head>
 <body>
@@ -138,19 +138,19 @@
     <div class="invoice-backdrop" data-close-invoice></div>
     <section class="invoice-document" role="dialog" aria-modal="true" aria-labelledby="invoiceTitle">
       <button class="invoice-close" type="button" id="closeInvoice" aria-label="Close invoice">×</button>
-      <div class="invoice-sheet">
+      <div class="inv-doc"><div class="inv-white">
       <header class="inv-top">
         <div class="inv-logo"><img src="images/logo.png" alt="Implify Visuals"><strong>Implify Visuals</strong></div>
-        <div class="inv-blue invoice-doc-meta"><div class="inv-meta"><span class="inv-ref" id="invoiceRef"></span><div class="inv-dates"><span>ISSUED: <b id="invoiceDate"></b></span><span>DUE: <b id="invoiceDue"></b></span></div></div><strong id="invoiceTitle">INVOICE</strong></div>
+        <div class="inv-blue"><div class="inv-meta"><span class="inv-ref" id="invoiceRef"></span><div class="inv-dates"><span>ISSUED:<b id="invoiceDate"></b></span><span>DUE:<b id="invoiceDue"></b></span></div></div><strong id="invoiceTitle">INVOICE</strong></div>
       </header>
       <div class="invoice-client-block"><span>INVOICE TO:</span><strong id="invoiceClient"></strong><small id="invoiceContact"></small></div>
       <div class="invoice-table-wrap"><table class="invoice-document-table"><thead><tr><th>Description</th><th>Package</th><th>Qty</th><th>Price</th><th>Subtotal</th></tr></thead><tbody id="invoiceLines"></tbody></table></div>
       <div class="invoice-bottom"><div class="invoice-notes"><span>PROJECT NOTES</span><p id="invoiceNotes"></p></div></div>
-      <div class="inv-total-band"><span>SUBTOTAL:</span><span id="invoiceSubtotal"></span></div>
-      <div class="inv-total-band light"><span>DISCOUNT:</span><span>—</span></div>
-      <div class="inv-total-band"><span id="invoiceStatusLabel">TOTAL DUE:</span><span id="invoiceTotal"></span></div>
-      <footer class="invoice-doc-footer"><span>Payment is required before project work begins. Turnaround starts after payment confirmation.</span><span id="invoiceCurrencyNote"></span></footer>
-      </div>
+      <div class="inv-band first"><span>SUBTOTAL:</span><span id="invoiceSubtotal"></span></div>
+      <div class="inv-band light"><span>DISCOUNT:</span><span>—</span></div>
+      <div class="inv-band"><span id="invoiceStatusLabel">TOTAL DUE:</span><span id="invoiceTotal"></span></div>
+      <footer class="invoice-doc-footer"><div class="inv-foot-logo"><img src="images/logo.png" alt=""><span>Implify Visuals</span></div><div class="inv-pill">Payment is required before project work begins.<b id="invoiceCurrencyNote"></b></div></footer>
+      </div></div>
       <div class="invoice-modal-actions"><button type="button" class="secondary-action" id="printInvoiceModal">Download / Save PDF</button><button type="button" class="primary-action" id="shareInvoiceModal">Share Invoice</button></div>
     </section>
   </div>

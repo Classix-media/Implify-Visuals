@@ -3,7 +3,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 html {
@@ -34,7 +34,7 @@ body::before {
 }
 
 h1, h2, h3, h4 {
-    font-family: 'Sora', sans-serif;
+    font-family: 'DM Sans', sans-serif;
 }
 
 img, video {
@@ -64,7 +64,7 @@ img, video {
 }
 
 .logo-text {
-    font-family: 'Sora', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-weight: 700;
     font-size: 1.05rem;
     color: #ffffff;
@@ -222,7 +222,7 @@ img, video {
     box-shadow: 0 8px 24px rgba(31,63,214,0.4);
 }
 
-.stat-card h3 { font-size: 2rem; color: #04070f; font-family: 'Sora', sans-serif; font-weight: 800; }
+.stat-card h3 { font-size: 2rem; color: #04070f; font-family: 'DM Sans', sans-serif; font-weight: 800; }
 .stat-card p { font-size: 0.72rem; color: rgba(4,7,15,0.75); font-weight: 700; margin-top: 4px; }
 
 /* Marquee */
@@ -1212,7 +1212,7 @@ picture img { width: 100%; height: auto; }
 }
 
 .hero-left h1 {
-    font-family: 'Sora', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-size: clamp(3rem, 6.4vw, 5rem);
     line-height: 0.98;
     font-weight: 800;
@@ -1357,7 +1357,7 @@ picture img { width: 100%; height: auto; }
 
 .strategy-heading h2 {
     margin: 0 0 18px;
-    font-family: 'Sora', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-size: clamp(2rem, 4.2vw, 3.3rem);
     line-height: 1.05;
     letter-spacing: -0.035em;
@@ -1414,7 +1414,7 @@ picture img { width: 100%; height: auto; }
 
 .strategy-card h3 {
     margin: 0 0 12px;
-    font-family: 'Sora', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     color: #fff;
     font-size: clamp(1.35rem, 2.2vw, 1.7rem);
     line-height: 1.15;
@@ -2928,3 +2928,19 @@ html {
 .review-author{flex-direction:row!important;align-items:center;justify-content:center;gap:14px!important;margin-top:8px}
 .review-meta{display:flex;flex-direction:column;text-align:left;gap:2px}
 .review-avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#1d4ed8,#0055ff);color:#fff;font:700 .9rem Sora,sans-serif;display:grid;place-items:center;box-shadow:0 0 0 3px rgba(0,85,255,.25),0 8px 20px rgba(0,85,255,.45);flex:0 0 auto}
+
+/* ===== v15 ===== */
+body,button,input,textarea{font-family:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif!important}
+h1,h2,h3,h4,.logo-text,.section-title{font-family:'DM Sans',sans-serif!important;letter-spacing:-.02em}
+.review-card{background:rgba(15,23,42,.6)!important;border:1px solid rgba(0,85,255,.2)!important;border-radius:24px!important;box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;padding:30px!important}
+.review-avatar{font-family:'DM Sans',sans-serif}
+
+/* ===== v16: mobile menu = dark, full Gaussian blur, readable ===== */
+@media(max-width:900px){
+ /* parent backdrop-filter blocked the child's blur, so move it off the bar while the menu is open */
+ .navbar:has(.nav-links.open){-webkit-backdrop-filter:none!important;backdrop-filter:none!important;background:rgba(2,6,23,.96)!important}
+ .nav-links.open{background:rgba(3,8,30,.72)!important;-webkit-backdrop-filter:blur(40px) saturate(140%)!important;backdrop-filter:blur(40px) saturate(140%)!important;border:1px solid rgba(96,165,250,.2)!important;box-shadow:0 30px 70px rgba(0,0,0,.65),inset 0 1px 0 rgba(255,255,255,.08)!important}
+ /* dark scrim behind the menu so page text can never compete with the links */
+ .navbar:has(.nav-links.open)::after{content:"";position:fixed;inset:0;top:70px;z-index:-1;background:rgba(2,6,23,.55);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
+ .nav-links.open a{color:#fff!important;text-shadow:0 1px 8px rgba(0,0,0,.6)}
+}

@@ -239,7 +239,7 @@ function renderInvoiceDocument() {
   $('invoiceNotes').textContent = state.brief || 'Project scope as discussed with Implify Visuals.';
   $('invoiceSubtotal').textContent = money(state.amount,state.currency);
   $('invoiceTotal').textContent = money(state.amount,state.currency);
-  $('invoiceStatusLabel').textContent = paid ? 'TOTAL PAID' : 'TOTAL';
+  $('invoiceStatusLabel').textContent = paid ? 'TOTAL PAID' : 'TOTAL DUE:';
   $('invoiceCurrencyNote').textContent = state.currency === 'USD' ? 'USD studio price · fixed reference, not live FX' : 'Currency: ' + state.currency;
 }
 function openInvoice() {
