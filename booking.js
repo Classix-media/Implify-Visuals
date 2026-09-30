@@ -322,7 +322,10 @@ function fitInvoice(){
 window.addEventListener('resize',fitInvoice);
 window.addEventListener('orientationchange',()=>setTimeout(fitInvoice,150));
 
-function inAppBrowser(){return /Instagram|FBAN|FBAV|FB_IAB|Line\/|TikTok|Snapchat|Twitter|LinkedInApp|Pinterest|WhatsApp|; wv\)/i.test(navigator.userAgent);}
+function inAppBrowser(){const ua=navigator.userAgent||'';
+  if(/Instagram|FBAN|FBAV|FB_IAB|FBIOS|Messenger|Barcelona|Threads|Line\/|TikTok|musical_ly|BytedanceWebview|Snapchat|Twitter|LinkedInApp|Pinterest|WhatsApp|Telegram|MicroMessenger|Discord|GSA\/|MicrosoftTeams|KAKAOTALK|; wv\)|Version\/[\d.]+ Chrome\/[\d.]+ Mobile/i.test(ua))return true;
+  if(/iPhone|iPad|iPod/i.test(ua)&&/AppleWebKit/i.test(ua)&&!/Safari\//i.test(ua))return true; /* iOS WebViews */
+  return false;}
 
 async function drawInvoiceCanvas(){
   const W=1623,H=2296,u=W/100,c=document.createElement('canvas');c.width=W;c.height=H;
@@ -394,15 +397,37 @@ function makePdfBlob(jpegDataUrl,w,h){
   return new Blob(parts,{type:'application/pdf'});
 }
 
+function invoiceLink(){
+  let p='';try{p=btoa(unescape(encodeURIComponent(JSON.stringify(state))));}catch(e){}
+  return location.origin+location.pathname+'?inv='+encodeURIComponent(p);
+}
 function showInvoiceImage(url){
   document.getElementById('invSaveOverlay')?.remove();
+  const link=invoiceLink(),isAnd=/Android/i.test(navigator.userAgent);
+  const intent='intent://'+link.replace(/^https?:\/\//,'')+'#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url='+encodeURIComponent(link)+';end';
   const o=document.createElement('div');o.id='invSaveOverlay';
   o.style.cssText='position:fixed;top:0;left:0;right:0;bottom:0;z-index:99999;background:#020617;overflow:auto;padding:16px;text-align:center;-webkit-overflow-scrolling:touch';
-  o.innerHTML='<p style="color:#fff;font:600 15px/1.4 Arial,sans-serif;margin:0 0 12px">Press and hold the invoice, then tap <b>Save image</b>.<br><span style="font-weight:400;opacity:.8">For a PDF, open this page in Chrome/Safari (menu ⋯ → Open in browser).</span></p><img alt="Invoice" style="width:100%;max-width:600px;height:auto;background:#fff"><br><a download="Implify-Invoice.png" style="display:inline-block;margin:14px 8px 8px;padding:12px 22px;background:#fff;color:#111;border-radius:30px;font:700 15px Arial,sans-serif;text-decoration:none">Download image</a><button type="button" style="margin:14px 8px 8px;padding:12px 22px;background:#005fff;color:#fff;border:0;border-radius:30px;font:700 15px Arial,sans-serif">Close</button>';
-  o.querySelector('img').src=url;o.querySelector('a').href=url;
-  o.querySelector('button').onclick=()=>o.remove();
+  const btn='display:block;width:100%;max-width:420px;margin:10px auto 0;padding:14px;border:0;border-radius:30px;font:700 15px Arial,sans-serif;text-decoration:none;box-sizing:border-box;';
+  o.innerHTML='<p style="color:#fff;font:600 15px/1.4 Arial,sans-serif;margin:0 0 12px">Instagram cannot save PDFs.<br><span style="font-weight:400;opacity:.85">Tap <b>Get PDF in browser</b> below, or press and hold the invoice and tap <b>Save image</b>.</span></p>'
+   +'<a id="invOpen" style="'+btn+'background:#005fff;color:#fff">Get PDF in browser</a>'
+   +'<button id="invCopy" type="button" style="'+btn+'background:#fff;color:#111">Copy invoice link</button>'
+   +'<img alt="Invoice" style="width:100%;max-width:600px;height:auto;background:#fff;margin-top:16px;-webkit-touch-callout:default;-webkit-user-select:auto;user-select:auto"><button id="invClose" type="button" style="'+btn+'background:transparent;color:#fff;border:1px solid #fff">Close</button>';
+  o.querySelector('img').src=url;
+  o.querySelector('#invOpen').href=isAnd?intent:link;
+  if(!isAnd)o.querySelector('#invOpen').textContent='Open in Safari (tap ⋯ → Open in browser)';
+  o.querySelector('#invCopy').onclick=async()=>{try{await navigator.clipboard.writeText(link);}catch(e){const t=document.createElement('textarea');t.value=link;document.body.appendChild(t);t.select();try{document.execCommand('copy');}catch(_){}t.remove();}toast('Link copied. Paste it in Chrome or Safari.');};
+  o.querySelector('#invClose').onclick=()=>o.remove();
   document.body.appendChild(o);
 }
+
+(function restoreInvoiceFromLink(){
+  try{
+    const q=new URLSearchParams(location.search).get('inv');if(!q)return;
+    Object.assign(state,JSON.parse(decodeURIComponent(escape(atob(q)))));
+    const go=()=>{openInvoice();if(!inAppBrowser())toast('Tap Download / Save PDF');};
+    if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',go);else setTimeout(go,50);
+  }catch(e){}
+})();
 
 async function downloadInvoice(){
   const name=`Implify-${(state&&state.ref)||'Invoice'}`;
