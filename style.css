@@ -2982,3 +2982,12 @@ h1,h2,h3,h4,.logo-text,.section-title{font-family:'DM Sans',sans-serif!important
 .stat-card{background:#0a3cff!important;box-shadow:none!important}
 .stat-card h3{color:#fff!important;font-weight:900!important;letter-spacing:-.02em}
 .stat-card p{color:#fff!important;font-weight:800!important;opacity:1!important;letter-spacing:.06em;text-transform:uppercase}
+
+/* v25 Calendly card + blur-to-sharp reveal */
+.quick-message-box .call-icon{display:block;margin:0 0 12px}
+@media (prefers-reduced-motion: no-preference){
+  .scroll-reveal{filter:blur(12px);transition:opacity 800ms cubic-bezier(.22,1,.36,1),transform 800ms cubic-bezier(.22,1,.36,1),filter 800ms cubic-bezier(.22,1,.36,1)}
+  .scroll-reveal.is-visible{filter:blur(0)}
+  .scroll-reveal-stagger>*{filter:blur(10px);transition:opacity 700ms cubic-bezier(.22,1,.36,1),transform 700ms cubic-bezier(.22,1,.36,1),filter 700ms cubic-bezier(.22,1,.36,1);transition-delay:var(--reveal-delay,0ms)}
+  .scroll-reveal-stagger.is-visible>*{filter:blur(0)}
+}

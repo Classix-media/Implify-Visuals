@@ -24,11 +24,10 @@ if (form) {
     const firstName = document.getElementById("firstName").value.trim();
     const lastName = document.getElementById("lastName").value.trim();
     const email = document.getElementById("email").value.trim();
-    const service = document.getElementById("service").value;
     const message = document.getElementById("message").value.trim();
 
     const text =
-`Hi Implify Visuals, I'd like to start a project.
+`Hi Implify Visuals, I need support.
 
 Name: ${firstName} ${lastName}
 Email: ${email}

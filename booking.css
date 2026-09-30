@@ -242,3 +242,12 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .invoice-backdrop{top:0;left:0;right:0;bottom:0}
 .inv-doc{--u:calc(min(794px,100vw - 28px) / 100);font-family:"DM Sans",Arial,Helvetica,sans-serif}
 @media print{#invoiceModal .inv-doc{--u:1.85mm!important;height:261.7mm!important}}
+
+/* v25 page 2: cobalt rectangular curved buttons everywhere */
+.primary-action,.secondary-action,.back-link,.invoice-modal-actions button{background:var(--cobalt)!important;color:#fff!important;border:0!important;border-radius:14px!important;min-height:48px;display:inline-flex;align-items:center;justify-content:center;line-height:1.25;box-shadow:0 6px 18px rgba(0,85,255,.28)}
+.primary-action:hover,.secondary-action:hover,.back-link:hover{background:#1a66ff!important}
+.back-link{min-height:0;padding:10px 16px}
+.invoice-modal-actions .secondary-action{background:var(--cobalt)!important;color:#fff!important}
+.currency-switch{border-radius:14px}.currency{border-radius:11px}
+.invoice-actions .secondary-action{padding:12px 10px}
+.invoice-close{border-radius:14px!important}
