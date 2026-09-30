@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>document.documentElement.classList.add("i5");setTimeout(function(){document.documentElement.classList.add("go","nl")},9000)</script>
     <link rel="icon" type="image/png" href="images/favicon.png">
 
 <meta charset="UTF-8">
@@ -10,8 +11,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="v5.css">
 </head>
 <body>
+<div id="bgfx"><i></i><i></i><i></i></div>
 
 <!-- Logo Intro Overlay -->
 <div id="introOverlay" class="intro-overlay">
@@ -45,7 +49,7 @@
 </header>
 
 <!-- Hero Section -->
-<section class="hero-section">
+<section class="hero-section"><div class="hero-scene">
     <div class="hero-left">
         <div class="hero-eyebrow" aria-label="Implify Visuals Portfolio">
             <span class="hero-eyebrow-line"></span>
@@ -59,10 +63,11 @@
         </div>
     </div>
     <div class="hero-right">
-        <video class="glass-hero-img" autoplay loop muted playsinline preload="auto">
-            <source src="images/hand-icons.mp4" type="video/mp4">
+        <video class="glass-hero-img" autoplay loop muted playsinline preload="auto" poster="images/hand-black.jpg">
+            <source src="images/hand-black.mp4" type="video/mp4">
         </video>
-    </div>
+        <div class="hp a">We Turn Attention<small>Into Clients</small></div><div class="hp b"><small>BUILD</small>We Think</div><div class="hp c"><small>CREATE</small>We Craft</div>
+    </div></div>
 </section>
 
 <!-- Stats Section -->
@@ -454,6 +459,7 @@
     <p>© <span id="year"></span> Implify Visuals. All rights reserved.</p>
 </footer>
 
+<script src="v5.js" defer></script>
 <script src="script.js" defer></script>
 </body>
 </html>
