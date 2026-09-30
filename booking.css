@@ -209,7 +209,7 @@ body.modal-open{overflow:hidden}
 .invoice-modal-actions .secondary-action{background:#fff!important;color:#0b1020!important;border:0!important}
 @media(min-width:700px){.invoice-modal-actions{flex-direction:row;justify-content:flex-end}.invoice-modal-actions button{width:auto}}
 
-@page{size:A4;margin:0}
+@page{size:auto;margin:6mm}
 @media print{
  html,body{margin:0!important;padding:0!important;background:#005fff!important;height:auto!important;overflow:hidden!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
  body::before{display:none!important}
@@ -226,3 +226,12 @@ body.modal-open{overflow:hidden}
 .invoice-client-block span,.invoice-client-block strong,.invoice-client-block small{display:block!important}
 #invoiceTitle{font-size:10cqw!important}
 .invoice-notes>span{display:block}
+
+/* ===== v18 PRINT FIX: fixed physical size, fits ONE page on A4 or Letter ===== */
+@media print{
+ html,body{background:#fff!important;height:auto!important;min-height:0!important;overflow:visible!important}
+ body.modal-open{overflow:visible!important}
+ #invoiceModal{position:static!important;inset:auto!important;display:block!important;height:auto!important;padding:0!important;margin:0!important;overflow:visible!important;background:none!important}
+ #invoiceModal .invoice-document{position:static!important;display:block!important;width:185mm!important;max-width:185mm!important;height:auto!important;margin:0 auto!important;padding:0!important;overflow:visible!important}
+ #invoiceModal .inv-doc{position:relative!important;left:auto!important;top:auto!important;width:185mm!important;height:auto!important;aspect-ratio:1623/2296!important;margin:0 auto!important;overflow:hidden!important;break-inside:avoid!important;page-break-inside:avoid!important;page-break-after:avoid!important;break-after:avoid!important}
+}
