@@ -2944,3 +2944,28 @@ h1,h2,h3,h4,.logo-text,.section-title{font-family:'DM Sans',sans-serif!important
  .navbar:has(.nav-links.open)::after{content:"";position:fixed;inset:0;top:70px;z-index:-1;background:rgba(2,6,23,.55);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
  .nav-links.open a{color:#fff!important;text-shadow:0 1px 8px rgba(0,0,0,.6)}
 }
+
+/* ===== v17: frameless blurred mobile menu + bold stat cards ===== */
+@media(max-width:900px){
+ .nav-links.open{
+  position:fixed!important;left:0!important;right:0!important;bottom:0!important;top:66px!important;
+  margin:0!important;padding:0 6% 60px!important;border:0!important;border-radius:0!important;box-shadow:none!important;overflow:hidden;
+  display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:clamp(18px,4.5vh,38px);
+  background:rgba(2,6,23,.62)!important;
+  -webkit-backdrop-filter:blur(26px) saturate(140%)!important;backdrop-filter:blur(26px) saturate(140%)!important;
+  animation:menuFade .28s ease both;
+ }
+ .navbar:has(.nav-links.open)::after{display:none!important}
+ .nav-links.open a{
+  background:transparent!important;box-shadow:none!important;border:0!important;border-radius:0!important;margin:0!important;
+  padding:6px 12px!important;text-shadow:none!important;
+  font-size:clamp(2rem,9vw,2.8rem)!important;font-weight:800!important;letter-spacing:.02em!important;color:#fff!important;text-align:center;
+ }
+ .nav-links.open a.active,.nav-links.open a:hover{background:transparent!important;box-shadow:none!important;color:#3b82f6!important}
+}
+@keyframes menuFade{from{opacity:0}to{opacity:1}}
+
+.stats-container{background:transparent!important;border:0!important;box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+.stat-card{background:#0a3cff!important;box-shadow:none!important}
+.stat-card h3{color:#fff!important;font-weight:900!important;letter-spacing:-.02em}
+.stat-card p{color:#fff!important;font-weight:800!important;opacity:1!important;letter-spacing:.06em;text-transform:uppercase}
