@@ -2991,3 +2991,14 @@ h1,h2,h3,h4,.logo-text,.section-title{font-family:'DM Sans',sans-serif!important
   .scroll-reveal-stagger>*{filter:blur(10px);transition:opacity 700ms cubic-bezier(.22,1,.36,1),transform 700ms cubic-bezier(.22,1,.36,1),filter 700ms cubic-bezier(.22,1,.36,1);transition-delay:var(--reveal-delay,0ms)}
   .scroll-reveal-stagger.is-visible>*{filter:blur(0)}
 }
+
+/* v28 hero load animation: text/buttons slide in from left (blur to sharp), visual fades in */
+@keyframes heroSlideIn{from{opacity:0;transform:translate3d(-48px,0,0);filter:blur(14px)}to{opacity:1;transform:none;filter:blur(0)}}
+@keyframes heroFadeIn{from{opacity:0;filter:blur(18px)}to{opacity:1;filter:blur(0)}}
+@media (prefers-reduced-motion: no-preference){
+  .hero-left>*{animation:heroSlideIn 1s cubic-bezier(.22,1,.36,1) both}
+  .hero-left>:nth-child(2){animation-delay:.1s}
+  .hero-left>:nth-child(3){animation-delay:.2s}
+  .hero-left>:nth-child(4){animation-delay:.3s}
+  .hero-right>*{animation:heroFadeIn 1.2s cubic-bezier(.22,1,.36,1) both}
+}
