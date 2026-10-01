@@ -431,3 +431,17 @@ setupScrollReveal();
   addEventListener('resize',()=>track.scrollTo({left:pos(cur)}));
   track.scrollTo({left:pos(0)});play();
 })();
+
+
+/* nav highlight: only the section you are in is active */
+(function navSpy(){
+  const links=[...document.querySelectorAll('.nav-links a[href^="#"]')];
+  const items=links.map(a=>({a,s:document.querySelector(a.getAttribute('href'))})).filter(x=>x.s);
+  if(!items.length)return;
+  let raf=0;
+  const update=()=>{raf=0;const line=innerHeight*.4;let cur=null;
+    items.forEach(x=>{const r=x.s.getBoundingClientRect();if(r.top<=line&&r.bottom>line)cur=x;});
+    links.forEach(a=>a.classList.toggle('active',!!cur&&cur.a===a));};
+  addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(update);},{passive:true});
+  addEventListener('resize',update);update();
+})();

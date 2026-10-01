@@ -3142,3 +3142,12 @@ body::before{opacity:.45!important}
   .nav-links.open a{font-size:2.15rem!important;font-weight:700!important;letter-spacing:-.01em!important;color:#e9efff!important;padding:12px 20px!important;margin:0!important;background:transparent!important;box-shadow:none!important;text-align:center;border-radius:14px!important}
   .nav-links.open a.active,.nav-links.open a:hover{color:#3b82f6!important;background:transparent!important}
 }
+
+
+/* v39 nav: blue only for the selected item */
+.nav-links a:not(.active):hover,.nav-links a:not(.active).touch-glow{background:transparent!important;box-shadow:none!important;color:#fff!important}
+@media(max-width:900px){.nav-links.open a:not(.active):hover{color:#e9efff!important}}
+
+/* v39 hero visual: blend video into the page (no visible edges) */
+.glass-hero-img{background:transparent!important;mix-blend-mode:screen;-webkit-mask-image:radial-gradient(closest-side,#000 80%,transparent 100%);mask-image:radial-gradient(closest-side,#000 80%,transparent 100%);border:0!important;box-shadow:none!important;outline:0!important}
+.hero-right{background:transparent!important}
