@@ -3096,3 +3096,21 @@ img,video{max-width:100%}
 .strategy-section::before,.reviews-section::before,.contact-section::before{background:linear-gradient(180deg,rgba(2,7,28,.88) 0%,rgba(3,12,46,.92) 55%,rgba(2,7,28,.88) 100%)}
 .past-projects-section::before,.portfolio-section::before{background:radial-gradient(ellipse at 50% 0%,rgba(0,85,255,.22),transparent 60%),linear-gradient(180deg,rgba(0,40,150,.2) 0%,rgba(0,22,90,.34) 100%)}
 .strategy-section.scroll-reveal,.past-projects-section.scroll-reveal,.reviews-section.scroll-reveal,.portfolio-section.scroll-reveal,.contact-section.scroll-reveal{filter:none!important}
+
+/* ===== v36 mobile: controlled dark theme, bigger hero title ===== */
+@media (max-width:900px){
+  /* calmer page glow */
+  body::before{opacity:.38!important}
+  /* hero: larger headline, slightly smaller visual (animation untouched) */
+  .hero-left h1{font-size:3.15rem!important;line-height:1.04!important;letter-spacing:-.03em}
+  .hero-left p{font-size:1.02rem!important;line-height:1.6}
+  .glass-hero-img{width:auto!important;max-width:100%!important;max-height:205px!important;margin-left:auto;margin-right:auto;display:block}
+  .hero-right{margin-top:22px!important}
+  /* cobalt surfaces: deep, controlled gradient instead of flat bright blue */
+  .stat-card,.dual-card,.tools-card,.portfolio-outer-frame{background:linear-gradient(150deg,#0a29a3 0%,#071c78 55%,#050f45 100%)!important;box-shadow:0 12px 28px rgba(0,0,0,.4)!important;border:1px solid rgba(70,120,255,.22)!important}
+  /* section bands: quieter cobalt */
+  .past-projects-section::before,.portfolio-section::before{background:radial-gradient(ellipse at 50% 0%,rgba(0,85,255,.1),transparent 60%),linear-gradient(180deg,rgba(2,12,48,.55) 0%,rgba(2,9,34,.7) 100%)}
+  .strategy-section::before,.reviews-section::before,.contact-section::before{background:linear-gradient(180deg,rgba(2,6,22,.9),rgba(3,9,34,.92) 55%,rgba(2,6,22,.9))}
+  .pp-card::before{opacity:.45}
+  .glow,.hero-glow{opacity:.5!important}
+}
