@@ -31,11 +31,13 @@ if (form) {
 
 Name: ${firstName} ${lastName}
 Email: ${email}
-Service: ${service}
-Project details: ${message}`;
+
+Message: ${message}`;
 
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
-    window.open(url, "_blank");
+    const w = window.open(url, "_blank", "noopener");
+    if (!w) window.location.href = url;
+    form.reset();
   });
 }
 
