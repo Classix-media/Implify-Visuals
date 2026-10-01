@@ -11,6 +11,10 @@ if (navToggle && navLinks) {
     const isOpen = navLinks.classList.toggle("open");
     navToggle.setAttribute("aria-expanded", isOpen);
   });
+  let lastY = window.scrollY;
+  const closeMenu = () => { navLinks.classList.remove("open"); navToggle.setAttribute("aria-expanded", false); };
+  window.addEventListener("scroll", () => { if (navLinks.classList.contains("open") && Math.abs(window.scrollY - lastY) > 24) closeMenu(); lastY = window.scrollY; }, { passive: true });
+  navLinks.addEventListener("touchmove", () => { if (navLinks.classList.contains("open")) setTimeout(closeMenu, 120); }, { passive: true });
   navLinks.querySelectorAll("a").forEach(link => {
     link.addEventListener("click", () => navLinks.classList.remove("open"));
   });
