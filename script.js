@@ -3,21 +3,20 @@ const WHATSAPP_NUMBER = "2348121986430";
 const yearEl = document.getElementById("year");
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-// Mobile nav toggle
+// Mobile nav toggle (full-screen menu, page scroll locked while open)
 const navToggle = document.getElementById("navToggle");
 const navLinks = document.getElementById("navLinks");
 if (navToggle && navLinks) {
-  navToggle.addEventListener("click", () => {
-    const isOpen = navLinks.classList.toggle("open");
-    navToggle.setAttribute("aria-expanded", isOpen);
-  });
-  let lastY = window.scrollY;
-  const closeMenu = () => { navLinks.classList.remove("open"); navToggle.setAttribute("aria-expanded", false); };
-  window.addEventListener("scroll", () => { if (navLinks.classList.contains("open") && Math.abs(window.scrollY - lastY) > 24) closeMenu(); lastY = window.scrollY; }, { passive: true });
-  navLinks.addEventListener("touchmove", () => { if (navLinks.classList.contains("open")) setTimeout(closeMenu, 120); }, { passive: true });
-  navLinks.querySelectorAll("a").forEach(link => {
-    link.addEventListener("click", () => navLinks.classList.remove("open"));
-  });
+  const setMenu = (open) => {
+    navLinks.classList.toggle("open", open);
+    navToggle.setAttribute("aria-expanded", open);
+    document.documentElement.classList.toggle("menu-open", open);
+    document.body.classList.toggle("menu-open", open);
+  };
+  navToggle.addEventListener("click", () => setMenu(!navLinks.classList.contains("open")));
+  navLinks.querySelectorAll("a").forEach(link => link.addEventListener("click", () => setMenu(false)));
+  navLinks.addEventListener("touchmove", (e) => { if (navLinks.classList.contains("open")) e.preventDefault(); }, { passive: false });
+  window.addEventListener("resize", () => { if (window.innerWidth > 900) setMenu(false); });
 }
 
 const form = document.getElementById("contactForm");
