@@ -3147,7 +3147,3 @@ body::before{opacity:.45!important}
 /* v39 nav: blue only for the selected item */
 .nav-links a:not(.active):hover,.nav-links a:not(.active).touch-glow{background:transparent!important;box-shadow:none!important;color:#fff!important}
 @media(max-width:900px){.nav-links.open a:not(.active):hover{color:#e9efff!important}}
-
-/* v39 hero visual: blend video into the page (no visible edges) */
-.glass-hero-img{background:transparent!important;mix-blend-mode:screen;-webkit-mask-image:radial-gradient(closest-side,#000 80%,transparent 100%);mask-image:radial-gradient(closest-side,#000 80%,transparent 100%);border:0!important;box-shadow:none!important;outline:0!important}
-.hero-right{background:transparent!important}
