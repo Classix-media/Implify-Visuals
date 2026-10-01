@@ -3040,3 +3040,33 @@ img,video{max-width:100%}
 .pp-dot.is-active{width:30px;background:#2b7bff}
 @media (max-width:900px){.pp-card{width:100%;max-width:600px;margin:0 auto}}
 @media (prefers-reduced-motion:reduce){.pp-slide,.pp-link img{transition:none}}
+
+
+/* ===== v33 refinements ===== */
+.pp-heading{text-align:center;margin:0 auto 34px}
+.pp-heading h2{margin:0;font-size:clamp(2rem,5.4vw,2.9rem);line-height:1.12;font-weight:700;letter-spacing:-.02em;color:#fff}
+.pp-top{padding:0 20px 12px}
+.pp-title{font-size:.6rem;letter-spacing:.18em}
+.pp-count{font-size:.66rem;letter-spacing:.1em}
+.quick-message-block{padding:36px 30px!important}
+.quick-message-block .quick-message-box{margin:20px 0 24px!important}
+.quick-message-block .quick-message-button{margin-top:6px}
+.quick-message-block .quick-message-helper{margin-top:18px!important}
+@media (max-width:900px){.quick-message-block{padding:32px 24px!important}}
+
+/* PC: all four projects shown in a premium card grid (no carousel) */
+@media (min-width:901px){
+  .past-projects-column{grid-column:1/-1}
+  .pp-card{width:100%;max-width:none;margin:0;padding:26px 0 30px;border-radius:34px}
+  .pp-top{padding:0 34px 20px}
+  .pp-title{font-size:.72rem}
+  .pp-count,.pp-controls{display:none}
+  .pp-track{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px;padding:0 34px;overflow:visible;scroll-snap-type:none;cursor:default}
+  .pp-slide{flex:none;width:auto;transform:none!important;opacity:1!important;border-radius:22px;border:1px solid rgba(110,160,255,.18);transition:transform .5s cubic-bezier(.22,1,.36,1),box-shadow .5s,border-color .5s}
+  .pp-slide:hover{transform:translateY(-8px)!important;border-color:rgba(80,150,255,.6);box-shadow:0 26px 50px rgba(0,60,200,.35)}
+  .past-projects-layout{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+}
+
+/* v34 center the Strategic Brand Solving card */
+.about-left .glass-card-sub{margin-left:auto!important;margin-right:auto!important;width:100%;max-width:100%;box-sizing:border-box;text-align:center}
+@media (max-width:900px){.about-left .glass-card-sub{width:calc(100% - 0px);max-width:560px}}
