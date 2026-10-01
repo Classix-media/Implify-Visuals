@@ -3070,3 +3070,29 @@ img,video{max-width:100%}
 /* v34 center the Strategic Brand Solving card */
 .about-left .glass-card-sub{margin-left:auto!important;margin-right:auto!important;width:100%;max-width:100%;box-sizing:border-box;text-align:center}
 @media (max-width:900px){.about-left .glass-card-sub{width:calc(100% - 0px);max-width:560px}}
+
+/* ===== v35 polish ===== */
+/* carousel header: softer, smaller, more inset (mobile) */
+@media (max-width:900px){
+  .pp-top{padding:2px 32px 14px}
+  .pp-title{font-size:.5rem;letter-spacing:.2em;opacity:.6}
+  .pp-count{font-size:.54rem;letter-spacing:.12em;opacity:.7}
+  .pp-count b{font-weight:600}
+}
+/* darker caption zone so "Project 0X" stays readable */
+.pp-link::after{height:48%;background:linear-gradient(to top,rgba(2,5,18,.94) 0%,rgba(2,5,18,.78) 38%,rgba(2,5,18,.35) 70%,transparent 100%)}
+.pp-chip{text-shadow:0 1px 6px rgba(0,0,0,.8)}
+
+/* PC: past projects row aligns with tools/elevate row */
+@media (min-width:901px){
+  .past-projects-section{width:84%!important;max-width:1180px;margin-left:auto!important;margin-right:auto!important}
+  .past-projects-layout{gap:20px!important;align-items:stretch!important}
+  .quick-message-column>*,.what-to-expect-column>*{height:100%;box-sizing:border-box}
+}
+
+/* supported section backgrounds: full-width cobalt-toned bands */
+.strategy-section,.past-projects-section,.reviews-section,.portfolio-section,.contact-section{position:relative;isolation:isolate;content-visibility:visible!important;padding-top:clamp(44px,6vw,76px);padding-bottom:clamp(44px,6vw,76px)}
+.strategy-section::before,.past-projects-section::before,.reviews-section::before,.portfolio-section::before,.contact-section::before{content:"";position:absolute;top:0;bottom:0;left:50%;width:100vw;transform:translateX(-50%);z-index:-1;pointer-events:none;border-top:1px solid rgba(60,120,255,.16);border-bottom:1px solid rgba(60,120,255,.1)}
+.strategy-section::before,.reviews-section::before,.contact-section::before{background:linear-gradient(180deg,rgba(2,7,28,.88) 0%,rgba(3,12,46,.92) 55%,rgba(2,7,28,.88) 100%)}
+.past-projects-section::before,.portfolio-section::before{background:radial-gradient(ellipse at 50% 0%,rgba(0,85,255,.22),transparent 60%),linear-gradient(180deg,rgba(0,40,150,.2) 0%,rgba(0,22,90,.34) 100%)}
+.strategy-section.scroll-reveal,.past-projects-section.scroll-reveal,.reviews-section.scroll-reveal,.portfolio-section.scroll-reveal,.contact-section.scroll-reveal{filter:none!important}
