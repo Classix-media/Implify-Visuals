@@ -196,22 +196,30 @@ function findCheckoutUrl(value) {
   return null;
 }
 
+function findCheckoutUrlInText(text) {
+  if (typeof text !== 'string') return null;
+  const clean = text.replace(/\\\//g, '/').replace(/\\u0026/gi, '&');
+  const m = clean.match(/https?:\/\/[^\s"'<>\\]+/gi);
+  return (m || []).find(u => /paystack/i.test(u)) || null;
+}
+
 async function initializePaystack() {
   const btn = $('payBtn'); if (!btn) return;
   btn.disabled = true; btn.textContent = 'Connecting to secure checkout…';
   $('paymentStatus').hidden = false;
   $('paymentStatus').textContent = 'Sending your booking to the existing Make.com → Paystack initialization workflow. Your reference is ' + state.ref + '.';
-  const payload = { project_id: state.ref, client_name: state.name, client_email: state.email, amount: state.amount, currency: state.currency, business: state.business, whatsapp: state.whatsapp, brief: state.brief, timeline: state.timeline };
+  const payload = { project_id: state.ref, client_name: state.name, client_email: state.email, amount: Number(state.amount), currency: String(state.currency).toUpperCase(), business: state.business, whatsapp: state.whatsapp, brief: state.brief, timeline: state.timeline };
   try {
     const res = await fetch(MAKE_BOOKING_WEBHOOK, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) });
     const text = await res.text();
     let data = text; try { data = JSON.parse(text); } catch (_) {}
-    const checkout = findCheckoutUrl(data);
+    const checkout = findCheckoutUrl(data) || findCheckoutUrlInText(text);
+    if (!checkout) console.warn('Make webhook response (no checkout URL found):', res.status, text);
     if (checkout) {
       state.paymentReference = state.ref;
       saveBookingState();
       $('paymentStatus').textContent = 'Secure checkout is ready. Complete payment on Paystack; this page will not mark the booking paid from a browser redirect alone.';
-      window.location.href = checkout;
+      window.location.assign(checkout);
       return;
     }
     $('paymentStatus').innerHTML = '<strong>Booking sent.</strong><br>The Make webhook accepted the request, but this static page did not receive a checkout URL in the response. The existing scenario needs to return Paystack’s authorization URL through a Webhook Response module before the browser can redirect automatically.';
