@@ -163,7 +163,7 @@ $('amountInput')?.addEventListener('input', (e) => {
 });
 
 function renderQuote() {
-  const manual = state.amount == null || state.currency !== 'NGN';
+  const manual = state.amount == null || !['NGN','USD'].includes(state.currency);
   $('quoteCard').innerHTML = `
     <div class="quote-head"><div><span class="eyebrow">IMPLIFY VISUALS</span><strong>PROJECT ${manual ? 'QUOTATION / ESTIMATE' : 'QUOTATION'}</strong></div><span class="quote-ref">${state.ref}</span></div>
     <div class="quote-client"><div><span>CLIENT</span><strong>${state.name}</strong><small>${[state.business,state.email,state.whatsapp].filter(Boolean).join(' · ')}</small></div><div><span>PROJECT</span><strong>${state.service}</strong><small>${state.timeline || 'Timeline to be agreed'}</small></div></div>
@@ -173,12 +173,12 @@ function renderQuote() {
 }
 
 function renderPayment() {
-  const manual = state.amount == null || state.currency !== 'NGN';
+  const manual = state.amount == null || !['NGN','USD'].includes(state.currency);
   $('paymentTitle').textContent = manual ? 'Choose the approved payment route.' : 'Secure your project slot.';
-  $('paymentCopy').textContent = manual ? 'This currency or project scope uses a manual route. Your quotation remains an estimate until payment is verified.' : 'For NGN bookings, the existing Implify Visuals Paystack workflow initializes the transaction through Make and verifies it before a paid state is shown.';
+  $('paymentCopy').textContent = manual ? 'This currency or project scope uses a manual route. Your quotation remains an estimate until payment is verified.' : `For ${state.currency} bookings, the existing Implify Visuals Paystack workflow initializes the transaction through Make and verifies it before a paid state is shown.`;
   $('paymentCard').innerHTML = manual
     ? `<div class="payment-method"><div><strong>${state.currency} · Manual payment</strong><span>Payment details will be confirmed with Implify Visuals.</span></div><span>REVIEW</span></div><p style="color:#748094;font-size:.8rem;line-height:1.7;margin:0">No automatic Paystack charge is attempted for this route. Continue to prepare the WhatsApp handoff.</p>`
-    : `<div class="payment-method"><div><strong>NGN · Paystack</strong><span>Secure checkout initialized by the existing Make.com workflow. Available payment methods are shown by Paystack, including Apple Pay where eligible.</span></div><span>SECURE</span></div><button type="button" class="primary-action" id="payBtn">Initialize secure payment →</button>`;
+    : `<div class="payment-method"><div><strong>${state.currency} · Paystack</strong><span>Secure checkout initialized by the existing Make.com workflow. Available payment methods are shown by Paystack, including Apple Pay where eligible.</span></div><span>SECURE</span></div><button type="button" class="primary-action" id="payBtn">Initialize secure payment →</button>`;
   $('paymentStatus').hidden = true;
   if (!manual) $('payBtn').addEventListener('click', initializePaystack);
 }
