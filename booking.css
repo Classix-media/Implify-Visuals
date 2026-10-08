@@ -328,3 +328,6 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .inv-top{grid-template-columns:31% minmax(0,1fr)!important}
 .inv-blue{min-width:0!important;box-sizing:border-box}
 #invoiceTitle{min-width:0}
+
+/* v46 preview: centre the title in the blue block like the PDF (space above and below) */
+#invoiceTitle,#invoiceTitle[data-t],#invoiceTitle[data-t="INVOICE"]{margin-top:calc(3.7 * var(--u,7px))!important}
