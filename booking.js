@@ -238,6 +238,9 @@ function buildMessage() {
 function renderInvoiceDocument() {
   const paid = state.paymentStatus === 'Paid';
   $('invoiceTitle').textContent = paid ? 'INVOICE' : 'QUOTATION';
+  $('invoiceTitle').textContent = $('invoiceTitle').textContent.toUpperCase();
+  $('invoiceTitle').dataset.t = $('invoiceTitle').textContent;
+  try{fitDocText();document.fonts&&document.fonts.ready.then(fitDocText);}catch(e){}
   $('invoiceRef').textContent = state.ref;
   $('invoiceDate').textContent = new Date().toLocaleDateString('en-NG', {day:'2-digit', month:'short', year:'numeric'});
   $('invoiceDue').textContent = $('invoiceDate').textContent;
@@ -321,11 +324,17 @@ if (returnedReference && restored) {
 
 
 /* ===== v19: universal invoice sizing + download (works in Instagram/in-app browsers) ===== */
+function fitDocText(){
+  ['invoiceTitle','invoiceClient'].forEach(id=>{const el=document.getElementById(id);if(!el)return;
+    el.style.setProperty('--tf',1);const cw=el.clientWidth,sw=el.scrollWidth;
+    if(cw&&sw>cw+1)el.style.setProperty('--tf',(cw/sw*0.97).toFixed(3));});
+}
 function fitInvoice(){
   const d=document.querySelector('.inv-doc'); if(!d) return;
   const w=d.parentElement.clientWidth||d.clientWidth; if(!w) return;
   d.style.setProperty('--u',(w/100)+'px');
   d.style.height=(w*2296/1623)+'px';
+  fitDocText();
 }
 window.addEventListener('resize',fitInvoice);
 window.addEventListener('orientationchange',()=>setTimeout(fitInvoice,150));
@@ -337,12 +346,12 @@ function inAppBrowser(){const ua=navigator.userAgent||'';
 
 async function drawInvoiceCanvas(){
   const W=1623,H=2296,u=W/100,c=document.createElement('canvas');c.width=W;c.height=H;
-  const x=c.getContext('2d'),F='"DM Sans",Arial,Helvetica,sans-serif',T=id=>(document.getElementById(id)?.textContent||'').trim();
-  try{await document.fonts.load('700 20px "DM Sans"');await document.fonts.load('500 20px "DM Sans"');await document.fonts.ready;}catch(e){}
+  const x=c.getContext('2d'),OUT='Outfit,"DM Sans",Arial,sans-serif',ARC='Archivo,"DM Sans",Arial,sans-serif',F=OUT,T=id=>(document.getElementById(id)?.textContent||'').trim();
+  try{await document.fonts.load('700 20px "DM Sans"');await document.fonts.load('500 20px "DM Sans"');await document.fonts.load('400 20px Anton');for(const f of ['300 20px Outfit','400 20px Outfit','500 20px Outfit','600 20px Outfit','700 20px Outfit','700 20px Archivo','800 20px Archivo','900 20px Archivo'])await document.fonts.load(f);await document.fonts.ready;}catch(e){}
   const BL='#005fff';
-  const font=(w,s)=>x.font=`${w} ${s*u}px ${F}`;
-  const txt=(s,px,py,o={})=>{font(o.w||400,o.s||2);x.fillStyle=o.c||'#000';x.textAlign=o.a||'left';x.textBaseline='middle';
-    let size=o.s||2;const max=o.max;if(max){while(x.measureText(s).width>max*u&&size>0.8){size-=.1;font(o.w||400,size);}}x.fillText(s,px*u,py*u);};
+  const font=(w,s,f)=>x.font=`${w} ${s*u}px ${f||F}`;
+  const txt=(s,px,py,o={})=>{font(o.w||400,o.s||2,o.f);x.fillStyle=o.c||'#000';x.textAlign=o.a||'left';x.textBaseline='middle';
+    let size=o.s||2;const max=o.max;if(max){while(x.measureText(s).width>max*u&&size>0.8){size-=.1;font(o.w||400,size,o.f);}}x.fillText(s,px*u,py*u);};
   const rr=(px,py,w,h,r,fill)=>{x.beginPath();x.roundRect?x.roundRect(px*u,py*u,w*u,h*u,r*u):x.rect(px*u,py*u,w*u,h*u);x.fillStyle=fill;x.fill();};
   const img=await new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.onerror=()=>r(null);i.src='images/logo.png';});
   x.fillStyle=BL;x.fillRect(0,0,W,H);
@@ -352,39 +361,45 @@ async function drawInvoiceCanvas(){
   if(img)x.drawImage(img,13.55*u,12*u,13*u,13*u);
   txt('Implify Visuals',20.05,28.3,{s:2.2,w:500,a:'center'});
   const ref=T('invoiceRef');font(700,3.6);const rw=x.measureText(ref).width/u+6.4;
-  rr(38.7,3.4,rw,7.8,2.2,'#fff');txt(ref,38.7+3.2,7.3,{s:3.6,w:700,c:'#111'});
-  const dx=38.7+rw+4;txt('ISSUED:',dx,5.2,{s:1.9,c:'#fff'});txt(T('invoiceDate'),dx+8.2,5.2,{s:1.9,w:500,c:'#fff'});
-  txt('DUE:',dx,8.9,{s:1.9,c:'#fff'});txt(T('invoiceDue'),dx+8.2,8.9,{s:1.9,w:500,c:'#fff'});
-  font(800,10);const g=x.createLinearGradient(0,12*u,0,22*u);g.addColorStop(0,'#fff');g.addColorStop(1,'#bfc4cc');
-  txt(T('invoiceTitle'),38.7,17.6,{s:10,w:800,c:g,max:56});
-  txt('INVOICE TO:',9,39,{s:2.4,w:700});
-  txt(T('invoiceClient').toUpperCase(),9,44.6,{s:5.6,w:800,max:84});
+  rr(38.7,3.4,rw,7.8,2.2,'#fff');txt(ref,38.7+3.2,7.3,{s:3.8,w:600,c:'#111'});
+  const dx=38.7+rw+4;txt('ISSUED:',dx,5.2,{s:1.9,w:800,f:ARC,c:'#fff'});txt(T('invoiceDate'),dx+8.2,5.2,{s:1.9,w:300,c:'#fff'});
+  txt('DUE:',dx,8.9,{s:1.9,w:800,f:ARC,c:'#fff'});txt(T('invoiceDue'),dx+8.2,8.9,{s:1.9,w:300,c:'#fff'});
+  const IMP='Impact,Anton,"Haettenschweiler","Arial Narrow Bold",sans-serif',tt=T('invoiceTitle').toUpperCase();
+  const g=x.createLinearGradient(0,10*u,0,24*u);g.addColorStop(0,'#fff');g.addColorStop(1,'#b9b9b9');
+  txt(tt,38.7,17.8,{s:tt==='INVOICE'?14.5:11.5,w:400,c:g,f:IMP,max:58});
+  txt('INVOICE TO:',9,39,{s:2.4,w:700,f:ARC});
+  txt(T('invoiceClient').toUpperCase(),9,44.6,{s:5.6,w:900,f:ARC,max:84});
   txt(T('invoiceContact'),9,50,{s:2,c:'#111',max:84});
   // table
   const tx=8.9,tw=82.2,cw=[.32,.17,.17,.17,.17].map(p=>p*tw),heads=['Description','Package','Qty','Price','Subtotal'];
   let cx=tx;heads.forEach((h,i)=>{x.fillStyle=BL;x.fillRect(cx*u,56.6*u,(cw[i]-.4)*u,7.4*u);
-    txt(h,i?cx+cw[i]/2:cx+1.6,60.3,{s:2.3,w:500,c:'#fff',a:i?'center':'left',max:cw[i]-2});cx+=cw[i];});
+    txt(h,i?cx+cw[i]/2:cx+1.6,60.3,{s:2.6,w:400,c:'#fff',a:i?'center':'left',max:cw[i]-2});cx+=cw[i];});
   const cells=[...document.querySelectorAll('#invoiceLines td')].map(t=>t.textContent.trim());
-  cx=tx;cells.forEach((t,i)=>{txt(t,i?cx+cw[i]/2:cx+1.6,68.5,{s:2,w:i===4?700:400,c:'#111',a:i?'center':'left',max:cw[i]-2});cx+=cw[i];});
+  cx=tx;cells.forEach((t,i)=>{txt(t,i?cx+cw[i]/2:cx+1.6,68.5,{s:2,w:i===4?700:300,c:'#111',a:i?'center':'left',max:cw[i]-2});cx+=cw[i];});
   txt('PROJECT NOTES',9,76.4,{s:1.7,w:700,c:BL});
   // wrapped notes
   font(400,1.8);const words=T('invoiceNotes').split(/\s+/),maxW=(82)*u;let line='',ly=79.6,n=0;
-  for(const w of words){const t=line?line+' '+w:w;if(x.measureText(t).width>maxW&&line){txt(line,9,ly,{s:1.8,c:'#333'});font(400,1.8);ly+=2.6;line=w;if(++n>=6)break;}else line=t;}
-  if(line&&n<6)txt(line,9,ly,{s:1.8,c:'#333'});
+  for(const w of words){const t=line?line+' '+w:w;if(x.measureText(t).width>maxW&&line){txt(line,9,ly,{s:1.8,c:'#333'});font(400,1.8);ly+=2.6;line=w;if(++n>=5)break;}else line=t;}
+  if(line&&n<5)txt(line,9,ly,{s:1.8,c:'#333'});
   const ruleY=Math.max(83.1,ly+2);x.fillStyle='#555';x.fillRect(5.4*u,ruleY*u,89.2*u,1*u);
   // bands
-  x.fillStyle=BL;x.fillRect(0,100*u,W,7.1*u);
-  txt('SUBTOTAL:',3.6,103.55,{s:2.7,w:700,c:'#fff'});txt(T('invoiceSubtotal'),95,103.55,{s:2.3,w:500,c:'#fff',a:'right'});
-  x.fillStyle='#fff';x.fillRect(0,107.1*u,W,7.1*u);
-  txt('DISCOUNT:',3.6,110.65,{s:2.7,w:700});txt('—',95,110.65,{s:2.3,w:500,a:'right'});
-  x.fillStyle=BL;x.fillRect(0,114.2*u,W,7.1*u);
-  txt(T('invoiceStatusLabel'),3.6,117.75,{s:2.7,w:700,c:'#fff'});txt(T('invoiceTotal'),95,117.75,{s:2.3,w:500,c:'#fff',a:'right'});
-  x.fillStyle='#fff';x.fillRect(0,121.3*u,W,14*u);
-  if(img)x.drawImage(img,4*u,124.55*u,7.5*u,7.5*u);
-  txt('Implify Visuals',12.9,128.3,{s:2.4,w:700});
-  rr(33,123.7,63,9.3,3,'#767676');
-  txt('Payment is required before project work begins.',64.5,126.2,{s:1.8,w:600,c:'#fff',a:'center',max:58});
-  txt(T('invoiceCurrencyNote'),64.5,130.4,{s:2.6,w:800,c:'#fff',a:'center',max:58});
+  const wrap=(s,s1,mw)=>{font(600,s1);const out=[];let l='';s.split(/\s+/).forEach(w=>{const t=l?l+' '+w:w;if(x.measureText(t).width>mw*u&&l){out.push(l);l=w;}else l=t;});if(l)out.push(l);return out;};
+  x.fillStyle=BL;x.fillRect(0,94*u,W,7.1*u);
+  txt('SUBTOTAL:',3.6,97.55,{s:2.7,w:800,f:ARC,c:'#fff'});txt(T('invoiceSubtotal'),95,97.55,{s:2.3,w:300,c:'#fff',a:'right'});
+  x.fillStyle='#fff';x.fillRect(0,101.1*u,W,7.1*u);
+  txt('DISCOUNT:',3.6,104.65,{s:2.7,w:800,f:ARC});txt('—',95,104.65,{s:2.3,w:300,a:'right'});
+  x.fillStyle=BL;x.fillRect(0,108.2*u,W,7.1*u);
+  txt(T('invoiceStatusLabel'),3.6,111.75,{s:2.7,w:800,f:ARC,c:'#fff'});txt(T('invoiceTotal'),95,111.75,{s:2.3,w:300,c:'#fff',a:'right'});
+  x.fillStyle='#fff';x.fillRect(0,115.3*u,W,20*u);
+  if(img)x.drawImage(img,4*u,121.55*u,7.5*u,7.5*u);
+  txt('IMPLIFY VISUALS',12.9,124.3,{s:2,w:700,f:ARC,max:19});txt('AGENCY LIMITED',12.9,127.2,{s:2,w:700,f:ARC,max:19});
+  rr(34.5,117.3,37,16,2.6,'#767676');
+  const l1=wrap('Payment is required before project work begins.',1.45,33),l2=wrap(T('invoiceCurrencyNote'),1.9,33);
+  const tot=(l1.length*2.1)+(l2.length*2.5),y0=125.3-tot/2;
+  l1.forEach((s,i)=>txt(s,53,y0+1.05+i*2.1,{s:1.45,w:600,c:'#fff',a:'center'}));
+  l2.forEach((s,i)=>txt(s,53,y0+l1.length*2.1+1.25+i*2.5,{s:1.9,w:800,f:ARC,c:'#fff',a:'center'}));
+  x.fillStyle='#111';x.fillRect(75.5*u,131.2*u,20.5*u,.35*u);
+  font('italic 400',1.5);x.fillStyle='#111';x.textAlign='center';x.textBaseline='middle';x.fillText('Authorized Signed',85.75*u,133.1*u);
   return c;
 }
 

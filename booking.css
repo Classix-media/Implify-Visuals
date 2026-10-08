@@ -262,3 +262,39 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 /* v31 side breathing space, matching page 1 */
 .booking-shell{width:min(980px,calc(100% - 36px))!important;margin-left:auto!important;margin-right:auto!important}
 @media (min-width:600px){.booking-shell{width:min(980px,calc(100% - 64px))!important}}
+
+
+/* v43 invoice: Impact title, agency footer with signature */
+#invoiceTitle,#invoiceTitle[data-t]{font-family:Impact,Anton,"Haettenschweiler","Arial Narrow Bold",sans-serif!important;font-weight:400!important;font-size:calc(11.5 * var(--u,7px))!important;letter-spacing:.01em!important;line-height:1.05!important;background:linear-gradient(180deg,#ffffff 8%,#b9b9b9 100%)!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important;-webkit-text-fill-color:transparent;white-space:nowrap}
+#invoiceTitle[data-t="INVOICE"]{font-size:calc(14.5 * var(--u,7px))!important}
+.invoice-doc-footer{height:calc(20 * var(--u,7px))!important;gap:calc(2.5 * var(--u,7px))!important;padding:calc(2 * var(--u,7px)) calc(4 * var(--u,7px))!important}
+.inv-foot-logo{min-width:0!important;flex:0 0 auto;font:700 calc(2 * var(--u,7px))/1.3 "DM Sans",sans-serif!important;letter-spacing:.01em}
+.inv-pill{padding:calc(1.2 * var(--u,7px)) calc(2 * var(--u,7px))!important;border-radius:calc(2.6 * var(--u,7px))!important;font-size:calc(1.45 * var(--u,7px))!important;align-self:stretch;display:flex;flex-direction:column;justify-content:center}
+.inv-pill b{font-size:calc(1.9 * var(--u,7px))!important;line-height:1.25}
+.inv-sign{flex:0 0 calc(20 * var(--u,7px));align-self:stretch;display:flex;flex-direction:column;justify-content:flex-end}
+.inv-sign i{display:block;border-top:calc(.35 * var(--u,7px)) solid #111;padding-top:calc(.8 * var(--u,7px));font:italic 400 calc(1.5 * var(--u,7px)) "DM Sans",sans-serif;text-align:center;color:#111}
+.invoice-document-table th{font-weight:400!important}
+@media print{#invoiceModal .inv-doc{--u:1.85mm!important}}
+
+
+/* v44 invoice typography matched to the reference + always-fit text */
+.inv-doc{--O:Outfit,"DM Sans",Arial,sans-serif;--A:Archivo,"DM Sans",Arial,sans-serif}
+.inv-logo strong{font:400 calc(2.2 * var(--u,7px)) var(--O)!important;letter-spacing:.03em}
+.inv-ref{font:600 calc(3.8 * var(--u,7px)) var(--O)!important}
+.inv-dates span{font:300 calc(1.9 * var(--u,7px)) var(--O)!important}
+.inv-dates b{font:300 calc(1.9 * var(--u,7px)) var(--O)!important}
+#invoiceTitle{font-size:calc(var(--tf,1) * 11.5 * var(--u,7px))!important;text-transform:uppercase!important;white-space:nowrap!important;overflow:hidden;max-width:100%}
+#invoiceTitle[data-t="INVOICE"]{font-size:calc(var(--tf,1) * 14.5 * var(--u,7px))!important}
+.invoice-client-block span{font:700 calc(2.4 * var(--u,7px)) var(--A)!important}
+.invoice-client-block strong{font:900 calc(var(--tf,1) * 5.6 * var(--u,7px))/1.1 var(--A)!important;letter-spacing:-.03em!important;white-space:nowrap!important;overflow:hidden;max-width:100%}
+.invoice-client-block small{font:400 calc(2 * var(--u,7px)) var(--O)!important;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
+.invoice-document-table th{font:400 calc(2.6 * var(--u,7px)) var(--O)!important}
+.invoice-document-table td{font:300 calc(2 * var(--u,7px)) var(--O)!important;max-height:calc(5 * var(--u,7px))}
+.invoice-document-table td:last-child{font-weight:700!important}
+.invoice-notes span{font:700 calc(1.7 * var(--u,7px)) var(--O)!important}
+.invoice-notes p{font:400 calc(1.8 * var(--u,7px))/1.45 var(--O)!important;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden;word-break:break-word}
+.inv-band span:first-child{font:800 calc(2.7 * var(--u,7px)) var(--A)!important}
+.inv-band span:last-child{font:300 calc(2.3 * var(--u,7px)) var(--O)!important}
+.inv-foot-logo{font:700 calc(2 * var(--u,7px))/1.3 var(--A)!important}
+.inv-pill{font-family:var(--O)!important;font-weight:500!important}
+.inv-pill b{font-family:var(--A)!important;font-weight:800!important}
