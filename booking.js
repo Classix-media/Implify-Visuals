@@ -20,9 +20,9 @@ const prices = {
     ["5 Designs", 125000, 94, "Five coordinated designs"],
   ],
   "UI/UX Interface Design": [
-    ["Basic", 15000, 11, "1–2 screens"],
-    ["Standard", 25000, 19, "3–5 screens"],
-    ["Premium", 40000, 30, "6–10 screens"],
+    ["Basic", 30000, 23, "1–2 screens"],
+    ["Standard", 50000, 38, "3–5 screens"],
+    ["Premium", 80000, 60, "6–10 screens"],
   ],
   "Custom Project": [["Manual Quote", null, null, "Scope reviewed before pricing"]]
 };
