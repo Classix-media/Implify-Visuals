@@ -5,14 +5,14 @@ const FX_NGN_PER_USD = 1325; // fixed studio pricing reference; not a live FX fe
 
 const prices = {
   "Brand Identity Design": [
-    ["Basic", 80000, 60, "Core identity direction"],
+    ["Basic", 80000, 60, "Logo design + light mockup preview"],
     ["Standard", 140000, 106, "Expanded identity system"],
     ["Premium", 200000, 151, "Complete premium identity"],
   ],
   "Motion Graphics / Video Editing": [
-    ["Basic", 50000, 38, "Focused motion deliverable"],
-    ["Standard", 100000, 75, "Full motion treatment"],
-    ["Premium", 150000, 113, "Advanced motion package"],
+    ["Basic", 70000, 53, "Focused motion deliverable"],
+    ["Standard", 140000, 106, "Full motion treatment"],
+    ["Premium", 250000, 189, "Advanced motion package"],
   ],
   "Social Media Design": [
     ["1 Design", 25000, 19, "One social media design"],
@@ -27,6 +27,13 @@ const prices = {
   "Custom Project": [["Manual Quote", null, null, "Scope reviewed before pricing"]]
 };
 
+
+function deliveryTime(service, pkg) {
+  const list = prices[service] || [];
+  const i = list.findIndex(p => p[0] === pkg);
+  const days = [5, 7, 10][i];
+  return days ? `${days} days` : 'To be confirmed';
+}
 
 const state = {
   step: 1,
@@ -84,7 +91,7 @@ function setStep(n) {
 function readDetails() {
   state.name = $('clientName').value.trim(); state.email = $('clientEmail').value.trim();
   state.whatsapp = $('clientWhatsapp').value.trim(); state.business = $('business').value.trim();
-  state.brief = $('brief').value.trim(); state.timeline = $('timeline').value.trim();
+  state.brief = $('brief').value.trim();
 }
 
 function validStep1() {
@@ -103,7 +110,7 @@ function renderPackages() {
     const selectedAmount = state.currency === 'NGN' ? ngnAmount : usdAmount;
     const displayAmount = selectedAmount == null ? 'Manual quote' : money(selectedAmount, state.currency);
     b.innerHTML = `<span class="package-name">${name}</span><small>${note}</small><div class="package-price">${displayAmount}</div>`;
-    b.addEventListener('click', () => { state.packageName=name; state.ngnAmount=ngnAmount; state.usdAmount=usdAmount; state.amount=state.currency === 'NGN' ? ngnAmount : usdAmount; [...wrap.children].forEach(x=>x.classList.remove('selected')); b.classList.add('selected'); });
+    b.addEventListener('click', () => { state.packageName=name; state.timeline=deliveryTime(state.service,name); state.ngnAmount=ngnAmount; state.usdAmount=usdAmount; state.amount=state.currency === 'NGN' ? ngnAmount : usdAmount; [...wrap.children].forEach(x=>x.classList.remove('selected')); b.classList.add('selected'); });
     wrap.appendChild(b);
   });
   $('packageHint').textContent = state.service === 'Custom Project' ? 'This route produces a manual quotation.' : `Choose a ${state.service === 'Social Media Design' ? 'design quantity' : 'package'} and your billing currency.`;
