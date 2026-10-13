@@ -19,6 +19,11 @@ const prices = {
     ["3 Designs", 75000, 57, "Three coordinated designs"],
     ["5 Designs", 125000, 94, "Five coordinated designs"],
   ],
+  "Church Flyer Design": [
+    ["1 Design", 30000, 23, "One church flyer design"],
+    ["3 Designs", 90000, 68, "Three church flyer designs"],
+    ["5 Designs", 120000, 91, "Five church flyer designs"],
+  ],
   "UI/UX Interface Design": [
     ["Basic", 90000, 68, "1–2 screens"],
     ["Standard", 150000, 113, "3–5 screens"],
@@ -113,7 +118,7 @@ function renderPackages() {
     b.addEventListener('click', () => { state.packageName=name; state.timeline=deliveryTime(state.service,name); state.ngnAmount=ngnAmount; state.usdAmount=usdAmount; state.amount=state.currency === 'NGN' ? ngnAmount : usdAmount; [...wrap.children].forEach(x=>x.classList.remove('selected')); b.classList.add('selected'); });
     wrap.appendChild(b);
   });
-  $('packageHint').textContent = state.service === 'Custom Project' ? 'This route produces a manual quotation.' : `Choose a ${state.service === 'Social Media Design' ? 'design quantity' : 'package'} and your billing currency.`;
+  $('packageHint').textContent = state.service === 'Custom Project' ? 'This route produces a manual quotation.' : `Choose a ${['Social Media Design','Church Flyer Design'].includes(state.service) ? 'design quantity' : 'package'} and your billing currency.`;
   $('customNote').hidden = state.service !== 'Custom Project';
   const currentAmount = state.currency === 'NGN' ? state.ngnAmount : state.usdAmount;
   const amountConfirm = $('amountConfirm');
