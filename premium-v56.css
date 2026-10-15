@@ -147,3 +147,31 @@
 @media(prefers-reduced-motion:reduce){.gx-card::after{animation:none}.gx-bar{transform:none!important;animation:none!important}.gx-line{stroke-dashoffset:0!important;animation:none!important}.gx-area,.gx-tag,.gx-dot{opacity:1!important;transform:none!important;animation:none!important}}
 .hero-right{justify-content:center}
 @media(max-width:900px){.gx-card{margin-bottom:34px}}
+
+/* ===== v58: floating glass pill navbar ===== */
+.navbar{
+  position:sticky!important;top:12px!important;
+  width:calc(100% - 24px)!important;max-width:1120px;
+  margin:12px auto 0!important;
+  padding:9px 12px 9px 18px!important;
+  border-radius:999px!important;
+  background:rgba(8,18,48,.38)!important;
+  -webkit-backdrop-filter:blur(22px) saturate(180%)!important;
+  backdrop-filter:blur(22px) saturate(180%)!important;
+  border:1px solid rgba(255,255,255,.14)!important;
+  box-shadow:0 10px 34px rgba(0,10,50,.38),inset 0 1px 0 rgba(255,255,255,.16)!important;
+  transition:background .3s,box-shadow .3s;
+}
+.navbar.scrolled{background:rgba(6,14,40,.5)!important;box-shadow:0 14px 40px rgba(0,10,50,.5),inset 0 1px 0 rgba(255,255,255,.18)!important}
+@media(min-width:901px){.nav-links{gap:6px}.navbar{padding:9px 12px 9px 20px!important}}
+@media(max-width:900px){.navbar{padding:8px 14px 8px 16px!important}}
+body.menu-open .navbar{border-color:transparent!important;box-shadow:none!important;background:transparent!important}
+
+/* ===== v58: hero video must never show a play button (iOS/Android) ===== */
+.glass-hero-img{pointer-events:none;-webkit-user-select:none;user-select:none}
+.glass-hero-img::-webkit-media-controls,
+.glass-hero-img::-webkit-media-controls-panel,
+.glass-hero-img::-webkit-media-controls-play-button,
+.glass-hero-img::-webkit-media-controls-start-playback-button,
+.glass-hero-img::-webkit-media-controls-overlay-play-button,
+.glass-hero-img::-webkit-media-controls-enclosure{display:none!important;-webkit-appearance:none!important;opacity:0!important;visibility:hidden!important}

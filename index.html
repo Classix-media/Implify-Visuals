@@ -52,7 +52,7 @@
         </div>
     </div>
     <div class="hero-right">
-        <video class="glass-hero-img" autoplay loop muted playsinline preload="metadata" disablepictureinpicture>
+        <video class="glass-hero-img" id="heroVideo" autoplay loop muted defaultMuted playsinline webkit-playsinline preload="auto" controls="false" disablepictureinpicture disableremoteplayback x-webkit-airplay="deny" tabindex="-1" aria-hidden="true">
             <source src="images/hand-icons-v2.mp4" type="video/mp4">
         </video>
         <div class="gx-card" aria-hidden="true">
@@ -487,6 +487,24 @@
     <p class="footer-copy">© <span id="year"></span> Implify Visuals. All rights reserved.</p>
 </footer>
 
+<script>
+(function(){
+  var v=document.getElementById('heroVideo');if(!v)return;
+  v.removeAttribute('controls');v.controls=false;v.muted=true;v.defaultMuted=true;v.playsInline=true;
+  v.setAttribute('muted','');v.setAttribute('playsinline','');
+  function go(){var p;try{p=v.play()}catch(e){}if(p&&p.catch)p.catch(function(){})}
+  go();
+  v.addEventListener('loadedmetadata',go);v.addEventListener('canplay',go);
+  v.addEventListener('pause',function(){if(!document.hidden)setTimeout(go,50)});
+  document.addEventListener('visibilitychange',function(){if(!document.hidden)go()});
+  window.addEventListener('pageshow',go);window.addEventListener('focus',go);
+  ['touchstart','touchend','click','scroll'].forEach(function(e){window.addEventListener(e,go,{passive:true,once:true})});
+  if('IntersectionObserver' in window){new IntersectionObserver(function(en){if(en[0].isIntersecting)go()}).observe(v)}
+  var n=0,t=setInterval(function(){if(!v.paused||++n>10)clearInterval(t);else go()},500);
+  var nb=document.querySelector('.navbar');
+  if(nb){var f=function(){nb.classList.toggle('scrolled',window.scrollY>20)};f();window.addEventListener('scroll',f,{passive:true})}
+})();
+</script>
 <script src="script.js" defer></script>
 <script src="premium-v56.js" defer></script>
 </body>
