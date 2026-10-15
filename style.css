@@ -3158,3 +3158,7 @@ body::before{opacity:.45!important}
 
 /* v53 hero visual: video background is now pure black; lighten blend lets the page show through, so no frame/edge is visible */
 .glass-hero-img{mix-blend-mode:lighten}
+
+/* v55 marquee tape: blended into the page background */
+.marquee-wrapper{background:transparent!important;border-top:1px solid rgba(56,189,248,.045)!important;border-bottom:1px solid rgba(56,189,248,.045)!important}
+.marquee-content,.marquee-content span{color:rgba(96,150,215,.34)!important}
