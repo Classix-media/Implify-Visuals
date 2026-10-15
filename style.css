@@ -3155,3 +3155,6 @@ body::before{opacity:.45!important}
   mask-image:linear-gradient(to right,transparent 0,#000 11%,#000 89%,transparent 100%),linear-gradient(to bottom,transparent 0,#000 11%,#000 89%,transparent 100%);
   mask-composite:intersect;
 }
+
+/* v53 hero visual: video background is now pure black; lighten blend lets the page show through, so no frame/edge is visible */
+.glass-hero-img{mix-blend-mode:lighten}
