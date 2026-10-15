@@ -3,7 +3,7 @@
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* Growth graph: rises when visible, replays every few seconds */
-  var g = document.querySelector('.growth-card');
+  var g = document.querySelector('.gx-card');
   if (g) {
     var gt;
     var play = function(){ g.classList.remove('play'); void g.offsetWidth; g.classList.add('play'); };
