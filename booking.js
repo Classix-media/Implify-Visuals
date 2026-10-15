@@ -411,16 +411,14 @@ async function drawInvoiceCanvas(){
   txt(T('invoiceStatusLabel'),3.6,111.75,{s:2.7,w:600,c:'#fff'});txt(T('invoiceTotal'),95,111.75,{s:2.3,w:400,c:'#fff',a:'right'});
   // footer
   x.fillStyle='#fff';x.fillRect(0,115.3*u,W,20*u);
-  if(img)x.drawImage(img,4*u,121.55*u,7.5*u,7.5*u);
-  txt('IMPLIFY VISUALS',12.9,124.3,{s:2,w:600,max:19});txt('AGENCY LIMITED',12.9,127.2,{s:2,w:600,max:19});
   // compact balanced pill (one size, one font)
-  const full=('Payment is required before project work begins. '+T('invoiceCurrencyNote')).trim(),maxW=37-4.4;
+  const full=('Payment is required before project work begins. '+T('invoiceCurrencyNote')).trim(),maxW=54-4.4;
   font(500,1.7);const total=x.measureText(full).width/u,n=Math.max(1,Math.ceil(total/maxW)),lines=wrapTo(full,500,1.7,Math.min(maxW,total/n*1.1+.8));
-  const lh=2.4,ph=lines.length*lh+2.8,py=125.3-ph/2;rr(34.5,py,37,ph,2.6,'#767676');
-  lines.forEach((s,i)=>txt(s,53,py+1.4+(i+.5)*lh,{s:1.7,w:500,c:'#fff',a:'center'}));
+  const lh=2.4,ph=lines.length*lh+2.8,py=125.3-ph/2;rr(4,py,54,ph,2.6,'#767676');
+  lines.forEach((s,i)=>txt(s,31,py+1.4+(i+.5)*lh,{s:1.7,w:500,c:'#fff',a:'center'}));
   // signature
-  x.fillStyle='#111';x.fillRect(75.5*u,131.2*u,20.5*u,.35*u);
-  font('italic 400',1.5);x.fillStyle='#111';x.textAlign='center';x.textBaseline='middle';x.fillText('Authorized Signed',85.75*u,133.1*u);
+  x.fillStyle='#111';x.fillRect(75*u,131.2*u,21*u,.35*u);
+  font('italic 400',1.5);x.fillStyle='#111';x.textAlign='center';x.textBaseline='middle';x.fillText('Authorized Signed',85.5*u,133.1*u);
   return c;
 }
 

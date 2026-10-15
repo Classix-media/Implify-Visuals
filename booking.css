@@ -331,3 +331,9 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 
 /* v46 preview: centre the title in the blue block like the PDF (space above and below) */
 #invoiceTitle,#invoiceTitle[data-t],#invoiceTitle[data-t="INVOICE"]{margin-top:calc(3.7 * var(--u,7px))!important}
+
+
+/* v51 invoice footer: brand name/logo removed from footer, payment note + signature balanced */
+.invoice-doc-footer{justify-content:space-between!important}
+.inv-pill{flex:0 0 calc(54 * var(--u,7px))!important}
+.inv-sign{flex:0 0 calc(21 * var(--u,7px))!important}
