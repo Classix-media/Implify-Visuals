@@ -175,3 +175,23 @@ body.menu-open .navbar{border-color:transparent!important;box-shadow:none!import
 .glass-hero-img::-webkit-media-controls-start-playback-button,
 .glass-hero-img::-webkit-media-controls-overlay-play-button,
 .glass-hero-img::-webkit-media-controls-enclosure{display:none!important;-webkit-appearance:none!important;opacity:0!important;visibility:hidden!important}
+
+/* ===== v59: how-it-works section band + tighter spacing; chat input not clickable ===== */
+.chat-input{pointer-events:none;cursor:default;user-select:none;-webkit-user-select:none}
+.workflow-section{
+  padding:56px 8%!important;margin:40px 0 36px!important;
+  background:linear-gradient(160deg,rgba(0,85,255,.20) 0%,rgba(10,30,100,.30) 50%,rgba(2,8,35,.55) 100%);
+  border-top:1px solid rgba(96,165,250,.18);border-bottom:1px solid rgba(96,165,250,.18);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05),inset 0 -40px 80px rgba(0,20,90,.25);
+  position:relative;
+}
+@media(max-width:900px){.workflow-section{padding:44px 5%!important;margin:32px 0 28px!important}}
+
+/* ===== v60: custom cursor follower (mouse devices only) ===== */
+.cursor-dot,.cursor-ring{position:fixed;top:0;left:0;pointer-events:none;z-index:99999;border-radius:50%;opacity:0;transition:opacity .25s,width .25s,height .25s,background .25s,border-color .25s;will-change:transform}
+.cursor-dot{width:6px;height:6px;margin:-3px 0 0 -3px;background:#3b82f6;box-shadow:0 0 10px rgba(59,130,246,.9)}
+.cursor-ring{width:34px;height:34px;margin:-17px 0 0 -17px;border:1.5px solid rgba(96,165,250,.7);background:rgba(0,85,255,.06)}
+.cursor-on .cursor-dot,.cursor-on .cursor-ring{opacity:1}
+.cursor-ring.hover{width:54px;height:54px;margin:-27px 0 0 -27px;background:rgba(0,85,255,.18);border-color:rgba(147,197,253,.9)}
+.cursor-ring.down{width:26px;height:26px;margin:-13px 0 0 -13px}
+@media(hover:none),(pointer:coarse){.cursor-dot,.cursor-ring{display:none!important}}
