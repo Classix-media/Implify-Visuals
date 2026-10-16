@@ -15,18 +15,14 @@
 <link rel="stylesheet" href="premium-v56.css">
 </head>
 <body>
-<div id="intro" aria-label="Intro">
-  <div class="intro-stage">
-    <div class="intro-logo">
-      <img class="il-half il-top" src="images/logo-white.png" alt="" aria-hidden="true">
-      <img class="il-half il-bot" src="images/logo-white.png" alt="" aria-hidden="true">
-    </div>
-    <div class="intro-word" aria-hidden="true"><span>Implify</span><span>Visuals</span></div>
-  </div>
-  <div class="intro-ready">
-    <h2>Ready to explore my portfolio?</h2>
-    <p>Take a look around. Everything is just a tap away.</p>
-    <button id="introOk" type="button">Okay</button>
+<div id="intro" aria-label="Welcome">
+  <div class="gate-card">
+    <div class="gate-logo"><img src="images/chat-avatar.png" alt="Implify Visuals" width="72" height="72"></div>
+    <div class="gate-brand"><span></span>IMPLIFY VISUALS<span></span></div>
+    <h2>Got a design problem?<br><em>We solve it visually.</em></h2>
+    <p>Step in and let's turn your ideas into visuals that make your brand stand out and get chosen.</p>
+    <div class="gate-line"></div>
+    <button id="introOk" type="button">Step in</button>
   </div>
 </div>
 <script>document.documentElement.classList.add('intro-lock')</script>
@@ -521,13 +517,8 @@
 (function(){
   var i=document.getElementById('intro'),ok=document.getElementById('introOk');
   if(!i)return;
-  var t=[300,1500,2700,3600];
-  setTimeout(function(){i.classList.add('s1')},t[0]);   // big mark appears
-  setTimeout(function(){i.classList.add('s2')},t[1]);   // split apart
-  setTimeout(function(){i.classList.add('s3')},t[2]);   // merge + zoom out + wordmark
-  setTimeout(function(){i.classList.add('s4')},t[3]);   // ready screen
-  function done(){i.classList.add('out');document.documentElement.classList.remove('intro-lock');setTimeout(function(){i.remove()},900);window.scrollTo(0,0)}
-  ok.addEventListener('click',done);
+  requestAnimationFrame(function(){i.classList.add('in')});
+  ok.addEventListener('click',function(){i.classList.add('out');document.documentElement.classList.remove('intro-lock');setTimeout(function(){i.remove()},800);window.scrollTo(0,0)});
 })();
 </script>
 <script src="script.js" defer></script>
