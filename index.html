@@ -15,6 +15,11 @@
 <link rel="stylesheet" href="premium-v56.css">
 </head>
 <body>
+<script>
+/* Photos auto-refresh: just replace images/miracle.jpg with a new file (same name). */
+(function(){var v=Math.floor(Date.now()/60000);document.addEventListener('DOMContentLoaded',function(){document.querySelectorAll('img[data-live-src]').forEach(function(i){i.src=i.getAttribute('data-live-src')+'?v='+v})});
+var q=document.querySelectorAll;})();
+</script>
 <div id="intro" aria-label="Welcome">
   <div class="gate-card">
     <div class="gate-logo"><img src="images/chat-avatar.png" alt="Implify Visuals" width="72" height="72"></div>
@@ -111,10 +116,7 @@
     </div>
     <div class="about-right">
         <div class="profile-card-wrapper">
-            <picture>
-                    <source srcset="images/miracle-q95.webp" type="image/webp">
-                    <img src="images/miracle.jpg" alt="Miracle" class="profile-img" width="2377" height="3264" loading="lazy" decoding="async">
-                </picture>
+            <img data-live-src="images/miracle.jpg" alt="Miracle" class="profile-img" width="2377" height="3264" loading="lazy" decoding="async">
             <div class="profile-tag"><strong>Israel Chibuikem Miracle</strong><span>Creative Lead, Implify Visuals</span></div>
         </div>
     </div>
@@ -517,7 +519,7 @@
 (function(){
   var i=document.getElementById('intro'),ok=document.getElementById('introOk');
   if(!i)return;
-  requestAnimationFrame(function(){i.classList.add('in')});
+  setTimeout(function(){i.classList.add('in')},120);
   ok.addEventListener('click',function(){i.classList.add('out');document.documentElement.classList.remove('intro-lock');setTimeout(function(){i.remove()},800);window.scrollTo(0,0)});
 })();
 </script>

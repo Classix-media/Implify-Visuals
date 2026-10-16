@@ -354,8 +354,8 @@ setupScrollReveal();
       obs.unobserve(entry.target);
     });
   }, {
-    threshold: 0.12,
-    rootMargin: '0px 0px -8% 0px'
+    threshold: 0.01,
+    rootMargin: '0px 0px -6% 0px'
   });
 
   document.querySelectorAll('.scroll-reveal, .scroll-reveal-stagger').forEach(el => observer.observe(el));
