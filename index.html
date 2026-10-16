@@ -15,6 +15,21 @@
 <link rel="stylesheet" href="premium-v56.css">
 </head>
 <body>
+<div id="intro" aria-label="Intro">
+  <div class="intro-stage">
+    <div class="intro-logo">
+      <img class="il-half il-top" src="images/logo-white.png" alt="" aria-hidden="true">
+      <img class="il-half il-bot" src="images/logo-white.png" alt="" aria-hidden="true">
+    </div>
+    <div class="intro-word" aria-hidden="true"><span>Implify</span><span>Visuals</span></div>
+  </div>
+  <div class="intro-ready">
+    <h2>Ready to explore my portfolio?</h2>
+    <p>Take a look around. Everything is just a tap away.</p>
+    <button id="introOk" type="button">Okay</button>
+  </div>
+</div>
+<script>document.documentElement.classList.add('intro-lock')</script>
 
 <!-- Header / Navigation -->
 <header class="navbar">
@@ -36,10 +51,7 @@
 <!-- Hero Section -->
 <section class="hero-section">
     <div class="hero-left">
-        <div class="hero-eyebrow" aria-label="Implify Visuals Portfolio">
-            <span class="hero-eyebrow-line"></span>
-            <span>IMPLIFY VISUALS PORTFOLIO</span>
-        </div>
+        <div class="welcome-pill"><img src="images/miracle-avatar.jpg" alt="Miracle" width="40" height="40"><span>Welcome! Make yourself at home <i aria-hidden="true">👋</i></span></div>
         <h1>Ideas, <span class="accent-text">Made Visuals.</span></h1>
         <p>We design visual identities, digital experiences, and motion graphics that give brands a clear and consistent visual presence.</p>
         <div class="hero-buttons">
@@ -107,7 +119,7 @@
                     <source srcset="images/miracle-q95.webp" type="image/webp">
                     <img src="images/miracle.jpg" alt="Miracle" class="profile-img" width="2377" height="3264" loading="lazy" decoding="async">
                 </picture>
-            <div class="profile-tag"><span class="profile-icon">👤</span> Miracle</div>
+            <div class="profile-tag"><strong>Israel Chibuikem Miracle</strong><span>Creative Lead, Implify Visuals</span></div>
         </div>
     </div>
 </section>
@@ -503,6 +515,19 @@
   var n=0,t=setInterval(function(){if(!v.paused||++n>10)clearInterval(t);else go()},500);
   var nb=document.querySelector('.navbar');
   if(nb){var f=function(){nb.classList.toggle('scrolled',window.scrollY>20)};f();window.addEventListener('scroll',f,{passive:true})}
+})();
+</script>
+<script>
+(function(){
+  var i=document.getElementById('intro'),ok=document.getElementById('introOk');
+  if(!i)return;
+  var t=[300,1500,2700,3600];
+  setTimeout(function(){i.classList.add('s1')},t[0]);   // big mark appears
+  setTimeout(function(){i.classList.add('s2')},t[1]);   // split apart
+  setTimeout(function(){i.classList.add('s3')},t[2]);   // merge + zoom out + wordmark
+  setTimeout(function(){i.classList.add('s4')},t[3]);   // ready screen
+  function done(){i.classList.add('out');document.documentElement.classList.remove('intro-lock');setTimeout(function(){i.remove()},900);window.scrollTo(0,0)}
+  ok.addEventListener('click',done);
 })();
 </script>
 <script src="script.js" defer></script>

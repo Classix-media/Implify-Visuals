@@ -195,3 +195,39 @@ body.menu-open .navbar{border-color:transparent!important;box-shadow:none!import
 .cursor-ring.hover{width:54px;height:54px;margin:-27px 0 0 -27px;background:rgba(0,85,255,.18);border-color:rgba(147,197,253,.9)}
 .cursor-ring.down{width:26px;height:26px;margin:-13px 0 0 -13px}
 @media(hover:none),(pointer:coarse){.cursor-dot,.cursor-ring{display:none!important}}
+
+/* ===== v61: intro animation ===== */
+html.intro-lock,html.intro-lock body{overflow:hidden!important;height:100%}
+#intro{position:fixed;inset:0;z-index:100000;background:radial-gradient(circle at 50% 45%,#0a1a4d 0%,#030818 70%);display:flex;align-items:center;justify-content:center;flex-direction:column;overflow:hidden;transition:transform .9s cubic-bezier(.77,0,.18,1),opacity .9s;font-family:'DM Sans',sans-serif}
+#intro.out{transform:translateY(-100%);opacity:0;pointer-events:none}
+.intro-stage{display:flex;align-items:center;justify-content:center;gap:14px;transition:opacity .6s,transform .8s cubic-bezier(.7,0,.2,1);position:absolute}
+.intro-logo{position:relative;width:96px;height:96px;transform:scale(0);transition:transform 1s cubic-bezier(.7,0,.2,1)}
+.il-half{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transition:transform .9s cubic-bezier(.77,0,.18,1)}
+.il-top{clip-path:inset(0 0 50% 0)}
+.il-bot{clip-path:inset(50% 0 0 0)}
+#intro.s1 .intro-logo{transform:scale(2.8)}
+#intro.s2 .il-top{transform:translate(-34%,-22%)}
+#intro.s2 .il-bot{transform:translate(34%,22%)}
+#intro.s2 .intro-logo{transform:scale(3.4) rotate(-4deg)}
+#intro.s3 .intro-logo{transform:scale(1) rotate(0)}
+#intro.s3 .il-half{transform:none}
+.intro-word{display:flex;flex-direction:column;line-height:1;overflow:hidden;max-width:0;opacity:0;white-space:nowrap;color:#fff;font-weight:700;font-size:30px;letter-spacing:.01em;transition:max-width 1s cubic-bezier(.7,0,.2,1) .15s,opacity .6s .3s}
+.intro-word span:last-child{color:#3b82f6;font-weight:500;font-size:.78em;letter-spacing:.32em;text-transform:uppercase;margin-top:6px}
+#intro.s3 .intro-word{max-width:220px;opacity:1}
+#intro.s4 .intro-stage{opacity:0;transform:scale(.8) translateY(-20px);pointer-events:none}
+.intro-ready{position:absolute;text-align:center;padding:0 28px;opacity:0;transform:translateY(24px);pointer-events:none;transition:opacity .7s .2s,transform .7s .2s}
+#intro.s4 .intro-ready{opacity:1;transform:none;pointer-events:auto}
+.intro-ready h2{color:#fff;font-size:clamp(1.6rem,6vw,2.4rem);margin:0 0 10px;font-weight:700}
+.intro-ready p{color:rgba(255,255,255,.65);margin:0 0 26px}
+#introOk{background:#0055ff;color:#fff;border:0;padding:14px 46px;border-radius:999px;font:600 1rem 'DM Sans',sans-serif;cursor:pointer;box-shadow:0 8px 28px rgba(0,85,255,.5);transition:transform .2s}
+#introOk:active{transform:scale(.95)}
+
+/* ===== v61: welcome pill ===== */
+.welcome-pill{display:inline-flex;align-items:center;gap:12px;padding:6px 20px 6px 6px;margin-bottom:22px;border-radius:999px;background:rgba(10,30,100,.35);border:1px solid rgba(96,165,250,.35);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);color:#fff;font-size:.95rem;font-weight:500;box-shadow:0 6px 22px rgba(0,40,160,.25)}
+.welcome-pill img{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid #3b82f6;box-shadow:0 0 12px rgba(59,130,246,.6)}
+.welcome-pill i{font-style:normal}
+
+/* ===== v61: glass name card ===== */
+.profile-card-wrapper .profile-tag{left:16px!important;right:16px!important;bottom:16px!important;padding:14px 20px!important;border-radius:20px!important;background:rgba(8,18,48,.45)!important;border:1px solid rgba(255,255,255,.16)!important;-webkit-backdrop-filter:blur(18px) saturate(160%);backdrop-filter:blur(18px) saturate(160%);display:flex;flex-direction:column;gap:3px;box-shadow:0 8px 28px rgba(0,10,50,.4),inset 0 1px 0 rgba(255,255,255,.14)}
+.profile-tag strong{font-size:1.05rem;font-weight:600;color:#fff}
+.profile-tag span{font-size:.85rem;color:rgba(255,255,255,.7)}
