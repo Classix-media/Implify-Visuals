@@ -220,7 +220,17 @@ async function initializePaystack() {
   btn.disabled = true; btn.textContent = 'Connecting to secure checkout…';
   $('paymentStatus').hidden = false;
   $('paymentStatus').textContent = 'Sending your booking to the existing Make.com → Paystack initialization workflow. Your reference is ' + state.ref + '.';
-  const payload = { project_id: state.ref, client_name: state.name, client_email: state.email, amount: Number(state.amount), currency: String(state.currency).toUpperCase(), business: state.business, whatsapp: state.whatsapp, brief: state.brief, timeline: state.timeline };
+  // Currency and amount are derived from the exact selection (never hardcoded): USD -> usdAmount, NGN -> ngnAmount.
+  const payCurrency = String(state.currency).toUpperCase();
+  const payAmount = payCurrency === 'USD' ? Number(state.usdAmount) : payCurrency === 'NGN' ? Number(state.ngnAmount) : NaN;
+  if (!['NGN','USD'].includes(payCurrency) || !Number.isFinite(payAmount) || payAmount <= 0) {
+    $('paymentStatus').textContent = 'Please choose a package and billing currency again before paying. No payment was started.';
+    toast('Select a package and currency first.');
+    btn.disabled=false; btn.textContent='Initialize secure payment →';
+    return;
+  }
+  // amount stays in major units (existing contract with Make); amount_minor is an additive helper (kobo / cents) for Paystack.
+  const payload = { project_id: state.ref, client_name: state.name, client_email: state.email, amount: payAmount, amount_minor: Math.round(payAmount * 100), currency: payCurrency, business: state.business, whatsapp: state.whatsapp, brief: state.brief, timeline: state.timeline };
   try {
     const res = await fetch(MAKE_BOOKING_WEBHOOK, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) });
     const text = await res.text();
