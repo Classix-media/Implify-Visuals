@@ -6,7 +6,13 @@
 <script>(function(){try{var w=Math.min(screen.width,screen.height);if(w>=280&&w<=600&&innerHeight>innerWidth){document.querySelector('meta[name=viewport]').setAttribute('content','width=412, viewport-fit=cover')}}catch(e){}})();</script>
   <meta name="theme-color" content="#03050a">
   <title>Book a Project | Implify Visuals</title>
-  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="icon" type="image/png" sizes="any" href="images/favicon.png?v=3">
+    <link rel="shortcut icon" href="images/favicon.png?v=3">
+    <link rel="apple-touch-icon" href="images/favicon.png?v=3">
+    <script>
+    /* Favicon auto-refresh: replace images/favicon.png (same name) and it updates within minutes. */
+    (function(){var v=Math.floor(Date.now()/600000);document.querySelectorAll('link[rel*="icon"]').forEach(function(l){l.href='images/favicon.png?v='+v})})();
+    </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter+Tight:wght@300;400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
