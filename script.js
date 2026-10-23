@@ -403,21 +403,26 @@ setupScrollReveal();
 (function ppCarousel(){
   const track=document.getElementById('ppTrack');if(!track)return;
   const slides=[...track.querySelectorAll('.pp-slide')],dots=[...document.querySelectorAll('.pp-dot')],now=document.getElementById('ppNow');
-  let cur=0,timer=null,resume=null,raf=0,moved=false,visible=true;
+  let cur=0,tid=null,resume=null,raf=0,moved=false,visible=true,lockUntil=0,unlock=null,settle=null;
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   const pos=i=>slides[i].offsetLeft-(track.clientWidth-slides[i].clientWidth)/2;
   const set=i=>{cur=i;slides.forEach((s,k)=>s.classList.toggle('is-active',k===i));dots.forEach((d,k)=>d.classList.toggle('is-active',k===i));if(now)now.textContent=String(i+1).padStart(2,'0');};
   const pc=()=>matchMedia('(min-width:901px)').matches;
-  const go=i=>{if(pc())return;i=(i+slides.length)%slides.length;track.scrollTo({left:pos(i),behavior:'smooth'});set(i);};
-  const sync=()=>{raf=0;const c=track.scrollLeft+track.clientWidth/2;let b=0,d=1e9;slides.forEach((s,k)=>{const x=Math.abs(s.offsetLeft+s.clientWidth/2-c);if(x<d){d=x;b=k;}});if(b!==cur)set(b);};
-  track.addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(sync);},{passive:true});
-  const stop=()=>{clearInterval(timer);timer=null;};
-  const play=()=>{if(pc()||reduce||timer||!visible||document.hidden)return;timer=setInterval(()=>go(cur+1),3000);};
-  const pause=()=>{stop();clearTimeout(resume);resume=setTimeout(play,4000);};
+  const go=i=>{if(pc())return;i=(i+slides.length)%slides.length;
+    /* while we scroll programmatically: ignore scroll-sync (it used to flip the counter back mid-slide) and let mandatory snap not fight the animation */
+    lockUntil=Date.now()+(i===0?1100:800);track.style.scrollSnapType='none';clearTimeout(unlock);
+    unlock=setTimeout(()=>{track.style.scrollSnapType='';sync();},lockUntil-Date.now()+60);
+    track.scrollTo({left:pos(i),behavior:'smooth'});set(i);};
+  const sync=()=>{raf=0;if(Date.now()<lockUntil)return;const c=track.scrollLeft+track.clientWidth/2;let b=0,d=1e9;slides.forEach((s,k)=>{const x=Math.abs(s.offsetLeft+s.clientWidth/2-c);if(x<d){d=x;b=k;}});if(b!==cur)set(b);};
+  track.addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(sync);clearTimeout(settle);settle=setTimeout(()=>{lockUntil=0;sync();},140);},{passive:true});
+  const stop=()=>{clearTimeout(tid);tid=null;};
+  const tick=()=>{go(cur+1);tid=setTimeout(tick,3000);};
+  const play=(first=1200)=>{if(pc()||reduce||tid||!visible||document.hidden)return;tid=setTimeout(tick,first);};   /* first slide ~1.2 s after it comes into view, then every 3 s */
+  const pause=()=>{stop();clearTimeout(resume);resume=setTimeout(()=>play(1500),2800);};
   document.getElementById('ppPrev')?.addEventListener('click',()=>{go(cur-1);pause();});
   document.getElementById('ppNext')?.addEventListener('click',()=>{go(cur+1);pause();});
   dots.forEach(d=>d.addEventListener('click',()=>{go(+d.dataset.i);pause();}));
-  ['touchstart','wheel','keydown'].forEach(e=>track.addEventListener(e,pause,{passive:true}));
+  ['touchstart','touchend','wheel','keydown'].forEach(e=>track.addEventListener(e,pause,{passive:true}));
   track.addEventListener('mouseenter',stop);track.addEventListener('mouseleave',()=>{clearTimeout(resume);resume=setTimeout(play,1200);});
   track.addEventListener('keydown',e=>{if(e.key==='ArrowRight')go(cur+1);if(e.key==='ArrowLeft')go(cur-1);});
   /* mouse drag for PC */
@@ -426,7 +431,7 @@ setupScrollReveal();
   window.addEventListener('pointermove',e=>{if(!down)return;const dx=e.clientX-sx;if(Math.abs(dx)>6){moved=true;track.classList.add('is-dragging');}if(moved)track.scrollLeft=sl-dx;});
   window.addEventListener('pointerup',()=>{if(!down)return;down=false;if(moved){track.classList.remove('is-dragging');sync();go(cur);pause();}});
   track.addEventListener('click',e=>{if(moved){e.preventDefault();e.stopPropagation();moved=false;}},true);
-  new IntersectionObserver(en=>{visible=en[0].isIntersecting;visible?play():stop();},{threshold:.35}).observe(track);
+  new IntersectionObserver(en=>{visible=en[0].isIntersecting;visible?play(1200):stop();},{threshold:.35}).observe(track);
   document.addEventListener('visibilitychange',()=>document.hidden?stop():play());
   addEventListener('resize',()=>track.scrollTo({left:pos(cur)}));
   track.scrollTo({left:pos(0)});play();

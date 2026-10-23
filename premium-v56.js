@@ -99,26 +99,3 @@
   document.addEventListener('mouseover',function(e){r.classList.toggle('hover',!!(e.target.closest&&e.target.closest('a,button,[role=button],.wf-step,input,textarea,select')))});
   (function loop(){rx+=(x-rx)*.18;ry+=(y-ry)*.18;r.style.transform='translate('+rx+'px,'+ry+'px)';requestAnimationFrame(loop)})();
 })();
-
-
-/* v70: desktop-only brand showcase (video loads only on PC; glass cards appear 3 s after the section is reached) */
-(function(){
-  var sec=document.querySelector('.showcase-section'); if(!sec) return;
-  if(!window.matchMedia||!matchMedia('(min-width:901px)').matches) return;
-  var v=document.getElementById('showcaseVideo'), stage=document.getElementById('showcaseStage'); if(!v||!stage) return;
-  v.removeAttribute('controls'); v.controls=false; v.muted=true; v.defaultMuted=true; v.playsInline=true;
-  v.setAttribute('muted',''); v.setAttribute('playsinline','');
-  v.addEventListener('error',function(){ sec.style.display='none'; });   // file missing or unplayable: no empty box
-  v.src=v.getAttribute('data-src'); try{v.load();}catch(e){}
-  function go(){var p;try{p=v.play()}catch(e){} if(p&&p.catch)p.catch(function(){})}
-  v.addEventListener('canplay',go); v.addEventListener('loadedmetadata',go);
-  v.addEventListener('pause',function(){if(!document.hidden&&stage.classList.contains('in'))setTimeout(go,50)});
-  document.addEventListener('visibilitychange',function(){if(!document.hidden)go()});
-  window.addEventListener('pageshow',go);
-  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches, shown=false;
-  function reveal(){ if(shown) return; shown=true; stage.classList.add('in'); go();
-    if(reduce) stage.classList.add('cards-in'); else setTimeout(function(){stage.classList.add('cards-in')},3000); }
-  if('IntersectionObserver' in window){
-    new IntersectionObserver(function(es){es.forEach(function(e){ if(e.isIntersecting) reveal(); })},{threshold:.4}).observe(stage);
-  } else { reveal(); }
-})();
