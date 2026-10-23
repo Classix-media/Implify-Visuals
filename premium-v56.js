@@ -23,14 +23,14 @@
   var steps = [].slice.call(sec.querySelectorAll('.wf-step'));
   var body = sec.querySelector('.chat-body');
   var status = sec.querySelector('.chat-head small');
-  var DUR = 5500;
+  var DUR = 7500;
   sec.style.setProperty('--dur', DUR/1000 + 's');
 
   var script = [
-    [ {t:'sys',x:'You chose: Brand Identity'}, {t:'out',x:"Hello Implify Visuals 👋 I'd like to start a project."}, {t:'card',h:'PROJECT REQUEST',x:'Service: Brand Identity<br>Status: Brief received'} ],
-    [ {t:'in',x:"Welcome! 👋 Tell us about your brand and what you need."}, {t:'out',x:"A logo and a clean brand look for my business."}, {t:'in',x:"Perfect. We'll confirm the scope, timeline and quote with you here."} ],
-    [ {t:'in',x:"First concepts are ready ✨ Take a look."}, {t:'card',h:'CONCEPTS · ROUND 1',x:'3 directions shared<br>Send feedback and we refine'}, {t:'out',x:"Love direction 2! Small tweak on the colors please."} ],
-    [ {t:'in',x:"Done ✅ Final files are ready: logo pack, brand guide and social kit."}, {t:'out',x:"Amazing work, thank you! 🙌"} ]
+    [ {t:'sys',x:'You chose: Brand Identity'}, {t:'out',x:"Hello Implify Visuals 👋 I'd like to start a project."}, {t:'card',h:'PROJECT REQUEST',x:'Service: Brand Identity<br>Status: Brief received'}, {t:'in',x:"Got it! Tell us a little about your brand."}, {t:'out',x:"It's a fashion label launching next month."}, {t:'in',x:"Lovely. We'll prepare a short brief for you."} ],
+    [ {t:'in',x:"Welcome! 👋 Tell us about your brand and what you need."}, {t:'out',x:"A logo and a clean brand look for my business."}, {t:'in',x:"Perfect. We'll confirm the scope, timeline and quote with you here."}, {t:'out',x:"How long will it take?"}, {t:'in',x:"About a week for the first concepts."}, {t:'out',x:"Great, let's go! 🙌"} ],
+    [ {t:'in',x:"First concepts are ready ✨ Take a look."}, {t:'card',h:'CONCEPTS · ROUND 1',x:'3 directions shared<br>Send feedback and we refine'}, {t:'out',x:"Love direction 2! Small tweak on the colors please."}, {t:'in',x:"Noted, updating the colors now 🎨"}, {t:'out',x:"Can the logo feel a bit bolder too?"}, {t:'in',x:"Done. Sending the refined version ✨"} ],
+    [ {t:'in',x:"Done ✅ Final files are ready: logo pack, brand guide and social kit."}, {t:'card',h:'FINAL FILES · DELIVERED',x:'Logo pack · Brand guide<br>Social media kit'}, {t:'out',x:"Amazing work, thank you! 🙌"}, {t:'in',x:"Our pleasure. We're here for whatever comes next."}, {t:'out',x:"Definitely working with you again!"}, {t:'in',x:"Anytime 💙"} ]
   ];
 
   var cur = -1, timers = [];
@@ -41,7 +41,7 @@
     if (m.t === 'card') d.innerHTML = '<b>' + m.h + '</b><span>' + m.x + '</span>';
     else d.textContent = m.x;
     body.appendChild(d);
-    while (body.children.length > 8) body.removeChild(body.firstChild);
+    while (body.children.length > 7) body.removeChild(body.firstChild);
     return d;
   }
   function run(i){
@@ -108,7 +108,8 @@
   var v=document.getElementById('showcaseVideo'), stage=document.getElementById('showcaseStage'); if(!v||!stage) return;
   v.removeAttribute('controls'); v.controls=false; v.muted=true; v.defaultMuted=true; v.playsInline=true;
   v.setAttribute('muted',''); v.setAttribute('playsinline','');
-  v.src=v.getAttribute('data-src');
+  v.addEventListener('error',function(){ sec.style.display='none'; });   // file missing or unplayable: no empty box
+  v.src=v.getAttribute('data-src'); try{v.load();}catch(e){}
   function go(){var p;try{p=v.play()}catch(e){} if(p&&p.catch)p.catch(function(){})}
   v.addEventListener('canplay',go); v.addEventListener('loadedmetadata',go);
   v.addEventListener('pause',function(){if(!document.hidden&&stage.classList.contains('in'))setTimeout(go,50)});
