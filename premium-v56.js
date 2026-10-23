@@ -23,7 +23,7 @@
   var steps = [].slice.call(sec.querySelectorAll('.wf-step'));
   var body = sec.querySelector('.chat-body');
   var status = sec.querySelector('.chat-head small');
-  var DUR = 8000;
+  var DUR = 5500;
   sec.style.setProperty('--dur', DUR/1000 + 's');
 
   var script = [
@@ -41,7 +41,7 @@
     if (m.t === 'card') d.innerHTML = '<b>' + m.h + '</b><span>' + m.x + '</span>';
     else d.textContent = m.x;
     body.appendChild(d);
-    while (body.children.length > 6) body.removeChild(body.firstChild);
+    while (body.children.length > 8) body.removeChild(body.firstChild);
     return d;
   }
   function run(i){
@@ -52,7 +52,7 @@
     });
     body.innerHTML = '';
     if (status) status.textContent = 'online';
-    var t = 250;
+    var t = 150;
     script[i].forEach(function(m){
       var incoming = m.t === 'in' || m.t === 'card';
       if (incoming && !reduce) {
@@ -61,12 +61,12 @@
           var ty = document.createElement('div');
           ty.className = 'msg typing'; ty.innerHTML = '<i></i><i></i><i></i>';
           body.appendChild(ty);
-          timers.push(setTimeout(function(){ if (ty.parentNode) ty.parentNode.removeChild(ty); if (status) status.textContent = 'online'; add(m); }, 900));
+          timers.push(setTimeout(function(){ if (ty.parentNode) ty.parentNode.removeChild(ty); if (status) status.textContent = 'online'; add(m); }, 450));
         }, t));
-        t += 1150 + 500;
+        t += 450 + 300;
       } else {
         timers.push(setTimeout(function(){ add(m); }, t));
-        t += 800;
+        t += 450;
       }
     });
     if (!reduce) timers.push(setTimeout(function(){ run((i+1) % steps.length); }, DUR));
@@ -98,4 +98,26 @@
   window.addEventListener('mouseup',function(){r.classList.remove('down')});
   document.addEventListener('mouseover',function(e){r.classList.toggle('hover',!!(e.target.closest&&e.target.closest('a,button,[role=button],.wf-step,input,textarea,select')))});
   (function loop(){rx+=(x-rx)*.18;ry+=(y-ry)*.18;r.style.transform='translate('+rx+'px,'+ry+'px)';requestAnimationFrame(loop)})();
+})();
+
+
+/* v70: desktop-only brand showcase (video loads only on PC; glass cards appear 3 s after the section is reached) */
+(function(){
+  var sec=document.querySelector('.showcase-section'); if(!sec) return;
+  if(!window.matchMedia||!matchMedia('(min-width:901px)').matches) return;
+  var v=document.getElementById('showcaseVideo'), stage=document.getElementById('showcaseStage'); if(!v||!stage) return;
+  v.removeAttribute('controls'); v.controls=false; v.muted=true; v.defaultMuted=true; v.playsInline=true;
+  v.setAttribute('muted',''); v.setAttribute('playsinline','');
+  v.src=v.getAttribute('data-src');
+  function go(){var p;try{p=v.play()}catch(e){} if(p&&p.catch)p.catch(function(){})}
+  v.addEventListener('canplay',go); v.addEventListener('loadedmetadata',go);
+  v.addEventListener('pause',function(){if(!document.hidden&&stage.classList.contains('in'))setTimeout(go,50)});
+  document.addEventListener('visibilitychange',function(){if(!document.hidden)go()});
+  window.addEventListener('pageshow',go);
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches, shown=false;
+  function reveal(){ if(shown) return; shown=true; stage.classList.add('in'); go();
+    if(reduce) stage.classList.add('cards-in'); else setTimeout(function(){stage.classList.add('cards-in')},3000); }
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){es.forEach(function(e){ if(e.isIntersecting) reveal(); })},{threshold:.4}).observe(stage);
+  } else { reveal(); }
 })();
