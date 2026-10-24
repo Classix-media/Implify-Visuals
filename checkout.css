@@ -133,3 +133,6 @@
 .co-bank{padding:11px 8px;border-radius:12px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;font:600 .8rem "DM Sans",sans-serif;cursor:pointer}
 .co-bank[aria-pressed="true"]{background:#fff;color:#0a2fd0}
 .co-wait{display:flex;align-items:center;gap:10px;margin-top:12px;font-size:.84rem;color:rgba(255,255,255,.9)}.co-wait i{width:14px;height:14px;border-radius:50%;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;animation:coSpin .8s linear infinite}
+
+.co-m{position:relative}.co-new{position:absolute;top:-7px;right:-4px;font:700 .56rem/1 "DM Sans",sans-serif;font-style:normal;letter-spacing:.06em;color:#fff;background:#ef4444;padding:4px 6px;border-radius:6px;box-shadow:0 4px 10px -4px rgba(239,68,68,.8)}
+.co-video{transition:opacity .45s ease}.co-video.fade{opacity:0}

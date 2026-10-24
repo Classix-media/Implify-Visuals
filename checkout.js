@@ -228,6 +228,7 @@ async function downloadInvoice(){
     v.removeAttribute('controls'); v.loop = true; v.controls = false; v.muted = true; v.defaultMuted = true; v.playsInline = true;
     v.setAttribute('muted', ''); v.setAttribute('playsinline', '');
     const go = () => { let p; try { p = v.play(); } catch (e) {} if (p && p.catch) p.catch(() => {}); };
+    (function fadeLoop() { const d = v.duration, t = v.currentTime; if (d) v.classList.toggle('fade', t > d - 0.4 || t < 0.12); requestAnimationFrame(fadeLoop); })();
     go(); v.addEventListener('loadedmetadata', go); v.addEventListener('canplay', go);
     v.addEventListener('pause', () => { if (!document.hidden) setTimeout(go, 50); });
     document.addEventListener('visibilitychange', () => { if (!document.hidden) go(); });
@@ -292,17 +293,19 @@ async function downloadInvoice(){
   function fallback() { if (co.url) { const f = $('coFallback'); f.href = co.url; f.hidden = false; } }
 
   /* ----- selectable payment methods (all map to real Paystack channels; Google Pay and OPay are not Paystack channels so they are not offered) ----- */
-  const NGN_ONLY = ['bank_transfer', 'ussd', 'bank'];
+  const NGN_ONLY = ['zap', 'bank_transfer', 'bank', 'ussd', 'payattitude', 'opay'];
   const INFO = {
-    card: ['Card payment', 'Pay with a Visa, Mastercard or Verve debit/credit card. You enter the card details inside the encrypted payment window, never on our own page. Your bank may ask for a PIN, OTP or 3D Secure approval.'],
-    apple_pay: ['Apple Pay', 'Available on Safari with Apple Pay set up on your device, and only if Apple Pay is enabled on our payment account. If it is not available for you, the window will tell you and you can choose another method.'],
-    bank_transfer: ['Bank transfer', 'A one-time account number is generated for this exact order. Transfer the exact amount from your banking app. We confirm it with the payment processor before marking anything paid, which can take a few minutes.'],
-    ussd: ['USSD', 'Pick your bank and you will get a USSD code to dial on your phone to approve the payment. Some banks have transaction limits.'],
-    bank: ['Pay with bank', 'Log in to your bank account in the secure window and approve this payment directly. Only supported banks are listed.']
+    zap: ['Zap', 'Opens the secure payment window where you can pay with Zap or choose any other method it lists.'],
+    card: ['Card or Google Pay', 'Opens the secure card window directly. Pay with a Visa, Mastercard or Verve card, or Google Pay where your device supports it. Your bank may ask for a PIN, OTP or 3D Secure approval.'],
+    bank_transfer: ['Transfer', 'Opens the transfer window directly. You get a one-time account number for this exact order. Send the exact amount from your banking app and we confirm it automatically.'],
+    bank: ['Bank', 'Opens the secure window straight on Pay with Bank. Pick your bank and approve the payment from your bank login or app.'],
+    ussd: ['USSD', 'Opens the secure window straight on USSD. Pick your bank, then dial the code shown on your phone to approve the payment.'],
+    payattitude: ['PayAttitude', 'Opens the secure window straight on PayAttitude. Enter your phone number and approve with your PayAttitude app, bank app or USSD.'],
+    opay: ['OPay', 'Opens the secure window on Pay with Bank, where you choose OPay from the list and approve in your OPay app.']
   };
-  const NAMES = { card: 'Card', apple_pay: 'Apple Pay', bank_transfer: 'Bank transfer', ussd: 'USSD', bank: 'Pay with bank' };
+  const NAMES = { zap: 'Zap', card: 'Card or Google Pay', bank_transfer: 'Transfer', bank: 'Bank', ussd: 'USSD', payattitude: 'PayAttitude', opay: 'OPay' };
   let secureOnly = false, selected = null, lastReference = '', busy = false, ussdType = '', pollTimer = null;
-  const ONSITE = ['bank_transfer', 'ussd'], BANKS = { '737': 'GTBank', '966': 'Zenith Bank', '919': 'UBA', '822': 'Sterling Bank' };
+  const ONSITE = [], BANKS = { '737': 'GTBank', '966': 'Zenith Bank', '919': 'UBA', '822': 'Sterling Bank' };
   const info = $('coMethodInfo'), methodBtns = [...document.querySelectorAll('.co-m')];
   $('coCur').textContent = state.currency;
   $('coBkRef').textContent = 'Booking ' + state.ref;
@@ -317,10 +320,10 @@ async function downloadInvoice(){
       info.innerHTML = '<strong></strong><span></span><ul><li></li><li></li></ul>';
       info.querySelector('strong').textContent = INFO[m][0]; info.querySelector('span').textContent = INFO[m][1];
       const li = info.querySelectorAll('li'); li[0].textContent = 'Amount: ' + money(amount, state.currency) + ' (' + state.currency + ')'; li[1].textContent = 'Booking reference: ' + state.ref;
-      if (m === 'ussd') { const g = document.createElement('div'); g.className = 'co-banks'; Object.keys(BANKS).forEach((k) => { const x = document.createElement('button'); x.type = 'button'; x.className = 'co-bank'; x.textContent = BANKS[k]; x.setAttribute('aria-pressed', String(ussdType === k));
+      if (false) { const g = document.createElement('div'); g.className = 'co-banks'; Object.keys(BANKS).forEach((k) => { const x = document.createElement('button'); x.type = 'button'; x.className = 'co-bank'; x.textContent = BANKS[k]; x.setAttribute('aria-pressed', String(ussdType === k));
         x.addEventListener('click', () => { ussdType = k; g.querySelectorAll('button').forEach((y) => y.setAttribute('aria-pressed', String(y === x))); payBtn.disabled = false; }); g.appendChild(x); }); info.appendChild(g); }
       info.classList.add('on');
-      payBtn.disabled = (m === 'ussd' && !ussdType);
+      payBtn.disabled = false;
       payBtn.querySelector('.co-pay-label').textContent = 'Pay ' + money(amount, state.currency) + ' with ' + NAMES[m];
     });
   });
