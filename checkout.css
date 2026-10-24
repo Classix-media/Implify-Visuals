@@ -6,8 +6,8 @@
 
 /* entrance: slide up + blur to sharp */
 @keyframes coIn{from{opacity:0;transform:translate3d(0,56px,0);filter:blur(16px)}to{opacity:1;transform:none;filter:blur(0)}}
-.co-in{opacity:0;animation:coIn 1.05s cubic-bezier(.22,1,.36,1) forwards;animation-delay:var(--d,0ms)}
-.co-swap{animation:coIn .8s cubic-bezier(.22,1,.36,1) both}
+.co-in{opacity:1}
+.co-swap{animation:none}
 
 /* the two-card layout from your reference: dark media card overlapping the cobalt payment panel */
 .co-card{display:flex;align-items:stretch;position:relative}
@@ -122,3 +122,15 @@
 .co-total em{font-style:normal;font-weight:700;color:#fff}.co-total small{display:block;margin-top:4px;font-size:.72rem;letter-spacing:.02em;color:rgba(255,255,255,.7)}
 .co-pay:disabled:not(.busy){opacity:.6;cursor:not-allowed}
 @media(prefers-reduced-motion:reduce){.co-m,.co-minfo{transition:none}}
+
+.co-video{transition:opacity .45s ease}.co-video.fade{opacity:0}
+.co-onsite{margin-top:16px;padding:18px;border-radius:20px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.co-onsite h3{margin:0 0 6px;font-size:1.05rem;color:#fff}.co-onsite p{margin:0 0 12px;font-size:.84rem;line-height:1.55;color:rgba(255,255,255,.85)}
+.co-kv{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 0;border-top:1px solid rgba(255,255,255,.16);font-size:.88rem}
+.co-kv span{color:rgba(255,255,255,.7)}.co-kv b{font-size:1.05rem;letter-spacing:.04em;word-break:break-all;text-align:right}
+.co-copy,.co-link{border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.12);color:#fff;border-radius:12px;padding:8px 12px;font:600 .78rem "DM Sans",sans-serif;cursor:pointer}
+.co-link{display:block;width:100%;margin-top:10px;padding:12px}
+.co-banks{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.co-bank{padding:11px 8px;border-radius:12px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;font:600 .8rem "DM Sans",sans-serif;cursor:pointer}
+.co-bank[aria-pressed="true"]{background:#fff;color:#0a2fd0}
+.co-wait{display:flex;align-items:center;gap:10px;margin-top:12px;font-size:.84rem;color:rgba(255,255,255,.9)}.co-wait i{width:14px;height:14px;border-radius:50%;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;animation:coSpin .8s linear infinite}

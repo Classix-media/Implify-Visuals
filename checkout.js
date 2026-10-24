@@ -225,15 +225,18 @@ async function downloadInvoice(){
   /* ----- video: behaves like the hero animation (no play icon on any device) ----- */
   (function video() {
     const v = $('coVideo'); if (!v) return;
-    v.removeAttribute('controls'); v.controls = false; v.muted = true; v.defaultMuted = true; v.playsInline = true;
+    v.removeAttribute('controls'); v.removeAttribute('loop'); v.loop = false; v.controls = false; v.muted = true; v.defaultMuted = true; v.playsInline = true;
     v.setAttribute('muted', ''); v.setAttribute('playsinline', '');
     const go = () => { let p; try { p = v.play(); } catch (e) {} if (p && p.catch) p.catch(() => {}); };
+    let fading = false;
+    /* fade out just before the end, jump back to the start while hidden, fade in: no visible "replay" */
+    v.addEventListener('timeupdate', () => { if (v.duration && v.duration - v.currentTime < 0.5 && !fading) { fading = true; v.classList.add('fade'); } });
+    v.addEventListener('ended', () => { setTimeout(() => { v.currentTime = 0; go(); setTimeout(() => { v.classList.remove('fade'); fading = false; }, 120); }, 460); });
     go(); v.addEventListener('loadedmetadata', go); v.addEventListener('canplay', go);
-    v.addEventListener('pause', () => { if (!document.hidden) setTimeout(go, 50); });
+    v.addEventListener('pause', () => { if (!document.hidden && !v.ended) setTimeout(go, 50); });
     document.addEventListener('visibilitychange', () => { if (!document.hidden) go(); });
     window.addEventListener('pageshow', go);
     ['touchstart', 'click', 'scroll'].forEach((e) => window.addEventListener(e, go, { passive: true, once: true }));
-    let n = 0; const t = setInterval(() => { if (!v.paused || ++n > 10) clearInterval(t); else go(); }, 500);
   })();
 
   const paid = load('implifyPaid');
@@ -302,7 +305,8 @@ async function downloadInvoice(){
     bank: ['Pay with bank', 'Log in to your bank account in the secure window and approve this payment directly. Only supported banks are listed.']
   };
   const NAMES = { card: 'Card', apple_pay: 'Apple Pay', bank_transfer: 'Bank transfer', ussd: 'USSD', bank: 'Pay with bank' };
-  let selected = null, lastReference = '', busy = false;
+  let selected = null, lastReference = '', busy = false, ussdType = '', pollTimer = null;
+  const ONSITE = ['bank_transfer', 'ussd'], BANKS = { '737': 'GTBank', '966': 'Zenith Bank', '919': 'UBA', '822': 'Sterling Bank' };
   const info = $('coMethodInfo'), methodBtns = [...document.querySelectorAll('.co-m')];
   $('coCur').textContent = state.currency;
   $('coBkRef').textContent = 'Booking ' + state.ref;
@@ -317,8 +321,10 @@ async function downloadInvoice(){
       info.innerHTML = '<strong></strong><span></span><ul><li></li><li></li></ul>';
       info.querySelector('strong').textContent = INFO[m][0]; info.querySelector('span').textContent = INFO[m][1];
       const li = info.querySelectorAll('li'); li[0].textContent = 'Amount: ' + money(amount, state.currency) + ' (' + state.currency + ')'; li[1].textContent = 'Booking reference: ' + state.ref;
+      if (m === 'ussd') { const g = document.createElement('div'); g.className = 'co-banks'; Object.keys(BANKS).forEach((k) => { const x = document.createElement('button'); x.type = 'button'; x.className = 'co-bank'; x.textContent = BANKS[k]; x.setAttribute('aria-pressed', String(ussdType === k));
+        x.addEventListener('click', () => { ussdType = k; g.querySelectorAll('button').forEach((y) => y.setAttribute('aria-pressed', String(y === x))); payBtn.disabled = false; }); g.appendChild(x); }); info.appendChild(g); }
       info.classList.add('on');
-      payBtn.disabled = false;
+      payBtn.disabled = (m === 'ussd' && !ussdType);
       payBtn.querySelector('.co-pay-label').textContent = 'Pay ' + money(amount, state.currency) + ' with ' + NAMES[m];
     });
   });
@@ -344,9 +350,48 @@ async function downloadInvoice(){
     } catch (e) { clearTimeout(slow); busy = false; resetBtn(); note('Could not open the secure window.', true); fallback(); }
   }
 
+  function row(label, value, copy) { const d = document.createElement('div'); d.className = 'co-kv'; const s = document.createElement('span'); s.textContent = label; const bb = document.createElement('b'); bb.textContent = value; d.append(s, bb);
+    if (copy) { const c = document.createElement('button'); c.type = 'button'; c.className = 'co-copy'; c.textContent = 'Copy'; c.onclick = async () => { try { await navigator.clipboard.writeText(value); c.textContent = 'Copied'; setTimeout(() => c.textContent = 'Copy', 1500); } catch (_) { toast('Copy not available. Select the text instead.'); } }; d.appendChild(c); } return d; }
+  function stopPoll() { clearTimeout(pollTimer); pollTimer = null; }
+  function backToMethods() { stopPoll(); $('coOnsite').hidden = true; $('coOnsite').innerHTML = ''; $('coMethods').hidden = false; info.hidden = false; payBtn.hidden = false; resetBtn(); note(''); }
+  async function poll(reference, n) {
+    stopPoll(); if (n > 120) { $('coWaitTxt') && ($('coWaitTxt').textContent = 'Still waiting. If you have paid, tap "Check my payment" or send your reference on WhatsApp.'); return; }
+    try {
+      const r = await fetch('/api/verify-payment', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ reference, ref: state.ref, service: state.service, package: state.packageName, currency: state.currency, email: state.email }) });
+      const out = await r.json().catch(() => ({}));
+      if (r.ok && out.verified) { const inf = { ref: state.ref, reference: out.reference || reference, channel: out.channel, paid_at: out.paid_at, at: Date.now() }; try { localStorage.setItem('implifyPaid', JSON.stringify(inf)); } catch (_) {} stopPoll(); showPaid(inf); return; }
+      if (r.ok && out.reason === 'failed') { $('coWaitTxt').textContent = 'The payment failed. Please go back and try again.'; return; }
+    } catch (_) {}
+    pollTimer = setTimeout(() => poll(reference, n + 1), 5000);
+  }
+  async function startOnsite() {
+    busy = true; payBtn.disabled = true; payBtn.classList.add('busy');
+    let out = null;
+    try { const r = await fetch('/api/charge-payment', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ref: state.ref, service: state.service, package: state.packageName, currency: state.currency, email: state.email, name: state.name, method: selected, ussdType }) });
+      out = await r.json().catch(() => ({})); } catch (e) { out = null; }
+    busy = false; resetBtn();
+    if (!out || !out.reference || out.error) { note(NAMES[selected] + ' could not be started' + (out && out.message ? ' (' + out.message + ')' : '') + '. Please choose another method or try again.', true); return; }
+    lastReference = out.reference;
+    const box = $('coOnsite'); box.innerHTML = '';
+    const h = document.createElement('h3'), p = document.createElement('p');
+    h.textContent = selected === 'ussd' ? 'Dial to pay with ' + (out.bank_name || 'USSD') : 'Transfer to this account';
+    p.textContent = selected === 'ussd' ? 'Dial this code on the phone linked to your bank account and follow the prompts.' : 'Send exactly ' + money(amount, state.currency) + ' from your banking app. This account is for this order only.';
+    box.append(h, p);
+    if (selected === 'ussd') box.appendChild(row('USSD code', out.ussd_code, true));
+    else { box.appendChild(row('Bank', out.bank_name || '-', false)); box.appendChild(row('Account number', out.account_number, true)); box.appendChild(row('Account name', out.account_name || '-', false)); if (out.expires_at) box.appendChild(row('Expires', new Date(out.expires_at).toLocaleString('en-GB'), false)); }
+    box.appendChild(row('Amount', money(amount, state.currency) + ' ' + state.currency, false)); box.appendChild(row('Booking reference', state.ref, false));
+    const w = document.createElement('div'); w.className = 'co-wait'; w.innerHTML = '<i></i><span id="coWaitTxt"></span>'; box.appendChild(w); w.querySelector('span').textContent = 'Waiting for your payment. We confirm it automatically, keep this page open.';
+    const chk = document.createElement('button'); chk.type = 'button'; chk.className = 'co-link'; chk.textContent = 'I have paid, check my payment'; chk.onclick = () => poll(out.reference, 0); box.appendChild(chk);
+    const back = document.createElement('button'); back.type = 'button'; back.className = 'co-link'; back.textContent = 'Choose a different method'; back.onclick = backToMethods; box.appendChild(back);
+    $('coMethods').hidden = true; info.hidden = true; payBtn.hidden = true; box.hidden = false; note('');
+    poll(out.reference, 0);
+  }
+
   payBtn.addEventListener('click', async () => {
     if (!selected || busy) return;
-    note(''); busy = true; payBtn.disabled = true; payBtn.classList.add('busy');
+    note('');
+    if (ONSITE.includes(selected)) return startOnsite(); busy = true; payBtn.disabled = true; payBtn.classList.add('busy');
     if (typeof PaystackPop === 'undefined') { busy = false; resetBtn(); note('The secure payment window could not load. Check your connection and try again.', true); return; }
     let out = null, status = 0;
     try {
