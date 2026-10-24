@@ -8,11 +8,13 @@ const { clean, safeRef, priceOf, originOk } = require('./_lib/shared');
 
 // Documented Paystack channel values. Google Pay and OPay are not Paystack channels, so they are not offered.
 const METHODS = {
-  card: { channels: ['card'], currencies: ['NGN', 'USD'] },
-  apple_pay: { channels: ['apple_pay'], currencies: ['NGN', 'USD'] },
-  bank_transfer: { channels: ['bank_transfer'], currencies: ['NGN'] },
-  ussd: { channels: ['ussd'], currencies: ['NGN'] },
-  bank: { channels: ['bank'], currencies: ['NGN'] },
+  card: { channels: ['card'], currencies: ['NGN', 'USD'] },            // card + Google Pay (shown by Paystack inside the card screen)
+  zap: { channels: null, currencies: ['NGN', 'USD'] },                         // Zap has no documented channel code: Paystack shows its normal method list
+  bank_transfer: { channels: ['bank_transfer'], currencies: ['NGN', 'USD'] },
+  ussd: { channels: ['ussd'], currencies: ['NGN', 'USD'] },
+  bank: { channels: ['bank'], currencies: ['NGN', 'USD'] },
+  payattitude: { channels: ['qr'], currencies: ['NGN', 'USD'] },               // PayAttitude is the QR channel
+  opay: { channels: ['bank'], currencies: ['NGN', 'USD'] },                    // OPay is listed inside Pay with Bank
 };
 
 module.exports = async function handler(req, res) {
@@ -36,7 +38,7 @@ module.exports = async function handler(req, res) {
     const r = await fetch('https://api.paystack.co/transaction/initialize', {
       method: 'POST', signal: AbortSignal.timeout(10000),
       headers: { Authorization: 'Bearer ' + key, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, amount: price * 100, currency, reference, channels: m.channels,
+      body: JSON.stringify({ email, amount: price * 100, currency, reference, ...(m.channels ? { channels: m.channels } : {}),
         metadata: { project_id: ref, service, package: pkg, client_name: name, method } }),
     });
     const j = await r.json().catch(() => ({}));
