@@ -293,7 +293,7 @@ async function downloadInvoice(){
   function fallback() { if (co.url) { const f = $('coFallback'); f.href = co.url; f.hidden = false; } }
 
   /* ----- selectable payment methods (all map to real Paystack channels; Google Pay and OPay are not Paystack channels so they are not offered) ----- */
-  const NGN_ONLY = ['zap', 'bank_transfer', 'bank', 'ussd', 'payattitude', 'opay'];
+  const NGN_ONLY = [];
   const INFO = {
     zap: ['Zap', 'Opens the secure payment window where you can pay with Zap or choose any other method it lists.'],
     card: ['Card or Google Pay', 'Opens the secure card window directly. Pay with a Visa, Mastercard or Verve card, or Google Pay where your device supports it. Your bank may ask for a PIN, OTP or 3D Secure approval.'],
