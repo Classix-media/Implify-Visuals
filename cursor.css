@@ -1,0 +1,8 @@
+/* ===== v60: custom cursor follower (mouse devices only) ===== */
+.cursor-dot,.cursor-ring{position:fixed;top:0;left:0;pointer-events:none;z-index:99999;border-radius:50%;opacity:0;transition:opacity .25s,width .25s,height .25s,background .25s,border-color .25s;will-change:transform}
+.cursor-dot{width:6px;height:6px;margin:-3px 0 0 -3px;background:#3b82f6;box-shadow:0 0 10px rgba(59,130,246,.9)}
+.cursor-ring{width:34px;height:34px;margin:-17px 0 0 -17px;border:1.5px solid rgba(96,165,250,.7);background:rgba(0,85,255,.06)}
+.cursor-on .cursor-dot,.cursor-on .cursor-ring{opacity:1}
+.cursor-ring.hover{width:54px;height:54px;margin:-27px 0 0 -27px;background:rgba(0,85,255,.18);border-color:rgba(147,197,253,.9)}
+.cursor-ring.down{width:26px;height:26px;margin:-13px 0 0 -13px}
+@media(hover:none),(pointer:coarse){.cursor-dot,.cursor-ring{display:none!important}}
