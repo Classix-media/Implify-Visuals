@@ -225,15 +225,11 @@ async function downloadInvoice(){
   /* ----- video: behaves like the hero animation (no play icon on any device) ----- */
   (function video() {
     const v = $('coVideo'); if (!v) return;
-    v.removeAttribute('controls'); v.removeAttribute('loop'); v.loop = false; v.controls = false; v.muted = true; v.defaultMuted = true; v.playsInline = true;
+    v.removeAttribute('controls'); v.loop = true; v.controls = false; v.muted = true; v.defaultMuted = true; v.playsInline = true;
     v.setAttribute('muted', ''); v.setAttribute('playsinline', '');
     const go = () => { let p; try { p = v.play(); } catch (e) {} if (p && p.catch) p.catch(() => {}); };
-    let fading = false;
-    /* fade out just before the end, jump back to the start while hidden, fade in: no visible "replay" */
-    v.addEventListener('timeupdate', () => { if (v.duration && v.duration - v.currentTime < 0.5 && !fading) { fading = true; v.classList.add('fade'); } });
-    v.addEventListener('ended', () => { setTimeout(() => { v.currentTime = 0; go(); setTimeout(() => { v.classList.remove('fade'); fading = false; }, 120); }, 460); });
     go(); v.addEventListener('loadedmetadata', go); v.addEventListener('canplay', go);
-    v.addEventListener('pause', () => { if (!document.hidden && !v.ended) setTimeout(go, 50); });
+    v.addEventListener('pause', () => { if (!document.hidden) setTimeout(go, 50); });
     document.addEventListener('visibilitychange', () => { if (!document.hidden) go(); });
     window.addEventListener('pageshow', go);
     ['touchstart', 'click', 'scroll'].forEach((e) => window.addEventListener(e, go, { passive: true, once: true }));
@@ -305,7 +301,7 @@ async function downloadInvoice(){
     bank: ['Pay with bank', 'Log in to your bank account in the secure window and approve this payment directly. Only supported banks are listed.']
   };
   const NAMES = { card: 'Card', apple_pay: 'Apple Pay', bank_transfer: 'Bank transfer', ussd: 'USSD', bank: 'Pay with bank' };
-  let selected = null, lastReference = '', busy = false, ussdType = '', pollTimer = null;
+  let secureOnly = false, selected = null, lastReference = '', busy = false, ussdType = '', pollTimer = null;
   const ONSITE = ['bank_transfer', 'ussd'], BANKS = { '737': 'GTBank', '966': 'Zenith Bank', '919': 'UBA', '822': 'Sterling Bank' };
   const info = $('coMethodInfo'), methodBtns = [...document.querySelectorAll('.co-m')];
   $('coCur').textContent = state.currency;
@@ -371,7 +367,7 @@ async function downloadInvoice(){
       body: JSON.stringify({ ref: state.ref, service: state.service, package: state.packageName, currency: state.currency, email: state.email, name: state.name, method: selected, ussdType }) });
       out = await r.json().catch(() => ({})); } catch (e) { out = null; }
     busy = false; resetBtn();
-    if (!out || !out.reference || out.error) { note(NAMES[selected] + ' could not be started' + (out && out.message ? ' (' + out.message + ')' : '') + '. Please choose another method or try again.', true); return; }
+    if (!out || !out.reference || out.error) { console.warn('on-site charge unavailable:', out); note('Opening the secure payment window for ' + NAMES[selected] + '…'); secureOnly = true; payBtn.click(); secureOnly = false; return; }
     lastReference = out.reference;
     const box = $('coOnsite'); box.innerHTML = '';
     const h = document.createElement('h3'), p = document.createElement('p');
@@ -391,7 +387,7 @@ async function downloadInvoice(){
   payBtn.addEventListener('click', async () => {
     if (!selected || busy) return;
     note('');
-    if (ONSITE.includes(selected)) return startOnsite(); busy = true; payBtn.disabled = true; payBtn.classList.add('busy');
+    if (ONSITE.includes(selected) && !secureOnly) return startOnsite(); busy = true; payBtn.disabled = true; payBtn.classList.add('busy');
     if (typeof PaystackPop === 'undefined') { busy = false; resetBtn(); note('The secure payment window could not load. Check your connection and try again.', true); return; }
     let out = null, status = 0;
     try {
