@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Keep personal photos out of Google Images (logo and other work stay indexable)
+User-agent: Googlebot-Image
+Disallow: /images/miracle.jpg
+Disallow: /images/miracle-avatar.jpg
+
+Sitemap: https://implify-visuals.vercel.app/sitemap.xml
