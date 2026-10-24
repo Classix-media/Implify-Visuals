@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>(function(){try{var w=Math.min(screen.width,screen.height);if(w>=280&&w<=600&&innerHeight>innerWidth){document.querySelector('meta[name=viewport]').setAttribute('content','width=412, viewport-fit=cover')}}catch(e){}})();</script>
+  <meta name="theme-color" content="#03050a">
+  <title>Secure Checkout | Implify Visuals</title>
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="icon" type="image/png" sizes="any" href="images/favicon.png?v=3">
+    <link rel="shortcut icon" href="images/favicon.png?v=3">
+    <link rel="apple-touch-icon" href="images/favicon.png?v=3">
+    <script>
+    /* Favicon auto-refresh: replace images/favicon.png (same name) and it updates within minutes. */
+    (function(){var v=Math.floor(Date.now()/600000);document.querySelectorAll('link[rel*="icon"]').forEach(function(l){l.href='images/favicon.png?v='+v})})();
+    </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter+Tight:wght@300;400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="booking.css">
+  <link rel="stylesheet" href="checkout.css">
+  <link rel="preload" as="image" href="images/checkout-wallet.jpg">
+</head>
+<body class="co-body">
+  <header class="booking-nav">
+    <a class="booking-brand" href="index.html" aria-label="Back to Implify Visuals home">
+      <img src="images/logo.png" alt="" width="38" height="38">
+      <span>Implify Visuals</span>
+    </a>
+    <a class="back-link" href="booking.html">← Back to booking</a>
+  </header>
+
+  <main class="co-shell" id="coShell">
+    <!-- empty state -->
+    <section class="co-empty" id="coEmpty" hidden>
+      <h1>No active checkout</h1>
+      <p>Start from the booking page so we know which project to pay for.</p>
+      <a class="primary-action" href="booking.html">Go to booking</a>
+    </section>
+
+    <section class="co-card" id="coCard" hidden>
+      <!-- LEFT: media + order -->
+      <aside class="co-media co-in" style="--d:0ms">
+        <div class="co-frame">
+          <div class="co-frame-in">
+            <video id="coVideo" class="co-video" src="images/checkout-wallet.mp4" poster="images/checkout-wallet.jpg" muted loop autoplay defaultMuted playsinline webkit-playsinline preload="auto" disablepictureinpicture disableremoteplayback x-webkit-airplay="deny" tabindex="-1" aria-hidden="true"></video>
+          </div>
+        </div>
+        <div class="co-order">
+          <span class="co-eyebrow">YOUR ORDER</span>
+          <h2 id="coService">Project</h2>
+          <p id="coPackage" class="co-muted"></p>
+          <dl class="co-rows">
+            <div><dt>Booking</dt><dd id="coRef">-</dd></div>
+            <div><dt>Client</dt><dd id="coName">-</dd></div>
+            <div><dt>Delivery</dt><dd id="coTime">-</dd></div>
+          </dl>
+        </div>
+      </aside>
+
+      <!-- RIGHT: payment -->
+      <section class="co-panel">
+        <div class="co-view" id="viewPay">
+          <span class="co-eyebrow co-in" style="--d:80ms">SECURE CHECKOUT</span>
+          <h1 class="co-in" style="--d:140ms">Complete your payment</h1>
+          <div class="co-total co-in" style="--d:200ms"><span>Total due</span><strong id="coAmount">-</strong></div>
+
+          <div class="co-methods co-in" style="--d:260ms" aria-label="Payment methods available">
+            <span class="co-sub">Pay your way</span>
+            <ul>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="3"/><path d="M2.5 10h19M6.5 15h4"/></svg><b>Card</b></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h14l-3.5-3.5M20 16H6l3.5 3.5"/></svg><b>Bank transfer</b></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M10 7h4M10 11h4M10 15h4"/></svg><b>USSD</b></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 4l9 5.5M5 10v8M9.7 10v8M14.3 10v8M19 10v8M3 20h18"/></svg><b>Pay with bank</b></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7.5A2.5 2.5 0 0 1 6.5 5H18v3"/><rect x="3" y="7.5" width="18" height="12" rx="3"/><circle cx="16.5" cy="13.5" r="1.2"/></svg><b>OPay</b></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7c1.2-1.6 3.2-1.6 4 0-2 1-2 4 .5 5-.7 2-2 4.5-3.5 4.5-1 0-1.2-.6-2-.6s-1 .6-2 .6C7.3 16.5 5.5 13 6 10c.5-2.4 3-3.2 4.6-2.4.5.2 1 .6 1.4.4z"/><path d="M13 5.5c.2-1 .9-1.8 2-2"/></svg><b>Apple Pay</b></li>
+            </ul>
+            <small>You choose your method in the secure window. Options shown there depend on your device and bank.</small>
+          </div>
+
+          <button type="button" class="co-pay co-in" style="--d:320ms" id="coPayBtn"><span class="co-pay-label">Pay securely</span><i class="co-spin" aria-hidden="true"></i></button>
+          <p class="co-note" id="coNote" role="status"></p>
+          <a class="co-fallback" id="coFallback" hidden target="_self" rel="noopener">Having trouble? Continue on Paystack</a>
+
+          <div class="co-trust co-in" style="--d:380ms">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></svg>256-bit encrypted</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 5 6v5.5c0 4.2 2.8 7.4 7 9 4.2-1.6 7-4.8 7-9V6z"/><path d="m9 12 2.2 2.2L15.5 10"/></svg>Powered by Paystack</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Verified before confirmation</span>
+          </div>
+        </div>
+
+        <div class="co-view" id="viewVerify" hidden>
+          <div class="co-pulse"><i></i><i></i><i></i></div>
+          <h1>Confirming your payment</h1>
+          <p class="co-muted" id="coVerifyMsg">Checking with Paystack. This takes a few seconds, please keep this page open.</p>
+        </div>
+
+        <div class="co-view" id="viewPaid" hidden>
+          <div class="co-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></div>
+          <span class="co-eyebrow">PAYMENT CONFIRMED</span>
+          <h1>Thank you<span id="coPaidName"></span>. You are booked in.</h1>
+          <dl class="co-receipt">
+            <div><dt>Amount paid</dt><dd id="rcAmount">-</dd></div>
+            <div><dt>Reference</dt><dd id="rcRef">-</dd></div>
+            <div><dt>Date</dt><dd id="rcDate">-</dd></div>
+            <div><dt>Method</dt><dd id="rcMethod">-</dd></div>
+          </dl>
+          <div class="co-actions">
+            <button type="button" class="co-btn primary" id="btnInvoice"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4M10 12h5M10 16h5"/></svg>View paid invoice</button>
+            <button type="button" class="co-btn" id="btnDownload">Download invoice (PDF)</button>
+            <a class="co-btn wa" id="btnWhatsApp" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2A9.8 9.8 0 0 0 3.6 17l-1.3 4.8 4.9-1.3A9.8 9.8 0 1 0 12 2.2zm0 1.8a8 8 0 1 1-4.2 14.8l-.3-.2-2.9.8.8-2.8-.2-.3A8 8 0 0 1 12 4zm-3.1 3.6c-.2 0-.4 0-.6.3-.2.3-.8.8-.8 2s.8 2.3.9 2.5c.1.2 1.6 2.6 4 3.5 2 .8 2.4.6 2.8.6.5-.1 1.4-.6 1.6-1.2.2-.6.2-1 .1-1.2l-.4-.3-1.4-.7c-.2-.1-.4-.1-.5.1l-.6.8c-.1.2-.3.2-.5.1a5.6 5.6 0 0 1-2.7-2.4c-.2-.3 0-.4.1-.5l.4-.5.2-.4c.1-.1 0-.3 0-.4l-.7-1.6c-.2-.4-.3-.4-.5-.4z"/></svg>Send details to WhatsApp</a>
+          </div>
+          <p class="co-note">Tap WhatsApp to open a message with your booking and payment details ready. Press send to deliver it to us.</p>
+          <a class="co-fallback visible" href="index.html">Back to studio</a>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <div class="invoice-modal" id="invoiceModal" hidden aria-hidden="true">
+    <div class="invoice-backdrop" data-close-invoice></div>
+    <section class="invoice-document" role="dialog" aria-modal="true" aria-labelledby="invoiceTitle">
+      <button class="invoice-close" type="button" id="closeInvoice" aria-label="Close invoice">×</button>
+      <div class="inv-doc"><div class="inv-white">
+      <header class="inv-top">
+        <div class="inv-logo"><img src="images/logo.png" alt="Implify Visuals"><strong>Implify Visuals</strong></div>
+        <div class="inv-blue"><div class="inv-meta"><span class="inv-ref" id="invoiceRef"></span><div class="inv-dates"><span>ISSUED:<b id="invoiceDate"></b></span><span>DUE:<b id="invoiceDue"></b></span></div></div><strong id="invoiceTitle">INVOICE</strong></div>
+      </header>
+      <div class="invoice-client-block"><span>INVOICE TO:</span><strong id="invoiceClient"></strong><small id="invoiceContact"></small></div>
+      <div class="invoice-table-wrap"><table class="invoice-document-table"><thead><tr><th>Description</th><th>Package</th><th>Qty</th><th>Price</th><th>Subtotal</th></tr></thead><tbody id="invoiceLines"></tbody></table></div>
+      <div class="invoice-bottom"><div class="invoice-notes"><span>PROJECT NOTES</span><p id="invoiceNotes"></p></div></div>
+      <div class="inv-band first"><span>SUBTOTAL:</span><span id="invoiceSubtotal"></span></div>
+      <div class="inv-band light"><span>DISCOUNT:</span><span>—</span></div>
+      <div class="inv-band"><span id="invoiceStatusLabel">TOTAL DUE:</span><span id="invoiceTotal"></span></div>
+      <footer class="invoice-doc-footer"><div class="inv-pill">Payment is required before project work begins.<b id="invoiceCurrencyNote"></b></div><div class="inv-sign"><i>Authorized Signed</i></div></footer>
+      </div></div>
+      <div class="invoice-modal-actions"><button type="button" class="secondary-action" id="printInvoiceModal">Download / Save PDF</button><button type="button" class="primary-action" id="shareInvoiceModal">Share Invoice</button></div>
+    </section>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+  <script src="https://js.paystack.co/v2/inline.js" defer></script>
+  <script src="checkout.js" defer></script>
+</body>
+</html>

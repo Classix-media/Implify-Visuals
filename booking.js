@@ -240,8 +240,9 @@ async function initializePaystack() {
     if (checkout) {
       state.paymentReference = state.ref;
       saveBookingState();
-      $('paymentStatus').textContent = 'Secure checkout is ready. Complete payment on Paystack; this page will not mark the booking paid from a browser redirect alone.';
-      window.location.assign(checkout);
+      try { localStorage.setItem('implifyCheckout', JSON.stringify({ url: checkout, access: (String(checkout).split('?')[0].split('#')[0].split('/').filter(Boolean).pop() || ''), ref: state.ref, t: Date.now() })); } catch (_) {}
+      $('paymentStatus').textContent = 'Secure checkout is ready. Taking you to the Implify Visuals checkout…';
+      window.location.assign('checkout.html');
       return;
     }
     $('paymentStatus').innerHTML = '<strong>Booking sent.</strong><br>The Make webhook accepted the request, but this static page did not receive a checkout URL in the response. The existing scenario needs to return Paystack’s authorization URL through a Webhook Response module before the browser can redirect automatically.';
