@@ -249,15 +249,14 @@ async function downloadInvoice(){
   $('coName').textContent = state.name || '-';
   $('coTime').textContent = state.timeline || 'To be confirmed';
   $('coAmount').textContent = money(amount, state.currency);
-  payBtn.querySelector('.co-pay-label').textContent = 'Pay ' + money(amount, state.currency) + ' securely';
-
+  
   function showPaid(info) {
     state.paymentStatus = 'Paid'; state.paymentReference = info.reference; saveState();
     $('coPaidName').textContent = state.name ? ', ' + String(state.name).split(' ')[0] : '';
     $('rcAmount').textContent = money(amount, state.currency);
     $('rcRef').textContent = info.reference;
     $('rcDate').textContent = new Date(info.paid_at || info.at || Date.now()).toLocaleString('en-GB', { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' });
-    $('rcMethod').textContent = info.channel ? String(info.channel).replace(/_/g, ' ').replace(/^./, (c) => c.toUpperCase()) : 'Paystack';
+    $('rcMethod').textContent = info.channel ? String(info.channel).replace(/_/g, ' ').replace(/^./, (c) => c.toUpperCase()) : 'Secure payment';
     const msg = `Hi Implify Visuals, my payment is complete. \u2705\n\nProject Reference: ${state.ref}\nName: ${state.name}\nBusiness/Brand: ${state.business || 'Not provided'}\nService: ${state.service}\nPackage: ${state.packageName}\nAmount Paid: ${money(amount, state.currency)} (${state.currency})\nPayment Reference: ${info.reference}\nTimeline: ${state.timeline || 'Not provided'}\nProject Brief: ${state.brief}\n\nPlease confirm and let's get started.`;
     $('btnWhatsApp').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
     show('paid');
@@ -269,7 +268,7 @@ async function downloadInvoice(){
     show('verify');
     try {
       const r = await fetch('/api/verify-payment', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ reference, service: state.service, package: state.packageName, currency: state.currency, email: state.email }) });
+        body: JSON.stringify({ reference, ref: state.ref, service: state.service, package: state.packageName, currency: state.currency, email: state.email }) });
       const out = await r.json().catch(() => ({}));
       if (r.ok && out.verified) {
         const info = { ref: state.ref, reference: out.reference || reference, channel: out.channel, paid_at: out.paid_at, at: Date.now() };
@@ -282,7 +281,7 @@ async function downloadInvoice(){
       }
       show('pay'); resetBtn();
       note(r.status === 500 && out.error === 'server_not_configured'
-        ? 'Payment received by Paystack, but automatic confirmation is not set up yet. Please send your reference ' + reference + ' on WhatsApp.'
+        ? 'Payment may have gone through, but automatic confirmation is not set up yet. Please send your reference ' + reference + ' on WhatsApp.'
         : 'We could not confirm this payment automatically (' + (out.reason || out.error || 'unknown') + '). If you were charged, send reference ' + reference + ' on WhatsApp and we will confirm it.', true);
     } catch (e) {
       show('pay'); resetBtn();
@@ -290,27 +289,80 @@ async function downloadInvoice(){
     }
   }
 
-  function resetBtn() { payBtn.disabled = false; payBtn.classList.remove('busy'); }
+  function resetBtn() { payBtn.disabled = !selected; payBtn.classList.remove('busy'); }
   function fallback() { if (co.url) { const f = $('coFallback'); f.href = co.url; f.hidden = false; } }
 
-  payBtn.addEventListener('click', () => {
-    note('');
-    if (!co.access || typeof PaystackPop === 'undefined') {
-      if (co.url) { note('Opening the secure Paystack window…'); window.location.assign(co.url); return; }
-      note('Checkout session expired. Please go back and initialise payment again.', true); return;
-    }
-    payBtn.disabled = true; payBtn.classList.add('busy');
+  /* ----- selectable payment methods (all map to real Paystack channels; Google Pay and OPay are not Paystack channels so they are not offered) ----- */
+  const NGN_ONLY = ['bank_transfer', 'ussd', 'bank'];
+  const INFO = {
+    card: ['Card payment', 'Pay with a Visa, Mastercard or Verve debit/credit card. You enter the card details inside the encrypted payment window, never on our own page. Your bank may ask for a PIN, OTP or 3D Secure approval.'],
+    apple_pay: ['Apple Pay', 'Available on Safari with Apple Pay set up on your device, and only if Apple Pay is enabled on our payment account. If it is not available for you, the window will tell you and you can choose another method.'],
+    bank_transfer: ['Bank transfer', 'A one-time account number is generated for this exact order. Transfer the exact amount from your banking app. We confirm it with the payment processor before marking anything paid, which can take a few minutes.'],
+    ussd: ['USSD', 'Pick your bank and you will get a USSD code to dial on your phone to approve the payment. Some banks have transaction limits.'],
+    bank: ['Pay with bank', 'Log in to your bank account in the secure window and approve this payment directly. Only supported banks are listed.']
+  };
+  const NAMES = { card: 'Card', apple_pay: 'Apple Pay', bank_transfer: 'Bank transfer', ussd: 'USSD', bank: 'Pay with bank' };
+  let selected = null, lastReference = '', busy = false;
+  const info = $('coMethodInfo'), methodBtns = [...document.querySelectorAll('.co-m')];
+  $('coCur').textContent = state.currency;
+  $('coBkRef').textContent = 'Booking ' + state.ref;
+  methodBtns.forEach((b) => {
+    const m = b.dataset.method;
+    if (state.currency !== 'NGN' && NGN_ONLY.includes(m)) { b.classList.add('off'); b.setAttribute('aria-disabled', 'true'); }
+    b.addEventListener('click', () => {
+      if (busy) return;
+      if (b.classList.contains('off')) { note(NAMES[m] + ' is only available for NGN bookings. Your booking is in ' + state.currency + ', so please choose Card' + (m === 'apple_pay' ? '' : ' or Apple Pay') + '.', true); return; }
+      selected = m; note('');
+      methodBtns.forEach((x) => x.setAttribute('aria-checked', String(x === b)));
+      info.innerHTML = '<strong></strong><span></span><ul><li></li><li></li></ul>';
+      info.querySelector('strong').textContent = INFO[m][0]; info.querySelector('span').textContent = INFO[m][1];
+      const li = info.querySelectorAll('li'); li[0].textContent = 'Amount: ' + money(amount, state.currency) + ' (' + state.currency + ')'; li[1].textContent = 'Booking reference: ' + state.ref;
+      info.classList.add('on');
+      payBtn.disabled = false;
+      payBtn.querySelector('.co-pay-label').textContent = 'Pay ' + money(amount, state.currency) + ' with ' + NAMES[m];
+    });
+  });
+  payBtn.disabled = true;
+  payBtn.querySelector('.co-pay-label').textContent = 'Select a payment method';
+
+  function checkLink() {
+    let l = $('coCheck');
+    if (!l) { l = document.createElement('button'); l.type = 'button'; l.id = 'coCheck'; l.className = 'co-fallback'; l.style.cssText = 'background:none;border:0;cursor:pointer;font-family:inherit;display:block';
+      l.textContent = 'Already paid or transferred? Check my payment'; $('coFallback').after(l); l.addEventListener('click', () => lastReference && verify(lastReference)); }
+    l.hidden = !lastReference;
+  }
+  function openWindow(access, ref0, legacy) {
     let loaded = false;
-    const slow = setTimeout(() => { if (!loaded) { resetBtn(); note('The secure window is taking long to load.', true); fallback(); } }, 10000);
+    const slow = setTimeout(() => { if (!loaded) { busy = false; resetBtn(); note('The secure window is taking long to load.', true); fallback(); } }, 12000);
     try {
-      new PaystackPop().resumeTransaction(co.access, {
-        onLoad: () => { loaded = true; clearTimeout(slow); resetBtn(); note('Complete your payment in the secure window.'); },
-        onSuccess: (tx) => { clearTimeout(slow); verify((tx && (tx.reference || tx.trxref)) || state.ref); },
-        onCancel: () => { clearTimeout(slow); resetBtn(); note('Payment was not completed. You can try again whenever you are ready.'); },
-        onError: () => { clearTimeout(slow); resetBtn(); note('Could not open the secure window.', true); fallback(); }
+      new PaystackPop().resumeTransaction(access, {
+        onLoad: () => { loaded = true; clearTimeout(slow); busy = false; resetBtn(); note(legacy ? 'Choose your method in the secure window.' : 'Complete your ' + NAMES[selected] + ' payment in the secure window.'); },
+        onSuccess: (tx) => { clearTimeout(slow); verify((tx && (tx.reference || tx.trxref)) || ref0); },
+        onCancel: () => { clearTimeout(slow); busy = false; resetBtn(); checkLink(); note('Payment was not completed and nothing was charged by us. Choose a method to try again.'); },
+        onError: () => { clearTimeout(slow); busy = false; resetBtn(); note('Could not open the secure window.', true); fallback(); }
       });
-    } catch (e) { clearTimeout(slow); resetBtn(); note('Could not open the secure window.', true); fallback(); }
+    } catch (e) { clearTimeout(slow); busy = false; resetBtn(); note('Could not open the secure window.', true); fallback(); }
+  }
+
+  payBtn.addEventListener('click', async () => {
+    if (!selected || busy) return;
+    note(''); busy = true; payBtn.disabled = true; payBtn.classList.add('busy');
+    if (typeof PaystackPop === 'undefined') { busy = false; resetBtn(); note('The secure payment window could not load. Check your connection and try again.', true); return; }
+    let out = null, status = 0;
+    try {
+      const r = await fetch('/api/init-payment', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ref: state.ref, service: state.service, package: state.packageName, currency: state.currency, email: state.email, name: state.name, method: selected }) });
+      status = r.status; out = await r.json().catch(() => ({}));
+    } catch (e) { out = null; }
+    if (out && out.access_code) { lastReference = out.reference; openWindow(out.access_code, out.reference, false); return; }
+    const err = out && out.error;
+    if (err === 'init_failed') { busy = false; resetBtn(); note(NAMES[selected] + ' is not available on our payment account right now' + (out.message ? ' (' + out.message + ')' : '') + '. Please choose another method.', true); return; }
+    if (err === 'method_unavailable_for_currency') { busy = false; resetBtn(); note(NAMES[selected] + ' is not available for ' + state.currency + ' bookings.', true); return; }
+    /* endpoint not deployed / not configured: fall back to the original Make-initialised session (method chosen inside the window) */
+    if (co.access && co.ref === state.ref) { lastReference = ''; openWindow(co.access, state.ref, true); return; }
+    if (co.url) { note('Opening the secure payment page…'); window.location.assign(co.url); return; }
+    busy = false; resetBtn(); note('Checkout session expired. Please go back and start payment again.', true);
   });
 
-  if (isPaidHere) showPaid(paid); else show('pay');
+  if (isPaidHere) verify(paid.reference); else show('pay');
 })();

@@ -43,11 +43,6 @@
 .co-total strong{font-size:clamp(2rem,4.6vw,2.9rem);font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
 
 .co-sub{display:block;font-size:.8rem;color:rgba(255,255,255,.78);margin-bottom:12px;letter-spacing:.04em}
-.co-methods ul{list-style:none;margin:0 0 12px;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.co-methods li{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 8px;border-radius:16px;text-align:center;
-  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);box-shadow:inset 0 1px 0 rgba(255,255,255,.14)}
-.co-methods li svg{width:22px;height:22px;color:#fff;opacity:.95}
-.co-methods li b{font-size:.76rem;font-weight:600;color:#fff;line-height:1.2}
 .co-methods small{display:block;color:rgba(255,255,255,.66);font-size:.76rem;line-height:1.5;margin-bottom:24px}
 
 .co-pay{position:relative;width:100%;height:62px;border:0;border-radius:20px;cursor:pointer;overflow:hidden;font:700 1.05rem "DM Sans",system-ui,sans-serif;color:#0a2fd0;
@@ -104,9 +99,26 @@
   .co-media{flex:none;padding:20px;border-radius:32px;gap:20px}
   .co-frame{padding:10px;border-radius:28px}.co-frame-in{border-radius:20px}
   .co-panel{margin:-48px 0 0;padding:84px 22px 30px;border-radius:32px}
-  .co-methods ul{gap:8px}
-  .co-methods li{padding:12px 6px}
+  .co-mgrid{gap:8px}
+  .co-m{padding:12px 6px}
   .co-total{padding:16px 18px}
   .co-rows div{padding:11px 0}
 }
 @media(prefers-reduced-motion:reduce){.co-in,.co-swap,.co-check{animation:none;opacity:1;transform:none;filter:none}.co-pay::after{animation:none}}
+
+/* selectable payment methods */
+.co-mgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
+.co-m{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 8px;border-radius:16px;text-align:center;cursor:pointer;color:#fff;font:inherit;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);box-shadow:inset 0 1px 0 rgba(255,255,255,.14);transition:transform .25s cubic-bezier(.22,1,.36,1),background .25s,border-color .25s,box-shadow .25s}
+.co-m svg{width:22px;height:22px;opacity:.95}.co-m b{font-size:.76rem;font-weight:600;line-height:1.2}
+.co-m:hover{transform:translateY(-2px);background:rgba(255,255,255,.14)}
+.co-m:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.co-m[aria-checked="true"]{background:#fff;color:#0a2fd0;border-color:#fff;box-shadow:0 14px 30px -14px rgba(0,10,80,.8),0 0 0 3px rgba(255,255,255,.25)}
+.co-m:disabled,.co-m.off{opacity:.42;cursor:not-allowed;transform:none;background:rgba(255,255,255,.04)}
+.co-minfo{min-height:0;margin:0 0 12px;padding:0;border-radius:16px;font-size:.84rem;line-height:1.55;color:rgba(255,255,255,.9);overflow:hidden;max-height:0;opacity:0;transition:max-height .45s cubic-bezier(.22,1,.36,1),opacity .35s,padding .35s}
+.co-minfo.on{max-height:420px;opacity:1;padding:14px 16px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2)}
+.co-minfo strong{display:block;margin-bottom:4px;font-size:.9rem;color:#fff}
+.co-minfo ul{margin:8px 0 0;padding-left:18px}.co-minfo li{margin:2px 0}
+.co-total em{font-style:normal;font-weight:700;color:#fff}.co-total small{display:block;margin-top:4px;font-size:.72rem;letter-spacing:.02em;color:rgba(255,255,255,.7)}
+.co-pay:disabled:not(.busy){opacity:.6;cursor:not-allowed}
+@media(prefers-reduced-motion:reduce){.co-m,.co-minfo{transition:none}}
