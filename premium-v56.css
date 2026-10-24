@@ -256,13 +256,13 @@ html.intro-lock .hero-left.scroll-reveal.is-visible *{animation-play-state:pause
 
 /* --- reveals: slide up + blur to sharp, with real transitions --- */
 @media (prefers-reduced-motion:no-preference){
-  .scroll-reveal{transition:opacity .9s cubic-bezier(.22,1,.36,1),transform .95s cubic-bezier(.22,1,.36,1),filter .9s cubic-bezier(.22,1,.36,1)!important}
-  .scroll-reveal:not(.is-visible){opacity:.001!important;filter:blur(18px)!important;transform:translate3d(0,72px,0)!important}
+  .scroll-reveal{transition:opacity 1.1s cubic-bezier(.22,1,.36,1),transform 1.2s cubic-bezier(.22,1,.36,1),filter 1.1s cubic-bezier(.22,1,.36,1)!important}
+  .scroll-reveal:not(.is-visible){opacity:.001!important;filter:blur(30px)!important;transform:translate3d(0,130px,0)!important}
   .scroll-reveal.is-visible{opacity:1!important;filter:none!important;transform:translate3d(0,0,0)!important}
-  .scroll-reveal-stagger>*{transition:opacity .85s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1),filter .85s cubic-bezier(.22,1,.36,1)!important;transition-delay:var(--reveal-delay,0ms)!important}
-  .scroll-reveal-stagger:not(.is-visible)>*{opacity:.001!important;filter:blur(16px)!important;transform:translate3d(0,56px,0)!important}
+  .scroll-reveal-stagger>*{transition:opacity 1.05s cubic-bezier(.22,1,.36,1),transform 1.15s cubic-bezier(.22,1,.36,1),filter 1.05s cubic-bezier(.22,1,.36,1)!important;transition-delay:var(--reveal-delay,0ms)!important}
+  .scroll-reveal-stagger:not(.is-visible)>*{opacity:.001!important;filter:blur(26px)!important;transform:translate3d(0,96px,0)!important}
   .scroll-reveal-stagger.is-visible>*{opacity:1!important;filter:none!important;transform:translate3d(0,0,0)!important}
-  html.intro-lock .hero-left.scroll-reveal.is-visible{opacity:.001!important;filter:blur(18px)!important;transform:translate3d(0,72px,0)!important}
+  html.intro-lock .hero-left.scroll-reveal.is-visible{opacity:.001!important;filter:blur(30px)!important;transform:translate3d(0,130px,0)!important}
 }
 
 /* --- growth card: no square corners on desktop --- */

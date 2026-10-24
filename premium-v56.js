@@ -27,10 +27,10 @@
   sec.style.setProperty('--dur', DUR/1000 + 's');
 
   var script = [
-    [ {t:'sys',x:'You chose: Brand Identity'}, {t:'out',x:"Hello Implify Visuals 👋 I'd like to start a project."}, {t:'card',h:'PROJECT REQUEST',x:'Service: Brand Identity<br>Status: Brief received'}, {t:'in',x:"Got it! Tell us a little about your brand."}, {t:'out',x:"It's a fashion label launching next month."}, {t:'in',x:"Lovely. We'll prepare a short brief for you."} ],
-    [ {t:'in',x:"Welcome! 👋 Tell us about your brand and what you need."}, {t:'out',x:"A logo and a clean brand look for my business."}, {t:'in',x:"Perfect. We'll confirm the scope, timeline and quote with you here."}, {t:'out',x:"How long will it take?"}, {t:'in',x:"About a week for the first concepts."}, {t:'out',x:"Great, let's go! 🙌"} ],
-    [ {t:'in',x:"First concepts are ready ✨ Take a look."}, {t:'card',h:'CONCEPTS · ROUND 1',x:'3 directions shared<br>Send feedback and we refine'}, {t:'out',x:"Love direction 2! Small tweak on the colors please."}, {t:'in',x:"Noted, updating the colors now 🎨"}, {t:'out',x:"Can the logo feel a bit bolder too?"}, {t:'in',x:"Done. Sending the refined version ✨"} ],
-    [ {t:'in',x:"Done ✅ Final files are ready: logo pack, brand guide and social kit."}, {t:'card',h:'FINAL FILES · DELIVERED',x:'Logo pack · Brand guide<br>Social media kit'}, {t:'out',x:"Amazing work, thank you! 🙌"}, {t:'in',x:"Our pleasure. We're here for whatever comes next."}, {t:'out',x:"Definitely working with you again!"}, {t:'in',x:"Anytime 💙"} ]
+    [ {t:'sys',x:'You chose: Brand Identity'}, {t:'out',x:"Hello Implify Visuals 👋 I'd like to start a project."}, {t:'card',h:'PROJECT REQUEST',x:'Service: Brand Identity<br>Status: Brief received'}, {t:'in',x:"Thank you for reaching out. Could you tell us about your brand and audience?"}, {t:'out',x:"We're a fashion label launching next month and want a premium, modern identity."}, {t:'in',x:"Understood. We'll prepare a creative brief and confirm the scope with you."} ],
+    [ {t:'in',x:"Here is the proposed scope: logo system, colour palette, typography and brand guidelines."}, {t:'out',x:"That covers what we need. What does the timeline look like?"}, {t:'in',x:"Delivery is 10 days from kickoff, with progress updates along the way."}, {t:'card',h:'PROJECT SCOPE',x:'Brand Identity · Premium<br>Timeline: 10 days'}, {t:'out',x:"Perfect. Please send the invoice."}, {t:'in',x:"Invoice sent. We begin as soon as the deposit is confirmed."} ],
+    [ {t:'in',x:"Your concepts are ready. We have prepared three strategic directions."}, {t:'card',h:'CONCEPTS · ROUND 1',x:'3 directions presented<br>Feedback and refinement included'}, {t:'out',x:"Direction 2 feels right for our audience."}, {t:'in',x:"Excellent choice. We will develop it further and share the refined version."}, {t:'out',x:"Looking forward to it."}, {t:'in',x:"The refined concept is ready and awaiting your approval."} ],
+    [ {t:'in',x:"Your brand identity is complete. The final files are ready."}, {t:'card',h:'FINAL FILES · DELIVERED',x:'Logo pack · Brand guidelines<br>Social media kit'}, {t:'out',x:"This is outstanding work. Thank you."}, {t:'in',x:"It was a pleasure. We remain available for any future needs."}, {t:'out',x:"We will definitely be in touch."}, {t:'in',x:"We look forward to it 💙"} ]
   ];
 
   var cur = -1, timers = [];
@@ -46,13 +46,18 @@
   }
   function run(i){
     clear(); cur = i;
+    /* natural chat pace; the step lasts only as long as its conversation + a short hand-off */
+    var tt = 250;
+    script[i].forEach(function(m){ tt += ((m.t === 'in' || m.t === 'card') && !reduce) ? 1650 : 800; });
+    var dur = tt + 600;
+    sec.style.setProperty('--dur', dur/1000 + 's');
     steps.forEach(function(s,k){
       s.classList.remove('active'); void s.offsetWidth;
       if (k === i) s.classList.add('active');
     });
     body.innerHTML = '';
     if (status) status.textContent = 'online';
-    var t = 150;
+    var t = 250;
     script[i].forEach(function(m){
       var incoming = m.t === 'in' || m.t === 'card';
       if (incoming && !reduce) {
@@ -61,15 +66,15 @@
           var ty = document.createElement('div');
           ty.className = 'msg typing'; ty.innerHTML = '<i></i><i></i><i></i>';
           body.appendChild(ty);
-          timers.push(setTimeout(function(){ if (ty.parentNode) ty.parentNode.removeChild(ty); if (status) status.textContent = 'online'; add(m); }, 450));
+          timers.push(setTimeout(function(){ if (ty.parentNode) ty.parentNode.removeChild(ty); if (status) status.textContent = 'online'; add(m); }, 900));
         }, t));
-        t += 450 + 300;
+        t += 1150 + 500;
       } else {
         timers.push(setTimeout(function(){ add(m); }, t));
-        t += 450;
+        t += 800;
       }
     });
-    if (!reduce) timers.push(setTimeout(function(){ run((i+1) % steps.length); }, DUR));
+    if (!reduce) timers.push(setTimeout(function(){ run((i+1) % steps.length); }, dur));
   }
 
   steps.forEach(function(s,i){ s.addEventListener('click', function(){ run(i); }); });
