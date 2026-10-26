@@ -260,8 +260,35 @@ async function downloadInvoice(){
     const msg = `Hi Implify Visuals, my payment is complete. \u2705\n\nProject Reference: ${state.ref}\nName: ${state.name}\nBusiness/Brand: ${state.business || 'Not provided'}\nService: ${state.service}\nPackage: ${state.packageName}\nAmount Paid: ${money(amount, state.currency)} (${state.currency})\nPayment Reference: ${info.reference}\nTimeline: ${state.timeline || 'Not provided'}\nProject Brief: ${state.brief}\n\nPlease confirm and let's get started.`;
     $('btnWhatsApp').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
     show('paid');
+    /* auto-open WhatsApp once per verified payment, with a visible countdown the customer can cancel */
+    try {
+      if (localStorage.getItem('implifyWaSent') !== info.reference) {
+        localStorage.setItem('implifyWaSent', info.reference);
+        const wa = $('btnWhatsApp'), note2 = document.createElement('p'); note2.className = 'co-note'; note2.style.textAlign = 'center';
+        let n = 6; const stop = document.createElement('a'); stop.href = '#'; stop.textContent = ' Cancel'; stop.style.cssText = 'color:#fff;text-decoration:underline;margin-left:6px';
+        const tick = () => { note2.firstChild.nodeValue = 'Opening WhatsApp in ' + n + 's…'; };
+        note2.appendChild(document.createTextNode('')); note2.appendChild(stop); wa.after(note2); tick();
+        const t = setInterval(() => { n--; if (n <= 0) { clearInterval(t); note2.remove(); window.location.assign(wa.href); } else tick(); }, 1000);
+        stop.addEventListener('click', (e) => { e.preventDefault(); clearInterval(t); note2.remove(); });
+      }
+    } catch (_) {}
   }
   $('btnInvoice').addEventListener('click', openInvoice);
+  $('btnSendPdf').addEventListener('click', async () => {
+    const wa = $('btnWhatsApp').href;
+    try {
+      openInvoice(); await new Promise((r) => setTimeout(r, 200));
+      const name = 'Implify-' + state.ref, c = await drawInvoiceCanvas();
+      const pdf = makePdfBlob(c.toDataURL('image/jpeg', .92), c.width, c.height), file = new File([pdf], name + '.pdf', { type: 'application/pdf' });
+      const text = decodeURIComponent((wa.split('?text=')[1] || ''));
+      if (navigator.canShare && navigator.canShare({ files: [file] })) { try { await navigator.share({ files: [file], title: name, text }); return; } catch (e) { if (e && e.name === 'AbortError') return; } }
+      /* browsers that cannot attach files: save the PDF, then open the chat with the payment details */
+      const url = URL.createObjectURL(pdf), a = document.createElement('a'); a.href = url; a.download = name + '.pdf'; document.body.appendChild(a); a.click();
+      setTimeout(() => { a.remove(); URL.revokeObjectURL(url); }, 4000);
+      toast('Invoice saved. Opening WhatsApp: attach the PDF to your message.');
+      setTimeout(() => window.open(wa, '_blank', 'noopener'), 1200);
+    } catch (e) { toast('Could not prepare the PDF. Use Download invoice, then attach it in WhatsApp.'); }
+  });
   $('btnDownload').addEventListener('click', () => { openInvoice(); setTimeout(() => downloadInvoice(), 150); });
 
   async function verify(reference, attempt = 1) {
