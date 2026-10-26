@@ -1,7 +1,7 @@
 /* Shared server-side helpers (underscore folder: not exposed as a Vercel route). */
 // Must match the prices in booking.js (USD whole dollars, NGN whole naira).
 const PRICES = {
-  "Payment Test (₦100)": { "Test": { "NGN": 100, "USD": 1 } }, /*TEST100*/
+  "Payment Test (₦10)": { "Test": { "NGN": 10, "USD": 1 } }, /*TEST100*/
   "Brand Identity Design": {
     "Basic": {
       "NGN": 80000,
