@@ -33,12 +33,13 @@ module.exports = async function handler(req, res) {
   if (!ref || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return res.status(400).json({ error: 'invalid_booking' });
   const price = priceOf(service, pkg, currency);
   if (!price) return res.status(400).json({ error: 'unknown_package' });
+  const base = (req.headers.origin || (process.env.ALLOWED_ORIGINS || 'https://implify-visuals.vercel.app').split(',')[0].trim()).replace(/\/+$/, '');
   const reference = safeRef(ref) + '-p' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
   try {
     const r = await fetch('https://api.paystack.co/transaction/initialize', {
       method: 'POST', signal: AbortSignal.timeout(10000),
       headers: { Authorization: 'Bearer ' + key, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, amount: price * 100, currency, reference, ...(m.channels ? { channels: m.channels } : {}),
+      body: JSON.stringify({ email, amount: price * 100, currency, reference, callback_url: base + '/checkout.html', ...(m.channels ? { channels: m.channels } : {}),
         metadata: { project_id: ref, service, package: pkg, client_name: name, method } }),
     });
     const j = await r.json().catch(() => ({}));
