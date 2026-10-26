@@ -29,7 +29,7 @@ const prices = {
     ["Standard", 150000, 113, "3–5 screens"],
     ["Premium", 200000, 151, "6–10 screens"],
   ],
-  "Payment Test (₦100)": [["Test", 100, 1, "Live payment test only"]], /*TEST100*/
+  "Payment Test (₦10)": [["Test", 10, 1, "Live payment test only"]], /*TEST100*/
   "Custom Project": [["Manual Quote", null, null, "Scope reviewed before pricing"]]
 };
 
