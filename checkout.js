@@ -302,7 +302,7 @@ async function downloadInvoice(){
         try { localStorage.setItem('implifyPaid', JSON.stringify(info)); } catch (_) {}
         showPaid(info); return;
       }
-      if (r.ok && (out.reason === 'pending' || out.reason === 'ongoing' || out.reason === 'processing') && attempt < 5) {
+      if (r.ok && (out.reason === 'pending' || out.reason === 'ongoing' || out.reason === 'processing') && attempt < 10) {
         $('coVerifyMsg').textContent = 'Your bank is still processing. Checking again…';
         setTimeout(() => verify(reference, attempt + 1), 3000); return;
       }
@@ -316,6 +316,7 @@ async function downloadInvoice(){
     }
   }
 
+  function setPending(r) { try { localStorage.setItem('implifyPending', JSON.stringify({ ref: state.ref, reference: r, at: Date.now() })); } catch (_) {} }
   function resetBtn() { payBtn.disabled = !selected; payBtn.classList.remove('busy'); }
   function fallback() { if (co.url) { const f = $('coFallback'); f.href = co.url; f.hidden = false; } }
 
@@ -398,7 +399,7 @@ async function downloadInvoice(){
       out = await r.json().catch(() => ({})); } catch (e) { out = null; }
     busy = false; resetBtn();
     if (!out || !out.reference || out.error) { console.warn('on-site charge unavailable:', out); note('Opening the secure payment window for ' + NAMES[selected] + '…'); secureOnly = true; payBtn.click(); secureOnly = false; return; }
-    lastReference = out.reference;
+    lastReference = out.reference; setPending(out.reference);
     const box = $('coOnsite'); box.innerHTML = '';
     const h = document.createElement('h3'), p = document.createElement('p');
     h.textContent = selected === 'ussd' ? 'Dial to pay with ' + (out.bank_name || 'USSD') : 'Transfer to this account';
@@ -425,7 +426,7 @@ async function downloadInvoice(){
         body: JSON.stringify({ ref: state.ref, service: state.service, package: state.packageName, currency: state.currency, email: state.email, name: state.name, method: selected }) });
       status = r.status; out = await r.json().catch(() => ({}));
     } catch (e) { out = null; }
-    if (out && out.access_code) { lastReference = out.reference; openWindow(out.access_code, out.reference, false); return; }
+    if (out && out.access_code) { lastReference = out.reference; setPending(out.reference); openWindow(out.access_code, out.reference, false); return; }
     const err = out && out.error;
     if (err === 'init_failed') { busy = false; resetBtn(); note(NAMES[selected] + ' is not available on our payment account right now' + (out.message ? ' (' + out.message + ')' : '') + '. Please choose another method.', true); return; }
     if (err === 'method_unavailable_for_currency') { busy = false; resetBtn(); note(NAMES[selected] + ' is not available for ' + state.currency + ' bookings.', true); return; }
@@ -435,5 +436,15 @@ async function downloadInvoice(){
     busy = false; resetBtn(); note('Checkout session expired. Please go back and start payment again.', true);
   });
 
-  if (isPaidHere) verify(paid.reference); else show('pay');
+  /* Returning from the payment window (redirect with ?reference=, or the same tab reopened): check with the server and unlock the invoice only if verified */
+  (function start() {
+    if (isPaidHere) { verify(paid.reference); return; }
+    let rr = '';
+    try { const q = new URLSearchParams(location.search); rr = q.get('reference') || q.get('trxref') || ''; if (rr) history.replaceState(null, '', location.pathname); } catch (_) {}
+    if (!/^[A-Za-z0-9_.=-]{6,100}$/.test(rr)) {
+      rr = '';
+      try { const pd = JSON.parse(localStorage.getItem('implifyPending') || 'null'); if (pd && pd.ref === state.ref && pd.reference && Date.now() - pd.at < 3 * 3600 * 1000) rr = pd.reference; } catch (_) {}
+    }
+    if (rr) { lastReference = rr; verify(rr); checkLink(); } else show('pay');
+  })();
 })();
