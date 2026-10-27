@@ -9,6 +9,7 @@ const { clean, safeRef, priceOf, originOk } = require('./_lib/shared');
 // Documented Paystack channel values. Google Pay and OPay are not Paystack channels, so they are not offered.
 const METHODS = {
   card: { channels: ['card'], currencies: ['NGN', 'USD'] },            // card + Google Pay (shown by Paystack inside the card screen)
+  apple_pay: { channels: ['apple_pay'], currencies: ['NGN', 'USD'] },
   zap: { channels: null, currencies: ['NGN'] },                         // Zap has no documented channel code: Paystack shows its normal method list
   bank_transfer: { channels: ['bank_transfer'], currencies: ['NGN'] },
   ussd: { channels: ['ussd'], currencies: ['NGN', 'USD'] },
