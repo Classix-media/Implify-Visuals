@@ -340,6 +340,8 @@ async function downloadInvoice(){
   $('coBkRef').textContent = 'Booking ' + state.ref;
   methodBtns.forEach((b) => {
     const m = b.dataset.method;
+    /* Apple Pay only exists on Safari with Apple Wallet: hide it elsewhere so Android/Chrome users are not sent to a method that cannot work */
+    try { if (m === 'apple_pay' && !(window.ApplePaySession && ApplePaySession.canMakePayments())) { b.hidden = true; b.style.display = 'none'; } } catch (_) { b.hidden = true; b.style.display = 'none'; }
     if (state.currency !== 'NGN' && NGN_ONLY.includes(m)) { b.hidden = true; b.style.display = 'none'; }
     b.addEventListener('click', () => {
       if (busy) return;
