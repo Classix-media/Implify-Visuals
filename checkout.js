@@ -325,13 +325,14 @@ async function downloadInvoice(){
   const INFO = {
     zap: ['Zap', 'Opens the secure payment window where you can pay with Zap or choose any other method it lists.'],
     card: ['Card or Google Pay', 'Opens the secure card window directly. Pay with a Visa, Mastercard or Verve card, or Google Pay where your device supports it. Your bank may ask for a PIN, OTP or 3D Secure approval.'],
+    apple_pay: ['Apple Pay', 'Opens the secure window straight on Apple Pay. Works on Safari with a card in Apple Wallet on your iPhone, iPad or Mac. If your device does not support it, choose Card or Google Pay.'],
     bank_transfer: ['Transfer', 'Opens the transfer window directly. You get a one-time account number for this exact order. Send the exact amount from your banking app and we confirm it automatically.'],
     bank: ['Bank', 'Opens the secure window straight on Pay with Bank. Pick your bank and approve the payment from your bank login or app.'],
     ussd: ['USSD', 'Opens the secure window straight on USSD. Pick your bank, then dial the code shown on your phone to approve the payment.'],
     payattitude: ['PayAttitude', 'Opens the secure window straight on PayAttitude. Enter your phone number and approve with your PayAttitude app, bank app or USSD.'],
     opay: ['OPay', 'Opens the secure window on Pay with Bank, where you choose OPay from the list and approve in your OPay app.']
   };
-  const NAMES = { zap: 'Zap', card: 'Card or Google Pay', bank_transfer: 'Transfer', bank: 'Bank', ussd: 'USSD', payattitude: 'PayAttitude', opay: 'OPay' };
+  const NAMES = { zap: 'Zap', card: 'Card or Google Pay', apple_pay: 'Apple Pay', bank_transfer: 'Transfer', bank: 'Bank', ussd: 'USSD', payattitude: 'PayAttitude', opay: 'OPay' };
   let secureOnly = false, selected = null, lastReference = '', busy = false, ussdType = '', pollTimer = null;
   const ONSITE = [], BANKS = { '737': 'GTBank', '966': 'Zenith Bank', '919': 'UBA', '822': 'Sterling Bank' };
   const info = $('coMethodInfo'), methodBtns = [...document.querySelectorAll('.co-m')];
