@@ -488,3 +488,58 @@ input,textarea{border-color:rgba(255,255,255,.08)!important}
 .btn.btn-outline-sm{border:0!important;color:#fff!important;background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.035))!important;
   -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.18),inset 0 -1px 0 rgba(0,0,0,.28)!important}
+
+/* ===== v70 ===== */
+.portfolio-anim{display:none}
+@media(min-width:901px){
+ .portfolio-side-stack{align-self:stretch;justify-content:flex-start;gap:10px}
+ .side-stack-btn{padding:9px 16px!important;font-size:.8rem!important;min-height:0!important}
+ .portfolio-anim{display:block;flex:1;min-height:0;margin-top:6px}
+ .portfolio-anim svg{width:100%;height:100%;max-height:230px;overflow:visible}
+ .portfolio-anim *{stroke:rgba(255,255,255,.88);stroke-width:1.6;vector-effect:non-scaling-stroke}
+ .portfolio-anim .d{stroke-dasharray:1;stroke-dashoffset:1;animation-duration:14s;animation-iteration-count:infinite;animation-timing-function:ease-in-out}
+ .portfolio-anim .sc{opacity:0;animation:sc 14s infinite}
+ .portfolio-anim .dot{fill:#fff}
+ .portfolio-anim .rip{transform-box:fill-box;transform-origin:center;animation:rip 1.4s ease-out infinite;opacity:0}
+ .portfolio-anim .r2{animation-delay:.45s}
+ .portfolio-anim .clk{opacity:0;animation:clk 1.2s ease-in-out infinite}
+ .portfolio-anim .press{fill:rgba(255,255,255,.28);animation:press 1.2s ease-in-out infinite}
+ .portfolio-anim .fly{animation:fly 14s ease-in-out infinite}
+ .s1{--o:0}
+}
+@keyframes rip{0%{transform:scale(.6);opacity:.9}100%{transform:scale(4.2);opacity:0}}
+@keyframes clk{0%,100%{opacity:0}50%{opacity:1}}
+@keyframes press{0%,100%{opacity:.15}50%{opacity:1}}
+@keyframes fly{0%,60%{transform:translate(-40px,26px)}78%,100%{transform:translate(26px,-14px)}}
+@keyframes sc1{0%,0%{opacity:0}1%,18%{opacity:1}20%,100%{opacity:0}}
+@keyframes d1{0%,0%{stroke-dashoffset:1}4%,100%{stroke-dashoffset:0}}
+@media(min-width:901px){.portfolio-anim .s1{animation-name:sc1}.portfolio-anim .d1{animation-name:d1}}
+@keyframes sc2{0%,19%{opacity:0}21%,38%{opacity:1}40%,100%{opacity:0}}
+@keyframes d2{0%,20%{stroke-dashoffset:1}24%,100%{stroke-dashoffset:0}}
+@media(min-width:901px){.portfolio-anim .s2{animation-name:sc2}.portfolio-anim .d2{animation-name:d2}}
+@keyframes sc3{0%,39%{opacity:0}41%,58%{opacity:1}60%,100%{opacity:0}}
+@keyframes d3{0%,40%{stroke-dashoffset:1}44%,100%{stroke-dashoffset:0}}
+@media(min-width:901px){.portfolio-anim .s3{animation-name:sc3}.portfolio-anim .d3{animation-name:d3}}
+@keyframes sc4{0%,59%{opacity:0}61%,78%{opacity:1}80%,100%{opacity:0}}
+@keyframes d4{0%,60%{stroke-dashoffset:1}64%,100%{stroke-dashoffset:0}}
+@media(min-width:901px){.portfolio-anim .s4{animation-name:sc4}.portfolio-anim .d4{animation-name:d4}}
+@keyframes sc5{0%,79%{opacity:0}81%,98%{opacity:1}100%,100%{opacity:0}}
+@keyframes d5{0%,80%{stroke-dashoffset:1}84%,100%{stroke-dashoffset:0}}
+@media(min-width:901px){.portfolio-anim .s5{animation-name:sc5}.portfolio-anim .d5{animation-name:d5}}
+
+/* reviews: arrows without circle */
+.review-arrow,.review-arrow:hover,.review-arrow:active{background-color:transparent!important;box-shadow:none!important;filter:none!important;border:0!important;width:40px!important;height:40px!important}
+.review-arrow-left{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 4l-8 8 8 8'/%3E%3C/svg%3E") no-repeat center/26px!important}
+.review-arrow-right{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 4l8 8-8 8'/%3E%3C/svg%3E") no-repeat center/26px!important}
+.review-arrow{opacity:.75;transition:opacity .3s,transform .3s}
+.review-arrow:hover{opacity:1;transform:scale(1.12)}
+
+/* ===== v71 ===== */
+.review-arrow,.review-arrow:hover,.review-arrow:active{width:48px!important;height:48px!important;transform:none!important}
+.review-arrow-left,.review-arrow-right{background-size:20px!important}
+@media(max-width:520px){.review-arrow,.review-arrow:hover,.review-arrow:active{width:40px!important;height:40px!important}.review-arrow-left,.review-arrow-right{background-size:17px!important}}
+@media(min-width:901px){
+ .portfolio-anim *{stroke:#030b2e!important;stroke-width:1.8}
+ .portfolio-anim .dot{fill:#030b2e}
+ .portfolio-anim .press{fill:rgba(3,11,46,.3)}
+}
