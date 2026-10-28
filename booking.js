@@ -5,29 +5,29 @@ const FX_NGN_PER_USD = 1325; // fixed studio pricing reference; not a live FX fe
 
 const prices = {
   "Brand Identity Design": [
-    ["Basic", 80000, 60, "Logo design + light mockup preview"],
-    ["Standard", 140000, 106, "Expanded identity system"],
-    ["Premium", 200000, 151, "Complete premium identity"],
+    ["Basic", 135000, 100, "Logo design + light mockup preview"],
+    ["Standard", 200000, 150, "Expanded identity system"],
+    ["Premium", 265000, 200, "Complete premium identity"],
   ],
-  "Motion Graphics / Video Editing": [
-    ["Basic", 70000, 53, "Focused motion deliverable"],
-    ["Standard", 140000, 106, "Full motion treatment"],
-    ["Premium", 250000, 189, "Advanced motion package"],
+  "Motion Graphics": [
+    ["Basic", 160000, 120, "Focused motion deliverable"],
+    ["Standard", 225000, 170, "Full motion treatment"],
+    ["Premium", 330000, 250, "Advanced motion package"],
   ],
   "Social Media Design": [
-    ["1 Design", 25000, 19, "One social media design"],
-    ["3 Designs", 75000, 57, "Three coordinated designs"],
-    ["5 Designs", 125000, 94, "Five coordinated designs"],
+    ["1 Design", 40000, 30, "One social media design"],
+    ["3 Designs", 80000, 60, "Three coordinated designs"],
+    ["5 Designs", 135000, 100, "Five coordinated designs"],
   ],
   "Church Flyer Design": [
-    ["1 Design", 30000, 23, "One church flyer design"],
-    ["3 Designs", 90000, 68, "Three church flyer designs"],
-    ["5 Designs", 120000, 91, "Five church flyer designs"],
+    ["1 Design", 105000, 80, "One church flyer design"],
+    ["3 Designs", 160000, 120, "Three church flyer designs"],
+    ["5 Designs", 225000, 170, "Five church flyer designs"],
   ],
   "UI/UX Interface Design": [
-    ["Basic", 90000, 68, "1–2 screens"],
-    ["Standard", 150000, 113, "3–5 screens"],
-    ["Premium", 200000, 151, "6–10 screens"],
+    ["Basic", 160000, 120, "1–2 screens"],
+    ["Standard", 185000, 140, "3–5 screens"],
+    ["Premium", 305000, 230, "6–10 screens"],
   ],
   "Payment Test (₦100)": [["Test", 100, 1, "Live payment test only"]], /*TEST100*/
   "Custom Project": [["Manual Quote", null, null, "Scope reviewed before pricing"]]

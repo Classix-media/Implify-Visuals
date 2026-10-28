@@ -116,12 +116,12 @@
   var last='';function show(str){if(str===last)return;last=str;for(var i=0;i<4;i++){var on=MAP[+str[i]];for(var k in digits[i])digits[i][k].setAttribute('class','seg'+(on.indexOf(k)>-1?' on':''));}}
   var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(reduce){w.style.setProperty('--p',1);n.textContent='100';show('0010');return;}
-  var T=7600,RUN=6400,HOLD=7000,raf=0,t0=0,vis=false;
-  var ease=function(x){return x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;};
+  var T=3000,RUN=2400,HOLD=99999,raf=0,t0=0,vis=false;
+  var ease=function(x){return x*x*(3-2*x);};
   function frame(now){
     if(!vis){raf=0;return;}
     var t=(now-t0)%T,p=t<RUN?ease(t/RUN):1,o=1;
-    if(t>HOLD)o=Math.max(0,1-(t-HOLD)/(T-HOLD)); else if(t<250)o=t/250;
+    
     w.style.setProperty('--p',p.toFixed(4));w.style.setProperty('--o',o.toFixed(3));n.textContent=Math.round(p*100);
     var s=Math.min(10,Math.floor(p*10+0.0001));show('00'+(s<10?'0'+s:''+s));
     raf=requestAnimationFrame(frame);
@@ -129,3 +129,7 @@
   show('0000');
   new IntersectionObserver(function(es){es.forEach(function(e){vis=e.isIntersecting;if(vis&&!raf){t0=performance.now();raf=requestAnimationFrame(frame);}});},{threshold:.2}).observe(w);
 })();
+
+/* v60: promise text slides in (blur to sharp) once, when the section is scrolled into view */
+(function(){var c=document.querySelector('.promise-copy');if(!c)return;if(!('IntersectionObserver' in window)||(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches))return;
+  c.classList.add('pre');var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){c.classList.add('in');io.disconnect();}});},{threshold:.25});io.observe(c);})();
