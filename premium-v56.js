@@ -105,19 +105,27 @@
   (function loop(){rx+=(x-rx)*.18;ry+=(y-ry)*.18;r.style.transform='translate('+rx+'px,'+ry+'px)';requestAnimationFrame(loop)})();
 })();
 
-/* v58: promise ring - progress ring + percentage count that loop together */
+/* v59: ring + percentage + LED clock, all driven by one timer so they stay in step */
 (function(){
-  var w=document.getElementById('promiseRing'),n=document.getElementById('promiseNum'); if(!w||!n) return;
+  var w=document.getElementById('promiseRing'),n=document.getElementById('promiseNum'),clk=document.getElementById('ringClock'); if(!w||!n||!clk) return;
+  var NS='http://www.w3.org/2000/svg',SEG={a:'10,2 50,2 44,10 16,10',b:'52,5 52,47 46,50 46,12',c:'52,53 52,95 46,88 46,50',d:'10,98 50,98 44,90 16,90',e:'8,53 8,95 14,88 14,50',f:'8,5 8,47 14,50 14,12',g:'12,50 18,45 42,45 48,50 42,55 18,55'};
+  var MAP=['abcdef','bc','abdeg','abcdg','bcfg','acdfg','acdefg','abc','abcdefg','abcdfg'],digits=[],xs=[0,70,170,240];
+  xs.forEach(function(x){var g=document.createElementNS(NS,'g');g.setAttribute('transform','translate('+x+',0)');var o={};
+    Object.keys(SEG).forEach(function(k){var p=document.createElementNS(NS,'polygon');p.setAttribute('points',SEG[k]);p.setAttribute('class','seg');g.appendChild(p);o[k]=p;});clk.appendChild(g);digits.push(o);});
+  [30,70].forEach(function(y){var c=document.createElementNS(NS,'circle');c.setAttribute('cx',150);c.setAttribute('cy',y);c.setAttribute('r',5);c.setAttribute('class','dot');clk.appendChild(c);});
+  var last='';function show(str){if(str===last)return;last=str;for(var i=0;i<4;i++){var on=MAP[+str[i]];for(var k in digits[i])digits[i][k].setAttribute('class','seg'+(on.indexOf(k)>-1?' on':''));}}
   var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(reduce){w.style.setProperty('--p',1);n.textContent='100';return;}
-  var T=4600,RUN=3500,HOLD=4150,raf=0,t0=0,vis=false;
+  if(reduce){w.style.setProperty('--p',1);n.textContent='100';show('0010');return;}
+  var T=7600,RUN=6400,HOLD=7000,raf=0,t0=0,vis=false;
   var ease=function(x){return x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;};
   function frame(now){
     if(!vis){raf=0;return;}
     var t=(now-t0)%T,p=t<RUN?ease(t/RUN):1,o=1;
     if(t>HOLD)o=Math.max(0,1-(t-HOLD)/(T-HOLD)); else if(t<250)o=t/250;
     w.style.setProperty('--p',p.toFixed(4));w.style.setProperty('--o',o.toFixed(3));n.textContent=Math.round(p*100);
+    var s=Math.min(10,Math.floor(p*10+0.0001));show('00'+(s<10?'0'+s:''+s));
     raf=requestAnimationFrame(frame);
   }
+  show('0000');
   new IntersectionObserver(function(es){es.forEach(function(e){vis=e.isIntersecting;if(vis&&!raf){t0=performance.now();raf=requestAnimationFrame(frame);}});},{threshold:.2}).observe(w);
 })();
