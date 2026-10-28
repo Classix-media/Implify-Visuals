@@ -291,7 +291,7 @@ async function downloadInvoice(){
   });
   $('btnDownload').addEventListener('click', () => { openInvoice(); setTimeout(() => downloadInvoice(), 150); });
 
-  async function verify(reference, attempt = 1) {
+  async function verify(reference, attempt = 1, soft = false) {
     show('verify');
     try {
       const r = await fetch('/api/verify-payment', { method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -304,9 +304,10 @@ async function downloadInvoice(){
       }
       if (r.ok && (out.reason === 'pending' || out.reason === 'ongoing' || out.reason === 'processing') && attempt < 10) {
         $('coVerifyMsg').textContent = 'Your bank is still processing. Checking again…';
-        setTimeout(() => verify(reference, attempt + 1), 3000); return;
+        setTimeout(() => verify(reference, attempt + 1, soft), 3000); return;
       }
-      show('pay'); resetBtn();
+      show('pay'); resetBtn(); checkLink();
+      if (soft && r.ok && ['abandoned', 'not_found', 'failed'].includes(out.reason)) { note('Payment was not completed and nothing was charged by us. Choose a method to try again. If you did pay, use the box below to unlock your invoice.'); return; }
       note(r.status === 500 && out.error === 'server_not_configured'
         ? 'Payment may have gone through, but automatic confirmation is not set up yet. Please send your reference ' + reference + ' on WhatsApp.'
         : 'We could not confirm this payment automatically (' + (out.reason || out.error || 'unknown') + '). If you were charged, send reference ' + reference + ' on WhatsApp and we will confirm it.', true);
@@ -363,9 +364,13 @@ async function downloadInvoice(){
 
   function checkLink() {
     let l = $('coCheck');
-    if (!l) { l = document.createElement('button'); l.type = 'button'; l.id = 'coCheck'; l.className = 'co-fallback'; l.style.cssText = 'background:none;border:0;cursor:pointer;font-family:inherit;display:block';
-      l.textContent = 'Already paid or transferred? Check my payment'; $('coFallback').after(l); l.addEventListener('click', () => lastReference && verify(lastReference)); }
-    l.hidden = !lastReference;
+    if (!l) { l = document.createElement('div'); l.id = 'coCheck'; l.style.cssText = 'margin-top:14px;text-align:center';
+      l.innerHTML = '<button type="button" class="co-link" id="coCheckBtn">I have paid, check my payment</button><p class="co-note" style="margin:12px 0 6px">Or enter the payment reference shown in your Paystack receipt or bank alert:</p><input id="coRefIn" type="text" autocomplete="off" placeholder="Payment reference" style="width:100%;padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);color:#fff;font:inherit"><button type="button" class="co-link" id="coRefBtn">Unlock my invoice</button>';
+      $('coFallback').after(l);
+      $('coCheckBtn').addEventListener('click', () => { if (lastReference) verify(lastReference); else note('Enter your payment reference below to confirm your payment.', true); });
+      $('coRefBtn').addEventListener('click', () => { const v = $('coRefIn').value.trim(); if (/^[A-Za-z0-9_.=-]{6,100}$/.test(v)) { lastReference = v; verify(v); } else note('That reference does not look right. Copy it exactly from your receipt.', true); });
+    }
+    l.hidden = false;
   }
   function openWindow(access, ref0, legacy) {
     let loaded = false;
@@ -374,7 +379,7 @@ async function downloadInvoice(){
       new PaystackPop().resumeTransaction(access, {
         onLoad: () => { loaded = true; clearTimeout(slow); busy = false; resetBtn(); note(legacy ? 'Choose your method in the secure window.' : 'Complete your ' + NAMES[selected] + ' payment in the secure window.'); },
         onSuccess: (tx) => { clearTimeout(slow); verify((tx && (tx.reference || tx.trxref)) || ref0); },
-        onCancel: () => { clearTimeout(slow); busy = false; resetBtn(); checkLink(); note('Payment was not completed and nothing was charged by us. Choose a method to try again.'); },
+        onCancel: () => { clearTimeout(slow); busy = false; resetBtn(); checkLink(); if (lastReference) verify(lastReference, 1, true); else note('Payment window closed. If you paid, enter your payment reference below to unlock your invoice.'); },
         onError: () => { clearTimeout(slow); busy = false; resetBtn(); note('Could not open the secure window.', true); fallback(); }
       });
     } catch (e) { clearTimeout(slow); busy = false; resetBtn(); note('Could not open the secure window.', true); fallback(); }

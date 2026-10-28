@@ -104,3 +104,20 @@
   document.addEventListener('mouseover',function(e){r.classList.toggle('hover',!!(e.target.closest&&e.target.closest('a,button,[role=button],.wf-step,input,textarea,select')))});
   (function loop(){rx+=(x-rx)*.18;ry+=(y-ry)*.18;r.style.transform='translate('+rx+'px,'+ry+'px)';requestAnimationFrame(loop)})();
 })();
+
+/* v58: promise ring - progress ring + percentage count that loop together */
+(function(){
+  var w=document.getElementById('promiseRing'),n=document.getElementById('promiseNum'); if(!w||!n) return;
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce){w.style.setProperty('--p',1);n.textContent='100';return;}
+  var T=4600,RUN=3500,HOLD=4150,raf=0,t0=0,vis=false;
+  var ease=function(x){return x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;};
+  function frame(now){
+    if(!vis){raf=0;return;}
+    var t=(now-t0)%T,p=t<RUN?ease(t/RUN):1,o=1;
+    if(t>HOLD)o=Math.max(0,1-(t-HOLD)/(T-HOLD)); else if(t<250)o=t/250;
+    w.style.setProperty('--p',p.toFixed(4));w.style.setProperty('--o',o.toFixed(3));n.textContent=Math.round(p*100);
+    raf=requestAnimationFrame(frame);
+  }
+  new IntersectionObserver(function(es){es.forEach(function(e){vis=e.isIntersecting;if(vis&&!raf){t0=performance.now();raf=requestAnimationFrame(frame);}});},{threshold:.2}).observe(w);
+})();
