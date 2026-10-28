@@ -66,6 +66,7 @@ if (reviewTrack && reviewDotsWrap && reviewPrevBtn && reviewNextBtn) {
   function updateReview() {
     reviewTrack.style.transform = `translateX(-${currentReview * 100}%)`;
     dots.forEach((d, i) => d.classList.toggle("active", i === currentReview));
+    Array.from(reviewTrack.children).forEach((c, i) => c.classList.toggle("is-active", i === currentReview));
   }
 
   function goToReview(index) {
@@ -85,6 +86,7 @@ if (reviewTrack && reviewDotsWrap && reviewPrevBtn && reviewNextBtn) {
   reviewNextBtn.addEventListener("click", nextReview);
   reviewPrevBtn.addEventListener("click", prevReview);
 
+  updateReview();
   resetAutoplay();
 }
 
