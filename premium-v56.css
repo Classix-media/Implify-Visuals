@@ -352,3 +352,10 @@ html.intro-lock .hero-left.scroll-reveal.is-visible *{animation-play-state:pause
   .promise-copy h2{font-size:.85rem!important}
   .promise-copy p{font-size:.75rem}
 }
+
+/* v64 */
+.stat-card{background:linear-gradient(145deg,#3a84ff 0%,#0a4dff 48%,#0027b8 100%)!important;border:0!important}
+.review-card{background:linear-gradient(160deg,#0b1a4a 0%,#071236 100%)!important;border:0!important;outline:0!important;box-shadow:none!important}
+.promise-section{padding-top:clamp(20px,3vw,40px)!important}
+.workflow-section{padding-bottom:calc(20px + 12px)!important}
+@media(max-width:900px){.workflow-section{padding-bottom:calc(16px + 10px)!important}.promise-section{padding-top:16px!important}}
