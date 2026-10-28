@@ -4,72 +4,72 @@ const PRICES = {
   "Payment Test (₦100)": { "Test": { "NGN": 100, "USD": 1 } }, /*TEST100*/
   "Brand Identity Design": {
     "Basic": {
-      "NGN": 80000,
-      "USD": 60
+      "NGN": 135000,
+      "USD": 100
     },
     "Standard": {
-      "NGN": 140000,
-      "USD": 106
+      "NGN": 200000,
+      "USD": 150
     },
     "Premium": {
-      "NGN": 200000,
-      "USD": 151
+      "NGN": 265000,
+      "USD": 200
     }
   },
-  "Motion Graphics / Video Editing": {
+  "Motion Graphics": {
     "Basic": {
-      "NGN": 70000,
-      "USD": 53
+      "NGN": 160000,
+      "USD": 120
     },
     "Standard": {
-      "NGN": 140000,
-      "USD": 106
+      "NGN": 225000,
+      "USD": 170
     },
     "Premium": {
-      "NGN": 250000,
-      "USD": 189
+      "NGN": 330000,
+      "USD": 250
     }
   },
   "Social Media Design": {
     "1 Design": {
-      "NGN": 25000,
-      "USD": 19
+      "NGN": 40000,
+      "USD": 30
     },
     "3 Designs": {
-      "NGN": 75000,
-      "USD": 57
+      "NGN": 80000,
+      "USD": 60
     },
     "5 Designs": {
-      "NGN": 125000,
-      "USD": 94
+      "NGN": 135000,
+      "USD": 100
     }
   },
   "Church Flyer Design": {
     "1 Design": {
-      "NGN": 30000,
-      "USD": 23
+      "NGN": 105000,
+      "USD": 80
     },
     "3 Designs": {
-      "NGN": 90000,
-      "USD": 68
+      "NGN": 160000,
+      "USD": 120
     },
     "5 Designs": {
-      "NGN": 120000,
-      "USD": 91
+      "NGN": 225000,
+      "USD": 170
     }
   },
   "UI/UX Interface Design": {
     "Basic": {
-      "NGN": 90000,
-      "USD": 68
+      "NGN": 160000,
+      "USD": 120
     },
     "Standard": {
-      "NGN": 150000,
-      "USD": 113
+      "NGN": 185000,
+      "USD": 140
     },
     "Premium": {
-      "NGN": 200000,
-      "USD": 151
+      "NGN": 305000,
+      "USD": 230
     }
   }
 };
