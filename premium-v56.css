@@ -225,14 +225,13 @@ html.intro-lock,html.intro-lock body{overflow:hidden!important;height:100%}
 
 /* ===== v63: blur-first reveals (content visible but fully blurred until reached) ===== */
 @media (prefers-reduced-motion:no-preference){
-  .scroll-reveal:not(.is-visible){opacity:1!important;filter:blur(18px)!important;transform:translate3d(0,34px,0)}
-  .scroll-reveal-stagger:not(.is-visible)>*{opacity:1!important;filter:blur(16px)!important;transform:translate3d(0,26px,0)}
-  .scroll-reveal,.scroll-reveal-stagger>*{will-change:filter,transform}
+  .scroll-reveal:not(.is-visible){opacity:1!important;filter:blur(5px)!important;transform:translate3d(0,34px,0)}
+  .scroll-reveal-stagger:not(.is-visible)>*{opacity:1!important;filter:blur(4px)!important;transform:translate3d(0,26px,0)}
   .scroll-reveal.is-visible,.scroll-reveal-stagger.is-visible>*{will-change:auto}
 }
 /* hold hero animations until the gate is dismissed */
 html.intro-lock .hero-section *{animation-play-state:paused!important}
-html.intro-lock .hero-left.scroll-reveal.is-visible{opacity:1!important;filter:blur(18px)!important;transform:translate3d(0,34px,0)!important}
+html.intro-lock .hero-left.scroll-reveal.is-visible{opacity:1!important;filter:blur(5px)!important;transform:translate3d(0,34px,0)!important}
 html.intro-lock .hero-left.scroll-reveal.is-visible *{animation-play-state:paused!important}
 
 /* profile photos: crop the same image as avatar */
@@ -359,3 +358,10 @@ html.intro-lock .hero-left.scroll-reveal.is-visible *{animation-play-state:pause
 .promise-section{padding-top:clamp(20px,3vw,40px)!important}
 .workflow-section{padding-bottom:calc(20px + 12px)!important}
 @media(max-width:900px){.workflow-section{padding-bottom:calc(16px + 10px)!important}.promise-section{padding-top:16px!important}}
+
+/* v65: faster/lighter reveals + one seamless background */
+.scroll-reveal{transition-duration:450ms!important}
+.scroll-reveal-stagger>*{transition-duration:400ms!important}
+.workflow-section,.promise-section{background:#04144a!important;border:0!important;box-shadow:none!important}
+.workflow-section{margin-bottom:0!important}
+.promise-section{margin-top:0!important}
