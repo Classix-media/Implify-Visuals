@@ -543,3 +543,36 @@ input,textarea{border-color:rgba(255,255,255,.08)!important}
  .portfolio-anim .dot{fill:#030b2e}
  .portfolio-anim .press{fill:rgba(3,11,46,.3)}
 }
+
+/* ===== v72: pills fill the column, no blank space (desktop) ===== */
+@media(min-width:901px){
+ .portfolio-side-stack{align-self:stretch;justify-content:stretch;gap:14px}
+ .portfolio-side-stack .side-stack-btn{flex:1 1 0;padding:12px 20px!important;font-size:.95rem!important;border-radius:16px!important}
+}
+
+/* ===== v73: file-box animation (desktop only) ===== */
+.portfolio-anim{display:none}
+@media(min-width:901px){
+ .portfolio-side-stack{justify-content:flex-start!important;gap:10px!important}
+ .portfolio-side-stack .side-stack-btn{flex:0 0 auto!important;padding:9px 16px!important;font-size:.8rem!important;border-radius:12px!important}
+ .portfolio-anim{display:flex;flex:1;align-items:center;justify-content:center;min-height:0}
+ .portfolio-anim svg{width:100%;max-width:250px;height:auto;overflow:visible}
+ .portfolio-anim .bx{animation:bxf 5s ease-in-out infinite}
+ .portfolio-anim .gs{transform-box:fill-box;transform-origin:center;animation:gsh 5s ease-in-out infinite}
+ .portfolio-anim .fo{animation:foL 9s cubic-bezier(.45,0,.2,1) infinite}
+}
+@keyframes foL{0%,52%{transform:translateY(0)}62%,78%{transform:translateY(-30px)}90%,100%{transform:translateY(0)}}
+@keyframes bxf{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes gsh{0%,100%{transform:scale(1)}50%{transform:scale(.94);opacity:.3}}
+@media(prefers-reduced-motion:reduce){.portfolio-anim *{animation:none!important}}
+
+/* ===== v74: show on tablets too (601px+), hidden on phones ===== */
+@media(min-width:601px) and (max-width:900px){
+ .portfolio-anim{display:flex;justify-content:center;align-items:center;padding:8px 0 4px}
+ .portfolio-anim svg{width:100%;max-width:230px;height:auto;overflow:visible}
+ .portfolio-anim .bx{animation:bxf 5s ease-in-out infinite}
+ .portfolio-anim .gs{transform-box:fill-box;transform-origin:center;animation:gsh 5s ease-in-out infinite}
+ .portfolio-anim .fo{animation:foL 9s cubic-bezier(.45,0,.2,1) infinite}
+}
+@media(max-width:600px){.portfolio-anim{display:none!important}}
+@media(prefers-reduced-motion:reduce){.portfolio-anim *{animation:none!important}}
