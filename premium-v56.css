@@ -390,3 +390,27 @@ input,textarea{border-color:rgba(255,255,255,.08)!important}
 .clarity-section{background:linear-gradient(180deg,rgba(3,10,40,0) 0%,#041044 40%,#030d38 100%)!important}
 #introOk{border:0!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 10px 26px -10px rgba(0,85,255,.7)!important}
 .phone-wrap::before{width:72%!important;top:22%!important;opacity:.85}
+
+/* ===== v67: no card shadows, contact pills = inputs, distinct cobalt sections ===== */
+.dual-card,.faq-card,.need-card,.tools-card,.portfolio-outer-frame,.pp-card,.pp-slide,.strategy-card,.glass-card-sub,
+.info-pill,.welcome-pill,.marquee-wrapper,.gate-card,.service-card,.review-card,.stat-card,.faq-text,.faq-item,
+.tool-pill,.portfolio-card-relative,.social-btn,.wf-step,.profile-card-wrapper,.process-img-box,.btn.btn-outline{
+  box-shadow:none!important;filter:none!important;text-shadow:none!important}
+.service-card:hover,.stat-card:hover,.review-card:hover,.need-card:hover,.faq-card:hover{box-shadow:none!important}
+
+/* contact pills: same look as the form inputs */
+.info-pill{background:rgba(15,23,42,.8)!important;border:1px solid rgba(255,255,255,.08)!important;border-radius:10px!important;
+  padding:12px!important;font-size:.85rem!important;color:#cbd5e1!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+.contact-info-list{gap:15px!important}
+.social-btn{border:1px solid rgba(255,255,255,.08)!important}
+
+/* sections: no gaps, each with its own cobalt background */
+.clarity-section,.workflow-section,.promise-section{margin:0!important;border:0!important;box-shadow:none!important}
+.clarity-section{background:linear-gradient(180deg,#061c70 0%,#0a2a9a 100%)!important}
+.workflow-section{background:linear-gradient(180deg,#04144a 0%,#051a5e 100%)!important;
+  padding-top:clamp(56px,8vw,100px)!important;padding-bottom:clamp(40px,6vw,70px)!important}
+.promise-section{background:linear-gradient(180deg,#020b30 0%,#030f40 100%)!important;
+  padding-top:clamp(40px,6vw,80px)!important;padding-bottom:clamp(56px,8vw,100px)!important}
+.about-section{margin:0!important}
+.stats-section{margin-bottom:0!important}
+.tools-elevate-section{margin-top:0!important}
