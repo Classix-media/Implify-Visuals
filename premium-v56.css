@@ -576,3 +576,28 @@ input,textarea{border-color:rgba(255,255,255,.08)!important}
 }
 @media(max-width:600px){.portfolio-anim{display:none!important}}
 @media(prefers-reduced-motion:reduce){.portfolio-anim *{animation:none!important}}
+
+/* ===== v75: pills aligned to image top, smaller animation, working blur-to-sharp reveals ===== */
+@media(min-width:901px){
+ .portfolio-outer-frame{align-items:flex-start!important}
+ .portfolio-side-stack{align-self:flex-start!important}
+ .portfolio-anim{flex:0 0 auto;margin-top:18px}
+ .portfolio-anim svg{max-width:185px!important}
+}
+@media (prefers-reduced-motion:no-preference){
+ :is(.stats-section,.about-section,.clarity-section,.tools-elevate-section,.strategy-section,.past-projects-section,.reviews-section,.portfolio-section,.contact-section).scroll-reveal,
+ :is(.stats-section,.about-section,.clarity-section,.tools-elevate-section,.strategy-section,.past-projects-section,.reviews-section,.portfolio-section,.contact-section).scroll-reveal:not(.is-visible){
+  opacity:1!important;filter:none!important;transform:none!important;transition:none!important}
+ :is(.stats-section,.about-section,.clarity-section,.tools-elevate-section,.strategy-section,.past-projects-section,.reviews-section,.portfolio-section,.contact-section).scroll-reveal>*{
+  transition:opacity .9s ease,transform 1s cubic-bezier(.22,1,.36,1),filter .9s ease;will-change:opacity,transform,filter}
+ :is(.stats-section,.about-section,.clarity-section,.tools-elevate-section,.strategy-section,.past-projects-section,.reviews-section,.portfolio-section,.contact-section).scroll-reveal:not(.is-visible)>*{
+  opacity:0;filter:blur(16px);transform:translate3d(0,56px,0)}
+ :is(.stats-section,.about-section,.clarity-section,.tools-elevate-section,.strategy-section,.past-projects-section,.reviews-section,.portfolio-section,.contact-section).scroll-reveal.is-visible>*{
+  opacity:1;filter:blur(0);transform:none}
+ :is(.about-section,.clarity-section,.strategy-section,.reviews-section,.portfolio-section,.contact-section,.past-projects-section).scroll-reveal>*:nth-child(2){transition-delay:.12s}
+ :is(.about-section,.clarity-section,.strategy-section,.reviews-section,.portfolio-section,.contact-section,.past-projects-section).scroll-reveal>*:nth-child(3){transition-delay:.24s}
+ /* cards inside */
+ body .scroll-reveal-stagger:not(.is-visible)>*{opacity:0!important;filter:blur(12px)!important;transform:translate3d(0,40px,0)!important}
+ body .scroll-reveal-stagger>*{transition:opacity .8s ease var(--reveal-delay,0ms),transform .9s cubic-bezier(.22,1,.36,1) var(--reveal-delay,0ms),filter .8s ease var(--reveal-delay,0ms)!important}
+ body .scroll-reveal-stagger.is-visible>*{opacity:1!important;filter:blur(0)!important;transform:none!important}
+}
