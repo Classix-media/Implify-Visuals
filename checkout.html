@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script>(function(){try{var w=Math.min(screen.width,screen.height);if(w>=280&&w<=600&&innerHeight>innerWidth){document.querySelector('meta[name=viewport]').setAttribute('content','width=412, viewport-fit=cover')}}catch(e){}})();</script>
+  <script>(function(){try{var s=Math.min(screen.width,screen.height),p=window.matchMedia&&matchMedia("(orientation: portrait)").matches,c=(s>=280&&s<=600&&p)?"width=412, initial-scale=1, viewport-fit=cover":"width=device-width, initial-scale=1.0";document.write('<meta name="viewport" content="'+c+'">')}catch(e){document.write('<meta name="viewport" content="width=device-width, initial-scale=1.0">')}})();</script>
+<noscript><meta name="viewport" content="width=device-width, initial-scale=1.0"></noscript>
   <meta name="theme-color" content="#03050a">
   <title>Secure Checkout | Implify Visuals</title>
   <meta name="robots" content="noindex,nofollow">
@@ -17,8 +17,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter+Tight:wght@300;400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="booking.css?v=20">
-  <link rel="stylesheet" href="checkout.css?v=20">
+  <link rel="stylesheet" href="booking.css?v=21">
+  <link rel="stylesheet" href="checkout.css?v=21">
   <link rel="preload" as="image" href="images/checkout-wallet.jpg">
 <link rel="stylesheet" href="cursor.css?v=20">
 </head>

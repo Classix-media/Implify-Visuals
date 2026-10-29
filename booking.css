@@ -337,3 +337,6 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .invoice-doc-footer{justify-content:space-between!important}
 .inv-pill{flex:0 0 calc(54 * var(--u,7px))!important}
 .inv-sign{flex:0 0 calc(21 * var(--u,7px))!important}
+
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{overflow-x:hidden}

@@ -601,3 +601,18 @@ input,textarea{border-color:rgba(255,255,255,.08)!important}
  body .scroll-reveal-stagger>*{transition:opacity .8s ease var(--reveal-delay,0ms),transform .9s cubic-bezier(.22,1,.36,1) var(--reveal-delay,0ms),filter .8s ease var(--reveal-delay,0ms)!important}
  body .scroll-reveal-stagger.is-visible>*{opacity:1!important;filter:blur(0)!important;transform:none!important}
 }
+
+/* ===== v76: stop in-app browsers inflating text ===== */
+html{-webkit-text-size-adjust:100%;-moz-text-size-adjust:100%;text-size-adjust:100%}
+body{overflow-x:hidden}
+
+/* ===== v77: aligned stack column, blended colours, faster lift ===== */
+@keyframes foL2{0%,38%{transform:translateY(0);animation-timing-function:cubic-bezier(.2,.9,.3,1.25)}
+ 52%,62%{transform:translateY(-46px);animation-timing-function:cubic-bezier(.5,0,.4,1)}80%,100%{transform:translateY(0)}}
+.portfolio-anim .fo{animation-name:foL2!important;animation-duration:4.2s!important}
+@media(min-width:901px){
+ .portfolio-outer-frame{align-items:stretch!important}
+ .portfolio-side-stack{align-self:stretch!important;display:flex!important;flex-direction:column!important;justify-content:flex-start!important}
+ .portfolio-anim{display:block!important;position:relative;flex:1 1 0!important;min-height:0!important;margin-top:6px!important;overflow:visible}
+ .portfolio-anim svg{position:absolute;inset:0;width:100%!important;height:100%!important;max-width:none!important;overflow:visible}
+}
