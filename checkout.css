@@ -36,11 +36,11 @@
 .co-rows dt{color:#8ea3c9}
 .co-rows dd{margin:0;color:#fff;font-weight:600;text-align:right;word-break:break-word}
 
-.co-panel h1{margin:0 0 22px;font-size:clamp(1.7rem,3.4vw,2.35rem);line-height:1.15;font-weight:600;letter-spacing:-.015em}
+.co-panel h1{margin:0 0 22px;font-size:clamp(1.7rem,calc(3.4 * var(--vw,1vw)),2.35rem);line-height:1.15;font-weight:600;letter-spacing:-.015em}
 .co-total{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:20px 22px;margin-bottom:26px;border-radius:22px;
   background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:inset 0 1px 0 rgba(255,255,255,.25)}
 .co-total span{font-size:.85rem;color:rgba(255,255,255,.78);letter-spacing:.04em}
-.co-total strong{font-size:clamp(2rem,4.6vw,2.9rem);font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.co-total strong{font-size:clamp(2rem,calc(4.6 * var(--vw,1vw)),2.9rem);font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
 
 .co-sub{display:block;font-size:.8rem;color:rgba(255,255,255,.78);margin-bottom:12px;letter-spacing:.04em}
 .co-methods small{display:block;color:rgba(255,255,255,.66);font-size:.76rem;line-height:1.5;margin-bottom:24px}

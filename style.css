@@ -277,7 +277,7 @@ img, video {
     padding: 20px;
     border-radius: 16px;
     margin-top: 25px;
-    max-width: 380px;
+    max-width:1px;
 }
 .glass-card-sub h4 { color: #38bdf8; margin-bottom: 8px; }
 
@@ -286,7 +286,7 @@ img, video {
     border-radius: 24px;
     border: 2px solid #0055ff;
     overflow: hidden;
-    max-width: 380px;
+    max-width:1px;
     width: 100%;
     aspect-ratio: 4/5;
     background: #0b1130;
@@ -794,7 +794,7 @@ a.info-pill:hover { color: #38bdf8; }
 }
 
 /* ============ SAFETY NET FOR OLDER/SMALLER PHONES (360px or narrower) ============ */
-@media (max-width: 360px) {
+@media (max-width:1px) {
     .hero-left h1 { font-size: 2.6rem; }
     .hero-left p { font-size: 0.95rem; }
     .navbar { padding: 12px 4%; }
@@ -813,9 +813,9 @@ a.info-pill:hover { color: #38bdf8; }
 .intro-overlay {
     position: fixed;
     inset: 0;
-    width: 100vw;
-    height: 100vh;
-    height: 100dvh;
+    width: calc(100 * var(--vw,1vw));
+    height: calc(100 * var(--vh,1vh));
+    height: calc(100 * var(--vh,1vh));
     z-index: 99999;
     background-color: #020617;
     background-image:
@@ -960,9 +960,9 @@ a.info-pill:hover { color: #38bdf8; }
 .form-group { min-width: 0; }
 
 /* Fluid headings instead of a few abrupt fixed jumps. */
-.hero-left h1 { font-size: clamp(2.35rem, 6vw, 3.6rem); }
-.about-left h2, .contact-left h2 { font-size: clamp(2rem, 4.8vw, 2.6rem); }
-.section-title { font-size: clamp(2rem, 4.5vw, 2.4rem); }
+.hero-left h1 { font-size: clamp(2.35rem, calc(6 * var(--vw,1vw)), 3.6rem); }
+.about-left h2, .contact-left h2 { font-size: clamp(2rem, calc(4.8 * var(--vw,1vw)), 2.6rem); }
+.section-title { font-size: clamp(2rem, calc(4.5 * var(--vw,1vw)), 2.4rem); }
 
 /* Flexible grid tracks prevent cards from becoming cramped. */
 .clarity-grid,
@@ -1018,7 +1018,7 @@ picture img { width: 100%; height: auto; }
     .logo-text { font-size: 0.92rem; }
 
     .hero-section { padding-left: 5%; padding-right: 5%; padding-top: 45px; }
-    .hero-left h1 { font-size: clamp(2.15rem, 10vw, 2.75rem); line-height: 1.1; }
+    .hero-left h1 { font-size: clamp(2.15rem, calc(10 * var(--vw,1vw)), 2.75rem); line-height: 1.1; }
     .hero-left p { font-size: 0.98rem; }
     .hero-buttons { gap: 10px; }
     .btn { padding: 11px 18px; }
@@ -1026,7 +1026,7 @@ picture img { width: 100%; height: auto; }
     .stats-section { padding: 0 5%; }
     .stats-container { gap: 10px; padding: 12px; }
     .stat-card { padding: 13px 8px; }
-    .stat-card h3 { font-size: clamp(1.45rem, 7vw, 1.9rem); }
+    .stat-card h3 { font-size: clamp(1.45rem, calc(7 * var(--vw,1vw)), 1.9rem); }
 
     .about-section,
     .clarity-section,
@@ -1049,7 +1049,7 @@ picture img { width: 100%; height: auto; }
     .review-quote { font-size: 0.98rem; }
 }
 
-@media (max-width: 380px) {
+@media (max-width:1px) {
     .logo-text { font-size: 0.85rem; }
     .nav-toggle span { width: 20px; }
     .hero-section { padding-left: 4%; padding-right: 4%; }
@@ -1065,7 +1065,7 @@ picture img { width: 100%; height: auto; }
     .review-arrow { width: 34px; height: 34px; font-size: 1.15rem; }
 }
 
-@media (max-width: 340px) {
+@media (max-width:1px) {
     .hero-left h1 { font-size: 2rem; }
     .logo { height: 31px; }
     .logo-text { font-size: 0.8rem; }
@@ -1097,11 +1097,11 @@ picture img { width: 100%; height: auto; }
 }
 
 .hero-left h1 {
-    font-size: clamp(2.2rem, 4.4vw, 3rem);
+    font-size: clamp(2.2rem, calc(4.4 * var(--vw,1vw)), 3rem);
 }
 
 .hero-left p {
-    font-size: clamp(0.95rem, 1.35vw, 1.05rem);
+    font-size: clamp(0.95rem, calc(1.35 * var(--vw,1vw)), 1.05rem);
 }
 
 .stats-container {
@@ -1164,7 +1164,7 @@ picture img { width: 100%; height: auto; }
     }
 }
 
-@media (max-width: 380px) {
+@media (max-width:1px) {
     .tools-pills {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 8px;
@@ -1176,7 +1176,7 @@ picture img { width: 100%; height: auto; }
     }
 }
 
-@media (max-width: 340px) {
+@media (max-width:1px) {
     .tools-pills {
         grid-template-columns: 1fr 1fr;
     }
@@ -1192,7 +1192,7 @@ picture img { width: 100%; height: auto; }
    consistent breathing room below the hero copy/buttons on stacked layouts. */
 @media (max-width: 900px) {
     .hero-right {
-        margin-top: clamp(52px, 10vw, 72px);
+        margin-top: clamp(52px, calc(10 * var(--vw,1vw)), 72px);
     }
 }
 
@@ -1205,19 +1205,19 @@ picture img { width: 100%; height: auto; }
 .hero-eyebrow {
     display: flex;
     align-items: center;
-    gap: clamp(14px, 2.5vw, 24px);
-    margin: 0 0 clamp(24px, 3vw, 34px);
+    gap: clamp(14px, calc(2.5 * var(--vw,1vw)), 24px);
+    margin: 0 0 clamp(24px, calc(3 * var(--vw,1vw)), 34px);
     color: rgba(148, 163, 184, 0.88);
-    font-size: clamp(0.62rem, 1vw, 0.78rem);
+    font-size: clamp(0.62rem, calc(1 * var(--vw,1vw)), 0.78rem);
     font-weight: 700;
-    letter-spacing: clamp(2.2px, 0.42vw, 4px);
+    letter-spacing: clamp(2.2px, calc(0.42 * var(--vw,1vw)), 4px);
     line-height: 1;
     text-transform: uppercase;
     white-space: nowrap;
 }
 
 .hero-eyebrow-line {
-    width: clamp(38px, 5vw, 58px);
+    width: clamp(38px, calc(5 * var(--vw,1vw)), 58px);
     height: 2px;
     flex: 0 0 auto;
     background: linear-gradient(90deg, #38bdf8, #0055ff);
@@ -1226,11 +1226,11 @@ picture img { width: 100%; height: auto; }
 
 .hero-left h1 {
     font-family: 'DM Sans', sans-serif;
-    font-size: clamp(3rem, 6.4vw, 5rem);
+    font-size: clamp(3rem, calc(6.4 * var(--vw,1vw)), 5rem);
     line-height: 0.98;
     font-weight: 800;
     letter-spacing: -0.045em;
-    margin: 0 0 clamp(24px, 3vw, 32px);
+    margin: 0 0 clamp(24px, calc(3 * var(--vw,1vw)), 32px);
 }
 
 .accent-text {
@@ -1241,10 +1241,10 @@ picture img { width: 100%; height: auto; }
 }
 
 .hero-left p {
-    font-size: clamp(1rem, 1.35vw, 1.12rem);
+    font-size: clamp(1rem, calc(1.35 * var(--vw,1vw)), 1.12rem);
     line-height: 1.55;
     max-width: 48ch;
-    margin-bottom: clamp(28px, 3.2vw, 38px);
+    margin-bottom: clamp(28px, calc(3.2 * var(--vw,1vw)), 38px);
 }
 
 .hero-buttons {
@@ -1261,7 +1261,7 @@ picture img { width: 100%; height: auto; }
     text-align: center;
     padding: 16px 24px;
     border-radius: 999px;
-    font-size: clamp(0.82rem, 1vw, 0.94rem);
+    font-size: clamp(0.82rem, calc(1 * var(--vw,1vw)), 0.94rem);
     letter-spacing: 0.01em;
 }
 
@@ -1281,16 +1281,16 @@ picture img { width: 100%; height: auto; }
 /* The requested extra breathing room for the glass animation on narrow screens. */
 @media (max-width: 900px) {
     .hero-section {
-        padding-top: clamp(54px, 9vw, 76px);
+        padding-top: clamp(54px, calc(9 * var(--vw,1vw)), 76px);
     }
 
     .hero-left h1 {
-        font-size: clamp(2.9rem, 12vw, 4rem);
+        font-size: clamp(2.9rem, calc(12 * var(--vw,1vw)), 4rem);
         line-height: 1;
     }
 
     .hero-right {
-        margin-top: clamp(64px, 12vw, 88px);
+        margin-top: clamp(64px, calc(12 * var(--vw,1vw)), 88px);
     }
 }
 
@@ -1306,7 +1306,7 @@ picture img { width: 100%; height: auto; }
     }
 
     .hero-left h1 {
-        font-size: clamp(2.7rem, 13.2vw, 3.5rem);
+        font-size: clamp(2.7rem, calc(13.2 * var(--vw,1vw)), 3.5rem);
     }
 
     .hero-buttons,
@@ -1319,7 +1319,7 @@ picture img { width: 100%; height: auto; }
     }
 }
 
-@media (max-width: 380px) {
+@media (max-width:1px) {
     .hero-eyebrow {
         gap: 10px;
         font-size: 0.59rem;
@@ -1371,7 +1371,7 @@ picture img { width: 100%; height: auto; }
 .strategy-heading h2 {
     margin: 0 0 18px;
     font-family: 'DM Sans', sans-serif;
-    font-size: clamp(2rem, 4.2vw, 3.3rem);
+    font-size: clamp(2rem, calc(4.2 * var(--vw,1vw)), 3.3rem);
     line-height: 1.05;
     letter-spacing: -0.035em;
     color: #fff;
@@ -1381,7 +1381,7 @@ picture img { width: 100%; height: auto; }
     max-width: 62ch;
     margin: 0 auto;
     color: #94a3b8;
-    font-size: clamp(0.94rem, 1.2vw, 1.04rem);
+    font-size: clamp(0.94rem, calc(1.2 * var(--vw,1vw)), 1.04rem);
     line-height: 1.7;
 }
 
@@ -1429,7 +1429,7 @@ picture img { width: 100%; height: auto; }
     margin: 0 0 12px;
     font-family: 'DM Sans', sans-serif;
     color: #fff;
-    font-size: clamp(1.35rem, 2.2vw, 1.7rem);
+    font-size: clamp(1.35rem, calc(2.2 * var(--vw,1vw)), 1.7rem);
     line-height: 1.15;
 }
 
@@ -1490,11 +1490,11 @@ picture img { width: 100%; height: auto; }
 /* ============ PAST PROJECTS — PREMIUM SHOWCASE CAROUSEL ============ */
 .past-projects-section {
     width: min(1180px, calc(100% - 40px));
-    margin: clamp(70px, 9vw, 120px) auto clamp(70px, 9vw, 120px);
+    margin: clamp(70px, calc(9 * var(--vw,1vw)), 120px) auto clamp(70px, calc(9 * var(--vw,1vw)), 120px);
 }
 
 .past-projects-heading {
-    margin-bottom: clamp(18px, 2.5vw, 28px);
+    margin-bottom: clamp(18px, calc(2.5 * var(--vw,1vw)), 28px);
 }
 
 .past-projects-label {
@@ -1502,15 +1502,15 @@ picture img { width: 100%; height: auto; }
     align-items: center;
     gap: 12px;
     color: rgba(148, 163, 184, 0.9);
-    font-size: clamp(0.62rem, 0.9vw, 0.76rem);
+    font-size: clamp(0.62rem, calc(0.9 * var(--vw,1vw)), 0.76rem);
     font-weight: 700;
-    letter-spacing: clamp(2px, 0.35vw, 3.5px);
+    letter-spacing: clamp(2px, calc(0.35 * var(--vw,1vw)), 3.5px);
     line-height: 1;
     white-space: nowrap;
 }
 
 .past-projects-label-line {
-    width: clamp(34px, 4vw, 54px);
+    width: clamp(34px, calc(4 * var(--vw,1vw)), 54px);
     height: 2px;
     border-radius: 999px;
     background: linear-gradient(90deg, #38bdf8, #0055ff);
@@ -1520,8 +1520,8 @@ picture img { width: 100%; height: auto; }
 .projects-carousel {
     position: relative;
     width: 100%;
-    padding: clamp(16px, 2.2vw, 28px);
-    border-radius: clamp(24px, 3vw, 38px);
+    padding: clamp(16px, calc(2.2 * var(--vw,1vw)), 28px);
+    border-radius: clamp(24px, calc(3 * var(--vw,1vw)), 38px);
     background: linear-gradient(145deg, #1e3ae8 0%, #1631ca 52%, #10249a 100%);
     box-shadow: 0 28px 70px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255,255,255,0.14), inset 0 -1px 0 rgba(0,0,0,0.18);
     overflow: hidden;
@@ -1553,9 +1553,9 @@ picture img { width: 100%; height: auto; }
     position: relative;
     width: 100%;
     aspect-ratio: 4 / 5;
-    max-height: min(78vh, 920px);
+    max-height: min(calc(78 * var(--vh,1vh)), 920px);
     min-height: 360px;
-    border-radius: clamp(17px, 2.2vw, 28px);
+    border-radius: clamp(17px, calc(2.2 * var(--vw,1vw)), 28px);
     overflow: hidden;
     background: rgba(5, 12, 35, 0.18);
     box-shadow: inset 0 0 0 1px rgba(255,255,255,0.14), 0 18px 45px rgba(0,0,0,0.18);
@@ -1633,8 +1633,8 @@ picture img { width: 100%; height: auto; }
 .project-swipe-badge {
     position: absolute;
     z-index: 2;
-    right: clamp(14px, 2vw, 24px);
-    bottom: clamp(14px, 2vw, 24px);
+    right: clamp(14px, calc(2 * var(--vw,1vw)), 24px);
+    bottom: clamp(14px, calc(2 * var(--vw,1vw)), 24px);
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -1643,7 +1643,7 @@ picture img { width: 100%; height: auto; }
     border-radius: 999px;
     background: rgba(8, 16, 48, 0.58);
     color: #fff;
-    font-size: clamp(0.66rem, 0.9vw, 0.78rem);
+    font-size: clamp(0.66rem, calc(0.9 * var(--vw,1vw)), 0.78rem);
     font-weight: 700;
     letter-spacing: 0.6px;
     backdrop-filter: blur(14px);
@@ -1662,7 +1662,7 @@ picture img { width: 100%; height: auto; }
     grid-template-columns: 42px 1fr 42px;
     align-items: center;
     gap: 18px;
-    margin-top: clamp(16px, 2vw, 22px);
+    margin-top: clamp(16px, calc(2 * var(--vw,1vw)), 22px);
 }
 
 .project-dots {
@@ -1718,7 +1718,7 @@ picture img { width: 100%; height: auto; }
     .project-swipe-badge { right: 12px; bottom: 12px; padding: 8px 11px; }
 }
 
-@media (max-width: 380px) {
+@media (max-width:1px) {
     .past-projects-section { width: calc(100% - 18px); }
     .projects-carousel { padding: 9px; border-radius: 21px; }
     .projects-stage { border-radius: 15px; }
@@ -1736,7 +1736,7 @@ picture img { width: 100%; height: auto; }
 .past-projects-layout {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: clamp(48px, 5.5vw, 76px);
+    gap: clamp(48px, calc(5.5 * var(--vw,1vw)), 76px);
     align-items: center;
 }
 
@@ -1758,9 +1758,9 @@ picture img { width: 100%; height: auto; }
 
 .quick-message-block {
     width: 100%;
-    padding: clamp(28px, 3.5vw, 44px);
+    padding: clamp(28px, calc(3.5 * var(--vw,1vw)), 44px);
     border: 1px solid rgba(255,255,255,0.14);
-    border-radius: clamp(24px, 3vw, 34px);
+    border-radius: clamp(24px, calc(3 * var(--vw,1vw)), 34px);
     background: rgba(8, 16, 48, 0.42);
     box-shadow: 0 24px 60px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.06);
 }
@@ -1777,14 +1777,14 @@ picture img { width: 100%; height: auto; }
 
 .quick-message-title {
     margin: 0 0 24px;
-    font-size: clamp(1.45rem, 2.6vw, 2.15rem);
+    font-size: clamp(1.45rem, calc(2.6 * var(--vw,1vw)), 2.15rem);
     line-height: 1.08;
     letter-spacing: -0.03em;
 }
 
 .quick-message-box {
     width: 100%;
-    padding: clamp(20px, 2.5vw, 28px);
+    padding: clamp(20px, calc(2.5 * var(--vw,1vw)), 28px);
     border: 1px solid rgba(255,255,255,0.18);
     border-radius: 20px;
     background: rgba(255,255,255,0.035);
@@ -1792,7 +1792,7 @@ picture img { width: 100%; height: auto; }
 
 .quick-message-box p {
     margin: 0;
-    font-size: clamp(0.94rem, 1.25vw, 1.06rem);
+    font-size: clamp(0.94rem, calc(1.25 * var(--vw,1vw)), 1.06rem);
     line-height: 1.75;
     color: rgba(255,255,255,0.86);
 }
@@ -1860,7 +1860,7 @@ picture img { width: 100%; height: auto; }
     .quick-message-block { padding: 24px; border-radius: 25px; }
 }
 
-@media (max-width: 380px) {
+@media (max-width:1px) {
     .quick-message-block { padding: 20px; border-radius: 21px; }
     .quick-message-title { font-size: 1.35rem; }
 }
@@ -2020,7 +2020,7 @@ html {
     }
 }
 
-@media (max-width: 380px) {
+@media (max-width:1px) {
     .hero-section {
         padding-left: 4.5%;
         padding-right: 4.5%;
@@ -2067,7 +2067,7 @@ html {
     }
 }
 
-@media (max-width: 340px) {
+@media (max-width:1px) {
     .hero-left h1 {
         font-size: 2.02rem;
     }
@@ -2163,7 +2163,7 @@ html {
     }
 }
 
-@media (max-width: 380px) {
+@media (max-width:1px) {
     .hero-right {
         margin-top: 32px;
         padding-top: 5px;
@@ -2184,7 +2184,7 @@ html {
     }
 }
 
-@media (max-width: 340px) {
+@media (max-width:1px) {
     .hero-right {
         margin-top: 30px;
     }
@@ -2234,7 +2234,7 @@ html {
     }
 }
 
-@media (max-width: 380px) {
+@media (max-width:1px) {
     .hero-right {
         margin-top: 34px;
         margin-bottom: 6px;
@@ -2243,13 +2243,13 @@ html {
 
     .glass-hero-img {
         width: 100%;
-        max-width: 360px;
+        max-width:1px;
         height: 285px;
         max-height: none;
     }
 }
 
-@media (max-width: 340px) {
+@media (max-width:1px) {
     .hero-right {
         margin-top: 32px;
     }
@@ -2264,7 +2264,7 @@ html {
    No oversized padded desktop wrapper is left around the photo. */
 .projects-carousel {
     padding: 0;
-    border-radius: clamp(17px, 2.2vw, 28px);
+    border-radius: clamp(17px, calc(2.2 * var(--vw,1vw)), 28px);
     background: transparent;
     box-shadow: none;
     overflow: visible;
@@ -2278,7 +2278,7 @@ html {
 .projects-stage {
     width: 100%;
     margin: 0;
-    border-radius: clamp(17px, 2.2vw, 28px);
+    border-radius: clamp(17px, calc(2.2 * var(--vw,1vw)), 28px);
     overflow: hidden;
 }
 
@@ -2352,19 +2352,19 @@ html {
     }
 }
 
-@media (max-width: 380px) {
+@media (max-width:1px) {
     .hero-right {
         margin-top: 24px;
     }
 
     .glass-hero-img {
         width: min(100%, 380px);
-        max-width: 380px;
+        max-width:1px;
         height: 300px;
     }
 }
 
-@media (max-width: 340px) {
+@media (max-width:1px) {
     .hero-right {
         margin-top: 22px;
     }
@@ -2381,7 +2381,7 @@ html {
     width: min(100%, 560px);
     padding: 0;
     margin: 0;
-    border-radius: clamp(18px, 2.2vw, 28px);
+    border-radius: clamp(18px, calc(2.2 * var(--vw,1vw)), 28px);
     background: transparent;
     box-shadow: none;
     overflow: visible;
@@ -2436,7 +2436,7 @@ html {
     .hero-right {
         width: 100%;
         overflow: visible;
-        margin-top: clamp(26px, 5vw, 34px);
+        margin-top: clamp(26px, calc(5 * var(--vw,1vw)), 34px);
         margin-bottom: 0;
         padding: 0;
     }
@@ -2464,24 +2464,24 @@ html {
     }
 }
 
-@media (max-width: 380px) {
+@media (max-width:1px) {
     .hero-right {
         margin-top: 22px;
     }
 
     .glass-hero-img {
         width: 100%;
-        max-width: 360px;
+        max-width:1px;
     }
 }
 
-@media (max-width: 340px) {
+@media (max-width:1px) {
     .hero-right {
         margin-top: 20px;
     }
 
     .glass-hero-img {
-        max-width: 340px;
+        max-width:1px;
     }
 }
 
@@ -2495,8 +2495,8 @@ html {
 
     .past-projects-layout {
         grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-        row-gap: clamp(52px, 6vw, 82px);
-        column-gap: clamp(42px, 5vw, 72px);
+        row-gap: clamp(52px, calc(6 * var(--vw,1vw)), 82px);
+        column-gap: clamp(42px, calc(5 * var(--vw,1vw)), 72px);
         align-items: start;
     }
 
@@ -2505,7 +2505,7 @@ html {
     }
 
     .past-projects-heading {
-        margin-bottom: clamp(18px, 2vw, 24px);
+        margin-bottom: clamp(18px, calc(2 * var(--vw,1vw)), 24px);
     }
 
     .past-projects-column .projects-carousel {
@@ -2522,7 +2522,7 @@ html {
     .past-projects-column .projects-stage {
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: clamp(12px, 1.5vw, 22px);
+        gap: clamp(12px, calc(1.5 * var(--vw,1vw)), 22px);
         width: 100%;
         height: auto;
         aspect-ratio: auto;
@@ -2548,7 +2548,7 @@ html {
         visibility: visible;
         transform: none;
         pointer-events: auto;
-        border-radius: clamp(16px, 1.8vw, 24px);
+        border-radius: clamp(16px, calc(1.8 * var(--vw,1vw)), 24px);
         overflow: hidden;
         transition: none;
     }
@@ -2597,9 +2597,9 @@ html {
     }
 
     .what-to-expect-block {
-        padding: clamp(28px, 3.5vw, 44px);
+        padding: clamp(28px, calc(3.5 * var(--vw,1vw)), 44px);
         border: 1px solid rgba(255,255,255,0.14);
-        border-radius: clamp(24px, 3vw, 34px);
+        border-radius: clamp(24px, calc(3 * var(--vw,1vw)), 34px);
         background: rgba(8, 16, 48, 0.42);
         box-shadow: 0 24px 60px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.06);
     }
@@ -2615,8 +2615,8 @@ html {
     }
 
     .what-to-expect-title {
-        margin: 0 0 clamp(22px, 2.5vw, 30px);
-        font-size: clamp(1.45rem, 2.6vw, 2.15rem);
+        margin: 0 0 clamp(22px, calc(2.5 * var(--vw,1vw)), 30px);
+        font-size: clamp(1.45rem, calc(2.6 * var(--vw,1vw)), 2.15rem);
         line-height: 1.08;
         letter-spacing: -0.03em;
     }
@@ -2649,7 +2649,7 @@ html {
 
     .expect-item h3 {
         margin: 0 0 5px;
-        font-size: clamp(0.92rem, 1.2vw, 1.02rem);
+        font-size: clamp(0.92rem, calc(1.2 * var(--vw,1vw)), 1.02rem);
         line-height: 1.25;
         letter-spacing: -0.01em;
     }
@@ -2657,7 +2657,7 @@ html {
     .expect-item p {
         margin: 0;
         color: rgba(203,213,225,0.76);
-        font-size: clamp(0.78rem, 1vw, 0.88rem);
+        font-size: clamp(0.78rem, calc(1 * var(--vw,1vw)), 0.88rem);
         line-height: 1.6;
     }
 }
@@ -2691,7 +2691,7 @@ html {
 
     .what-to-expect-title {
         margin: 0 0 22px;
-        font-size: clamp(1.4rem, 6vw, 1.85rem);
+        font-size: clamp(1.4rem, calc(6 * var(--vw,1vw)), 1.85rem);
         line-height: 1.08;
         letter-spacing: -0.03em;
     }
@@ -2720,7 +2720,7 @@ html {
     .expect-item p { margin: 0; color: rgba(203,213,225,0.76); font-size: 0.78rem; line-height: 1.58; }
 }
 
-@media (max-width: 380px) {
+@media (max-width:1px) {
     .what-to-expect-block { padding: 20px; border-radius: 21px; }
     .expect-item { grid-template-columns: 30px minmax(0,1fr); gap: 10px; }
     .expect-item p { font-size: 0.75rem; }
@@ -2820,13 +2820,13 @@ html {
   }
 }
 
-@media (max-width: 380px) {
+@media (max-width:1px) {
   .hero-right {
     margin-bottom: -34px;
   }
 }
 
-@media (max-width: 340px) {
+@media (max-width:1px) {
   .hero-right {
     margin-bottom: -30px;
   }
@@ -2836,7 +2836,7 @@ html {
    the gallery itself, its four-up unity, and all other section spacing intact. */
 @media (min-width: 901px) {
   .past-projects-section {
-    margin-top: clamp(42px, 5vw, 72px);
+    margin-top: clamp(42px, calc(5 * var(--vw,1vw)), 72px);
   }
 }
 
@@ -2854,7 +2854,7 @@ html {
    retaining a deliberate breathing space. Smartphone/tablet spacing is untouched. */
 @media (min-width: 901px) {
   .past-projects-section {
-    margin-top: clamp(30px, 3.4vw, 50px);
+    margin-top: clamp(30px, calc(3.4 * var(--vw,1vw)), 50px);
   }
 }
 
@@ -2916,10 +2916,10 @@ html {
 /* section rhythm: consistent spacing */
 .marquee-wrapper{margin-bottom:0!important;background:linear-gradient(90deg,transparent,rgba(0,85,255,.07) 20%,rgba(0,85,255,.07) 80%,transparent)!important;border-top:1px solid rgba(56,189,248,.07)!important;border-bottom:1px solid rgba(56,189,248,.07)!important;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
 .marquee-content{color:rgba(56,189,248,.5)!important}
-.about-section,.clarity-section,.tools-elevate-section,.strategy-section,.past-projects-section,.portfolio-section{padding-top:clamp(56px,8vw,100px)!important;padding-bottom:clamp(56px,8vw,100px)!important;margin-top:0!important;margin-bottom:0!important}
-.reviews-section{padding:clamp(56px,8vw,100px) 8%!important}
-.contact-section{padding-top:clamp(56px,8vw,100px)!important}
-.stats-section{margin-bottom:0!important;padding-bottom:clamp(40px,6vw,70px)!important}
+.about-section,.clarity-section,.tools-elevate-section,.strategy-section,.past-projects-section,.portfolio-section{padding-top:clamp(56px,calc(8 * var(--vw,1vw)),100px)!important;padding-bottom:clamp(56px,calc(8 * var(--vw,1vw)),100px)!important;margin-top:0!important;margin-bottom:0!important}
+.reviews-section{padding:clamp(56px,calc(8 * var(--vw,1vw)),100px) 8%!important}
+.contact-section{padding-top:clamp(56px,calc(8 * var(--vw,1vw)),100px)!important}
+.stats-section{margin-bottom:0!important;padding-bottom:clamp(40px,calc(6 * var(--vw,1vw)),70px)!important}
 @media(max-width:768px){
  .about-section,.clarity-section,.tools-elevate-section,.strategy-section,.past-projects-section,.portfolio-section{padding-top:52px!important;padding-bottom:52px!important}
  .reviews-section{padding:52px 6%!important}
@@ -2963,7 +2963,7 @@ h1,h2,h3,h4,.logo-text,.section-title{font-family:'DM Sans',sans-serif!important
  .nav-links.open{
   position:fixed!important;left:0!important;right:0!important;bottom:0!important;top:66px!important;
   margin:0!important;padding:0 6% 60px!important;border:0!important;border-radius:0!important;box-shadow:none!important;overflow:hidden;
-  display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:clamp(18px,4.5vh,38px);
+  display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:clamp(18px,calc(4.5 * var(--vh,1vh)),38px);
   background:rgba(2,6,23,.62)!important;
   -webkit-backdrop-filter:blur(26px) saturate(140%)!important;backdrop-filter:blur(26px) saturate(140%)!important;
   animation:menuFade .28s ease both;
@@ -2972,7 +2972,7 @@ h1,h2,h3,h4,.logo-text,.section-title{font-family:'DM Sans',sans-serif!important
  .nav-links.open a{
   background:transparent!important;box-shadow:none!important;border:0!important;border-radius:0!important;margin:0!important;
   padding:6px 12px!important;text-shadow:none!important;
-  font-size:clamp(2rem,9vw,2.8rem)!important;font-weight:800!important;letter-spacing:.02em!important;color:#fff!important;text-align:center;
+  font-size:clamp(2rem,calc(9 * var(--vw,1vw)),2.8rem)!important;font-weight:800!important;letter-spacing:.02em!important;color:#fff!important;text-align:center;
  }
  .nav-links.open a.active,.nav-links.open a:hover{background:transparent!important;box-shadow:none!important;color:#3b82f6!important}
 }
@@ -3044,7 +3044,7 @@ img,video{max-width:100%}
 
 /* ===== v33 refinements ===== */
 .pp-heading{text-align:center;margin:0 auto 34px}
-.pp-heading h2{margin:0;font-size:clamp(2rem,5.4vw,2.9rem);line-height:1.12;font-weight:700;letter-spacing:-.02em;color:#fff}
+.pp-heading h2{margin:0;font-size:clamp(2rem,calc(5.4 * var(--vw,1vw)),2.9rem);line-height:1.12;font-weight:700;letter-spacing:-.02em;color:#fff}
 .pp-top{padding:0 20px 12px}
 .pp-title{font-size:.6rem;letter-spacing:.18em}
 .pp-count{font-size:.66rem;letter-spacing:.1em}
@@ -3091,8 +3091,8 @@ img,video{max-width:100%}
 }
 
 /* supported section backgrounds: full-width cobalt-toned bands */
-.strategy-section,.past-projects-section,.reviews-section,.portfolio-section,.contact-section{position:relative;isolation:isolate;content-visibility:visible!important;padding-top:clamp(44px,6vw,76px);padding-bottom:clamp(44px,6vw,76px)}
-.strategy-section::before,.past-projects-section::before,.reviews-section::before,.portfolio-section::before,.contact-section::before{content:"";position:absolute;top:0;bottom:0;left:50%;width:100vw;transform:translateX(-50%);z-index:-1;pointer-events:none;border-top:1px solid rgba(60,120,255,.16);border-bottom:1px solid rgba(60,120,255,.1)}
+.strategy-section,.past-projects-section,.reviews-section,.portfolio-section,.contact-section{position:relative;isolation:isolate;content-visibility:visible!important;padding-top:clamp(44px,calc(6 * var(--vw,1vw)),76px);padding-bottom:clamp(44px,calc(6 * var(--vw,1vw)),76px)}
+.strategy-section::before,.past-projects-section::before,.reviews-section::before,.portfolio-section::before,.contact-section::before{content:"";position:absolute;top:0;bottom:0;left:50%;width:calc(100 * var(--vw,1vw));transform:translateX(-50%);z-index:-1;pointer-events:none;border-top:1px solid rgba(60,120,255,.16);border-bottom:1px solid rgba(60,120,255,.1)}
 .strategy-section::before,.reviews-section::before,.contact-section::before{background:linear-gradient(180deg,rgba(2,7,28,.88) 0%,rgba(3,12,46,.92) 55%,rgba(2,7,28,.88) 100%)}
 .past-projects-section::before,.portfolio-section::before{background:radial-gradient(ellipse at 50% 0%,rgba(0,85,255,.22),transparent 60%),linear-gradient(180deg,rgba(0,40,150,.2) 0%,rgba(0,22,90,.34) 100%)}
 .strategy-section.scroll-reveal,.past-projects-section.scroll-reveal,.reviews-section.scroll-reveal,.portfolio-section.scroll-reveal,.contact-section.scroll-reveal{filter:none!important}
