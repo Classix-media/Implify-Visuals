@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <script>(function(){try{var s=Math.min(screen.width,screen.height),p=window.matchMedia&&matchMedia("(orientation: portrait)").matches,c=(s>=280&&s<=600&&p)?"width=412, initial-scale=1, viewport-fit=cover":"width=device-width, initial-scale=1.0";document.write('<meta name="viewport" content="'+c+'">')}catch(e){document.write('<meta name="viewport" content="width=device-width, initial-scale=1.0">')}})();</script>
-<noscript><meta name="viewport" content="width=device-width, initial-scale=1.0"></noscript><title>Terms of Service — Implify Visuals</title>
+  <script>(function(){try{var s=Math.min(screen.width,screen.height),p=window.matchMedia&&matchMedia("(orientation: portrait)").matches,c=(s>=280&&s<=600&&p)?"width=412, viewport-fit=cover":"width=device-width, initial-scale=1.0";document.write('<meta name="viewport" content="'+c+'">')}catch(e){document.write('<meta name="viewport" content="width=device-width, initial-scale=1.0">')}})();</script>
+<noscript><meta name="viewport" content="width=device-width, initial-scale=1.0"></noscript>
+<script>(function(){var d=document.documentElement;function n(){try{var s=Math.min(screen.width,screen.height),p=matchMedia("(orientation: portrait)").matches,w=innerWidth,r=devicePixelRatio||1;if(s<=600&&p&&w>0){var z=w/412;if(Math.abs(w-412)>2){d.style.zoom=z;d.style.setProperty("--vw","4.12px");d.style.setProperty("--vh",(innerHeight/z/100)+"px")}else{d.style.zoom="";d.style.removeProperty("--vw");d.style.setProperty("--vh",(innerHeight/100)+"px")}d.style.setProperty("--hair",(1.05/(w*r/412))+"px")}else{d.style.zoom="";d.style.removeProperty("--vw");d.style.removeProperty("--hair");d.style.setProperty("--vh",(innerHeight/100)+"px")}}catch(e){}}addEventListener("resize",n);addEventListener("orientationchange",n);addEventListener("DOMContentLoaded",n);addEventListener("load",n)})();</script><title>Terms of Service — Implify Visuals</title>
   <meta name="description" content="Terms of Service for Implify Visuals.">
 
   <style>
@@ -27,7 +28,7 @@
 
     h1 {
       color: #38bdf8;
-      font-size: clamp(2rem, 6vw, 3.2rem);
+      font-size: clamp(2rem, calc(6 * var(--vw,1vw)), 3.2rem);
       margin-bottom: 10px;
     }
 
