@@ -11,8 +11,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script>(function(){try{var s=Math.min(screen.width,screen.height),p=matchMedia("(orientation: portrait)").matches;if(s>=280&&s<=600&&p){document.querySelector('meta[name=viewport]').setAttribute('content','width=460, viewport-fit=cover')}}catch(e){}})();</script>
-<script>(function(){var d=document.documentElement;function n(){try{d.style.zoom="";var s=Math.min(screen.width,screen.height),p=matchMedia("(orientation: portrait)").matches,w=innerWidth,r=devicePixelRatio||1;if(s<=600&&p&&w>0&&w<=600){var z=w/460;if(Math.abs(w-460)>2){d.style.zoom=z;d.style.setProperty("--vw","4.6px");d.style.setProperty("--vh",(innerHeight/z/100)+"px")}else{d.style.zoom="";d.style.removeProperty("--vw");d.style.setProperty("--vh",(innerHeight/100)+"px")}d.style.setProperty("--hair",(1.05/(w*r/460))+"px")}else{d.style.zoom="";d.style.removeProperty("--vw");d.style.removeProperty("--hair");d.style.setProperty("--vh",(innerHeight/100)+"px")}}catch(e){}}addEventListener("resize",n);addEventListener("orientationchange",n);addEventListener("DOMContentLoaded",n);addEventListener("load",n);setTimeout(n,300);setTimeout(n,1200)})();</script>
+<script>(function(){var d=document.documentElement;function n(){try{var s=Math.min(screen.width,screen.height),p=matchMedia("(orientation: portrait)").matches;d.style.setProperty("--vh",(innerHeight/100)+"px");if(s<=600&&p){d.style.setProperty("--hair",(1.05/(devicePixelRatio||1))+"px")}else{d.style.removeProperty("--hair")}}catch(e){}}n();addEventListener("resize",n);addEventListener("orientationchange",n)})();</script>
 <title>Implify Visuals | Creative Agency</title>
 <meta name="description" content="Explore our work, see clear pricing and book your project online. Creative direction for brands that want to be taken seriously.">
 <link rel="canonical" href="https://implify-visuals.vercel.app/">
@@ -35,9 +34,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=51">
+<link rel="stylesheet" href="style.css?v=52">
 <link rel="preload" as="image" href="images/miracle-avatar.jpg">
-<link rel="stylesheet" href="premium-v56.css?v=89">
+<link rel="stylesheet" href="premium-v56.css?v=90">
 <script>(function(){if(!/[?&]debug/.test(location.search))return;var b=document.createElement("pre");b.style.cssText="position:fixed;left:6px;bottom:6px;z-index:2147483647;margin:0;padding:8px 10px;background:#000c;color:#7CFC00;font:11px/1.35 monospace;white-space:pre;border-radius:8px;pointer-events:none";function u(){var v=window.visualViewport,d=document.documentElement;b.textContent=["innerW "+innerWidth,"clientW "+d.clientWidth,"screenW "+screen.width,"dpr "+devicePixelRatio,"vvScale "+(v?v.scale.toFixed(3):"n/a"),"vvW "+(v?v.width.toFixed(1):"n/a"),"zoom "+(d.style.zoom||"none"),"hair "+(d.style.getPropertyValue("--hair")||"none"),"vw "+(d.style.getPropertyValue("--vw")||"none"),"meta "+(document.querySelector("meta[name=viewport]")||{}).content,"ua "+(/Instagram/.test(navigator.userAgent)?"instagram":/Chrome/.test(navigator.userAgent)?"chrome":"other")].join("\n")}document.addEventListener("DOMContentLoaded",function(){document.body.appendChild(b);u();setInterval(u,700)})})();</script>
 </head>
 <body>
