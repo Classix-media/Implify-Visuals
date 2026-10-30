@@ -620,7 +620,7 @@ body{overflow-x:hidden}
 /* ===== v78: Miracle photo card — same size on every phone/app ===== */
 @media(max-width:600px){
  .about-right{width:100%;justify-content:center}
- .profile-card-wrapper{width:calc(81 * var(--vw,1vw))!important;max-width:334px!important;min-width:0;margin:0 auto;aspect-ratio:4/5}
+ .profile-card-wrapper{width:calc(81 * var(--vw,1vw))!important;max-width:380px!important;min-width:0;margin:0 auto;aspect-ratio:4/5}
  .profile-card-wrapper .profile-img{width:100%;height:100%;object-fit:cover}
 }
 
