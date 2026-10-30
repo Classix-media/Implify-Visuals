@@ -187,10 +187,10 @@ function renderQuote() {
 function renderPayment() {
   const manual = state.amount == null || !['NGN','USD'].includes(state.currency);
   $('paymentTitle').textContent = manual ? 'Choose the approved payment route.' : 'Secure your project slot.';
-  $('paymentCopy').textContent = manual ? 'This currency or project scope uses a manual route. Your quotation remains an estimate until payment is verified.' : `For ${state.currency} bookings, the existing Implify Visuals Paystack workflow initializes the transaction through Make and verifies it before a paid state is shown.`;
+  $('paymentCopy').textContent = manual ? 'This option is paid manually and confirmed by us.' : 'Pay securely with Paystack. Your invoice is sent to your WhatsApp automatically.';
   $('paymentCard').innerHTML = manual
-    ? `<div class="payment-method"><div><strong>${state.currency} · Manual payment</strong><span>Payment details will be confirmed with Implify Visuals.</span></div><span>REVIEW</span></div><p style="color:#748094;font-size:.8rem;line-height:1.7;margin:0">No automatic Paystack charge is attempted for this route. Continue to prepare the WhatsApp handoff.</p>`
-    : `<div class="payment-method"><div><strong>${state.currency} · Paystack</strong><span>Secure checkout initialized by the existing Make.com workflow. Available payment methods are shown by Paystack, including Apple Pay where eligible.</span></div><span>SECURE</span></div><button type="button" class="primary-action" id="payBtn">Make payment →</button>`;
+    ? `<div class="payment-method"><div><strong>${state.currency} · Manual payment</strong><span>We will confirm payment details with you.</span></div><span>REVIEW</span></div><p style="color:#748094;font-size:.8rem;line-height:1.7;margin:0">Continue to message us on WhatsApp.</p>`
+    : `<div class="payment-method"><div><strong>${state.currency} · Paystack</strong><span>Card, transfer, USSD and more.</span></div><span>SECURE</span></div><button type="button" class="primary-action" id="payBtn">Make payment →</button>`;
   $('paymentStatus').hidden = true;
   if (!manual) $('payBtn').addEventListener('click', initializePaystack);
 }
@@ -217,14 +217,14 @@ function findCheckoutUrlInText(text) {
 
 async function initializePaystack() {
   const btn = $('payBtn'); if (!btn) return;
-  btn.disabled = true; btn.textContent = 'Connecting to secure checkout…';
+  btn.disabled = true; btn.textContent = 'Connecting…';
   $('paymentStatus').hidden = false;
-  $('paymentStatus').textContent = 'Sending your booking to the existing Make.com → Paystack initialization workflow. Your reference is ' + state.ref + '.';
+  $('paymentStatus').textContent = 'Starting secure checkout…';
   // Currency and amount are derived from the exact selection (never hardcoded): USD -> usdAmount, NGN -> ngnAmount.
   const payCurrency = String(state.currency).toUpperCase();
   const payAmount = payCurrency === 'USD' ? Number(state.usdAmount) : payCurrency === 'NGN' ? Number(state.ngnAmount) : NaN;
   if (!['NGN','USD'].includes(payCurrency) || !Number.isFinite(payAmount) || payAmount <= 0) {
-    $('paymentStatus').textContent = 'Please choose a package and billing currency again before paying. No payment was started.';
+    $('paymentStatus').textContent = 'Please choose a package and currency first.';
     toast('Select a package and currency first.');
     btn.disabled=false; btn.textContent='Make payment →';
     return;
@@ -241,15 +241,15 @@ async function initializePaystack() {
       state.paymentReference = state.ref;
       saveBookingState();
       try { localStorage.setItem('implifyCheckout', JSON.stringify({ url: checkout, access: (String(checkout).split('?')[0].split('#')[0].split('/').filter(Boolean).pop() || ''), ref: state.ref, t: Date.now() })); } catch (_) {}
-      $('paymentStatus').textContent = 'Secure checkout is ready. Taking you to the Implify Visuals checkout…';
+      $('paymentStatus').textContent = 'Opening checkout…';
       window.location.assign('checkout.html');
       return;
     }
-    $('paymentStatus').innerHTML = '<strong>Booking sent.</strong><br>The Make webhook accepted the request, but this static page did not receive a checkout URL in the response. The existing scenario needs to return Paystack’s authorization URL through a Webhook Response module before the browser can redirect automatically.';
-    toast('Booking reached Make, but no checkout URL was returned.');
+    $('paymentStatus').textContent = 'Checkout could not start. Please try again or message us on WhatsApp.';
+    toast('Checkout could not start.');
   } catch (err) {
-    $('paymentStatus').textContent = 'The booking could not reach the payment workflow. Check the connection and try again. No payment was marked as paid.';
-    toast('Payment connection failed.');
+    $('paymentStatus').textContent = 'Connection issue. Please try again.';
+    toast('Connection issue.');
   } finally { btn.disabled=false; btn.textContent='Make payment →'; }
 }
 

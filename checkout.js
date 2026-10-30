@@ -218,7 +218,13 @@ async function downloadInvoice(){
 (function () {
   const views = { pay: $('viewPay'), verify: $('viewVerify'), paid: $('viewPaid') };
   const show = (name) => Object.keys(views).forEach((k) => { views[k].hidden = k !== name; if (k === name) { views[k].classList.remove('co-swap'); void views[k].offsetWidth; views[k].classList.add('co-swap'); } });
-  const note = (t, bad) => { const n = $('coNote'); n.textContent = t || ''; n.classList.toggle('bad', !!bad); };
+  const FAIL_KEY = 'implifyFailNote', FAIL_MS = 5 * 60 * 1000;
+  let noteTimer = 0, cdTimer = 0;
+  const cdStop = () => { clearInterval(cdTimer); const e = $('coNoteTimer'); if (e) { e.hidden = true; e.textContent = ''; } };
+  const cdStart = (until) => { const e = $('coNoteTimer'); if (!e) return; clearInterval(cdTimer); const tick = () => { const left = Math.max(0, Math.round((until - Date.now()) / 1000)); e.hidden = left <= 0; e.textContent = 'This notice clears in ' + Math.floor(left / 60) + ':' + String(left % 60).padStart(2, '0'); if (left <= 0) clearInterval(cdTimer); }; tick(); cdTimer = setInterval(tick, 1000); };
+  const note = (t, bad, ms, keep) => { const n = $('coNote'); clearTimeout(noteTimer); cdStop(); n.textContent = t || ''; n.classList.toggle('bad', !!bad); if (!keep) { try { localStorage.removeItem(FAIL_KEY); } catch (_) {} } if (t) { noteTimer = setTimeout(() => { n.textContent = ''; n.classList.remove('bad'); cdStop(); if (bad) { try { localStorage.removeItem(FAIL_KEY); } catch (_) {} } }, ms || 2 * 60 * 1000); if (keep) cdStart(Date.now() + (ms || 0)); } };
+  /* failure notices are remembered for 5 minutes in this browser only, so only the person who caused them sees them (also after a refresh) */
+  const failNote = (t) => { note(t, true, FAIL_MS, true); try { localStorage.setItem(FAIL_KEY, JSON.stringify({ ref: state.ref, text: t, until: Date.now() + FAIL_MS })); } catch (_) {} };
   const amount = Number(state.currency === 'USD' ? state.usdAmount : state.ngnAmount);
   const payBtn = $('coPayBtn');
 
@@ -300,22 +306,22 @@ async function downloadInvoice(){
       if (r.ok && out.verified) {
         const info = { ref: state.ref, reference: out.reference || reference, channel: out.channel, paid_at: out.paid_at, at: Date.now() };
         try { localStorage.setItem('implifyPaid', JSON.stringify(info)); } catch (_) {}
-        showPaid(info); return;
+        try { localStorage.removeItem(FAIL_KEY); } catch (_) {} showPaid(info); return;
       }
       if (r.ok && (out.reason === 'pending' || out.reason === 'ongoing' || out.reason === 'processing') && attempt < 10) {
-        $('coVerifyMsg').textContent = 'Your bank is still processing. Checking again…';
+        $('coVerifyMsg').textContent = 'Confirming with your bank…';
         setTimeout(() => verify(reference, attempt + 1, soft, silent), 3000); return;
       }
       show('pay'); resetBtn(); checkLink();
       if (silent) { return; }
-      if (soft && r.ok && ['abandoned', 'not_found', 'failed'].includes(out.reason)) { note('Payment was not completed and nothing was charged by us. Choose a method to try again. If you did pay, use the box below to unlock your invoice.'); return; }
-      note(r.status === 500 && out.error === 'server_not_configured'
-        ? 'Payment may have gone through, but automatic confirmation is not set up yet. Please send your reference ' + reference + ' on WhatsApp.'
-        : 'We could not confirm this payment automatically (' + (out.reason || out.error || 'unknown') + '). If you were charged, send reference ' + reference + ' on WhatsApp and we will confirm it.', true);
+      if (soft && r.ok && ['abandoned', 'not_found', 'failed'].includes(out.reason)) { failNote('Payment not completed. Try again, or confirm below if you paid.'); return; }
+      failNote(r.status === 500 && out.error === 'server_not_configured'
+        ? 'We could not confirm your payment. Send reference ' + reference + ' on WhatsApp.'
+        : 'We could not confirm your payment. If charged, send reference ' + reference + ' on WhatsApp.', true);
     } catch (e) {
       show('pay'); resetBtn();
       if (silent) { return; }
-      note('Network problem while confirming. If you were charged, send reference ' + reference + ' on WhatsApp and we will confirm it.', true);
+      failNote('Connection issue. If charged, send reference ' + reference + ' on WhatsApp.', true);
     }
   }
 
@@ -348,7 +354,7 @@ async function downloadInvoice(){
     if (state.currency !== 'NGN' && NGN_ONLY.includes(m)) { b.hidden = true; b.style.display = 'none'; }
     b.addEventListener('click', () => {
       if (busy) return;
-      if (b.classList.contains('off')) { note(NAMES[m] + ' is only available for NGN bookings. Your booking is in ' + state.currency + ', so please choose Card' + (m === 'apple_pay' ? '' : ' or Apple Pay') + '.', true); return; }
+      if (b.classList.contains('off')) { note(NAMES[m] + ' is for NGN bookings only. Please choose Card' + (m === 'apple_pay' ? '' : ' or Apple Pay') + '.', true); return; }
       selected = m; note('');
       methodBtns.forEach((x) => x.setAttribute('aria-checked', String(x === b)));
       info.innerHTML = '<strong></strong><span></span><ul><li></li><li></li></ul>';
@@ -369,19 +375,19 @@ async function downloadInvoice(){
     if (!l) { l = document.createElement('div'); l.id = 'coCheck'; l.style.cssText = 'margin-top:14px;text-align:center';
       l.innerHTML = '<button type="button" class="co-link" id="coCheckBtn">I have paid, check my payment</button><p class="co-note" style="margin:12px 0 6px">Or enter the payment reference shown in your Paystack receipt or bank alert:</p><input id="coRefIn" type="text" autocomplete="off" placeholder="Payment reference" style="width:100%;padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);color:#fff;font:inherit"><button type="button" class="co-link" id="coRefBtn">Unlock my invoice</button>';
       $('coFallback').after(l);
-      $('coCheckBtn').addEventListener('click', () => { if (lastReference) verify(lastReference); else note('Enter your payment reference below to confirm your payment.', true); });
-      $('coRefBtn').addEventListener('click', () => { const v = $('coRefIn').value.trim(); if (/^[A-Za-z0-9_.=-]{6,100}$/.test(v)) { lastReference = v; verify(v); } else note('That reference does not look right. Copy it exactly from your receipt.', true); });
+      $('coCheckBtn').addEventListener('click', () => { if (lastReference) verify(lastReference); else note('Enter your payment reference below.', true); });
+      $('coRefBtn').addEventListener('click', () => { const v = $('coRefIn').value.trim(); if (/^[A-Za-z0-9_.=-]{6,100}$/.test(v)) { lastReference = v; verify(v); } else note('Invalid reference. Please copy it exactly.', true); });
     }
     l.hidden = false;
   }
   function openWindow(access, ref0, legacy) {
     let loaded = false;
-    const slow = setTimeout(() => { if (!loaded) { busy = false; resetBtn(); note('The secure window is taking long to load.', true); fallback(); } }, 12000);
+    const slow = setTimeout(() => { if (!loaded) { busy = false; resetBtn(); note('The secure window is slow to load.', true); fallback(); } }, 12000);
     try {
       new PaystackPop().resumeTransaction(access, {
         onLoad: () => { loaded = true; clearTimeout(slow); busy = false; resetBtn(); note(legacy ? 'Choose your method in the secure window.' : 'Complete your ' + NAMES[selected] + ' payment in the secure window.'); },
         onSuccess: (tx) => { clearTimeout(slow); verify((tx && (tx.reference || tx.trxref)) || ref0); },
-        onCancel: () => { clearTimeout(slow); busy = false; resetBtn(); checkLink(); if (lastReference) verify(lastReference, 1, true); else note('Payment window closed. If you paid, enter your payment reference below to unlock your invoice.'); },
+        onCancel: () => { clearTimeout(slow); busy = false; resetBtn(); checkLink(); if (lastReference) verify(lastReference, 1, true); else note('Payment window closed. If you paid, enter your reference below.'); },
         onError: () => { clearTimeout(slow); busy = false; resetBtn(); note('Could not open the secure window.', true); fallback(); }
       });
     } catch (e) { clearTimeout(slow); busy = false; resetBtn(); note('Could not open the secure window.', true); fallback(); }
@@ -392,12 +398,12 @@ async function downloadInvoice(){
   function stopPoll() { clearTimeout(pollTimer); pollTimer = null; }
   function backToMethods() { stopPoll(); $('coOnsite').hidden = true; $('coOnsite').innerHTML = ''; $('coMethods').hidden = false; info.hidden = false; payBtn.hidden = false; resetBtn(); note(''); }
   async function poll(reference, n) {
-    stopPoll(); if (n > 120) { $('coWaitTxt') && ($('coWaitTxt').textContent = 'Still waiting. If you have paid, tap "Check my payment" or send your reference on WhatsApp.'); return; }
+    stopPoll(); if (n > 120) { $('coWaitTxt') && ($('coWaitTxt').textContent = 'Still waiting. If you paid, tap "I have paid" below.'); return; }
     try {
       const r = await fetch('/api/verify-payment', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ reference, ref: state.ref, service: state.service, package: state.packageName, currency: state.currency, email: state.email }) });
       const out = await r.json().catch(() => ({}));
       if (r.ok && out.verified) { const inf = { ref: state.ref, reference: out.reference || reference, channel: out.channel, paid_at: out.paid_at, at: Date.now() }; try { localStorage.setItem('implifyPaid', JSON.stringify(inf)); } catch (_) {} stopPoll(); showPaid(inf); return; }
-      if (r.ok && out.reason === 'failed') { $('coWaitTxt').textContent = 'The payment failed. Please go back and try again.'; return; }
+      if (r.ok && out.reason === 'failed') { $('coWaitTxt').textContent = 'Payment failed. Please try again.'; return; }
     } catch (_) {}
     pollTimer = setTimeout(() => poll(reference, n + 1), 5000);
   }
@@ -408,7 +414,7 @@ async function downloadInvoice(){
       body: JSON.stringify({ ref: state.ref, service: state.service, package: state.packageName, currency: state.currency, email: state.email, name: state.name, method: selected, ussdType }) });
       out = await r.json().catch(() => ({})); } catch (e) { out = null; }
     busy = false; resetBtn();
-    if (!out || !out.reference || out.error) { console.warn('on-site charge unavailable:', out); note('Opening the secure payment window for ' + NAMES[selected] + '…'); secureOnly = true; payBtn.click(); secureOnly = false; return; }
+    if (!out || !out.reference || out.error) { console.warn('on-site charge unavailable:', out); note('Opening secure window…'); secureOnly = true; payBtn.click(); secureOnly = false; return; }
     lastReference = out.reference; setPending(out.reference);
     const box = $('coOnsite'); box.innerHTML = '';
     const h = document.createElement('h3'), p = document.createElement('p');
@@ -418,7 +424,7 @@ async function downloadInvoice(){
     if (selected === 'ussd') box.appendChild(row('USSD code', out.ussd_code, true));
     else { box.appendChild(row('Bank', out.bank_name || '-', false)); box.appendChild(row('Account number', out.account_number, true)); box.appendChild(row('Account name', out.account_name || '-', false)); if (out.expires_at) box.appendChild(row('Expires', new Date(out.expires_at).toLocaleString('en-GB'), false)); }
     box.appendChild(row('Amount', money(amount, state.currency) + ' ' + state.currency, false)); box.appendChild(row('Booking reference', state.ref, false));
-    const w = document.createElement('div'); w.className = 'co-wait'; w.innerHTML = '<i></i><span id="coWaitTxt"></span>'; box.appendChild(w); w.querySelector('span').textContent = 'Waiting for your payment. We confirm it automatically, keep this page open.';
+    const w = document.createElement('div'); w.className = 'co-wait'; w.innerHTML = '<i></i><span id="coWaitTxt"></span>'; box.appendChild(w); w.querySelector('span').textContent = 'Waiting for payment. Keep this page open.';
     const chk = document.createElement('button'); chk.type = 'button'; chk.className = 'co-link'; chk.textContent = 'I have paid, check my payment'; chk.onclick = () => poll(out.reference, 0); box.appendChild(chk);
     const back = document.createElement('button'); back.type = 'button'; back.className = 'co-link'; back.textContent = 'Choose a different method'; back.onclick = backToMethods; box.appendChild(back);
     $('coMethods').hidden = true; info.hidden = true; payBtn.hidden = true; box.hidden = false; note('');
@@ -429,7 +435,7 @@ async function downloadInvoice(){
     if (!selected || busy) return;
     note('');
     if (ONSITE.includes(selected) && !secureOnly) return startOnsite(); busy = true; payBtn.disabled = true; payBtn.classList.add('busy');
-    if (typeof PaystackPop === 'undefined') { busy = false; resetBtn(); note('The secure payment window could not load. Check your connection and try again.', true); return; }
+    if (typeof PaystackPop === 'undefined') { busy = false; resetBtn(); note('Secure window could not load. Check your connection.', true); return; }
     let out = null, status = 0;
     try {
       const r = await fetch('/api/init-payment', { method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -438,12 +444,12 @@ async function downloadInvoice(){
     } catch (e) { out = null; }
     if (out && out.access_code) { lastReference = out.reference; setPending(out.reference); openWindow(out.access_code, out.reference, false); return; }
     const err = out && out.error;
-    if (err === 'init_failed') { busy = false; resetBtn(); note(NAMES[selected] + ' is not available on our payment account right now' + (out.message ? ' (' + out.message + ')' : '') + '. Please choose another method.', true); return; }
-    if (err === 'method_unavailable_for_currency') { busy = false; resetBtn(); note(NAMES[selected] + ' is not available for ' + state.currency + ' bookings.', true); return; }
+    if (err === 'init_failed') { busy = false; resetBtn(); note(NAMES[selected] + ' is unavailable right now. Please choose another method.', true); return; }
+    if (err === 'method_unavailable_for_currency') { busy = false; resetBtn(); note(NAMES[selected] + ' is unavailable for ' + state.currency + '.', true); return; }
     /* endpoint not deployed / not configured: fall back to the original Make-initialised session (method chosen inside the window) */
     if (co.access && co.ref === state.ref) { lastReference = ''; openWindow(co.access, state.ref, true); return; }
-    if (co.url) { note('Opening the secure payment page…'); window.location.assign(co.url); return; }
-    busy = false; resetBtn(); note('Checkout session expired. Please go back and start payment again.', true);
+    if (co.url) { note('Opening checkout…'); window.location.assign(co.url); return; }
+    busy = false; resetBtn(); note('Session expired. Please start payment again.', true);
   });
 
   /* Returning from the payment window (redirect with ?reference=, or the same tab reopened): check with the server and unlock the invoice only if verified */
@@ -455,6 +461,13 @@ async function downloadInvoice(){
       rr = '';
       try { const pd = JSON.parse(localStorage.getItem('implifyPending') || 'null'); if (pd && pd.ref === state.ref && pd.reference && Date.now() - pd.at < 3 * 3600 * 1000) rr = pd.reference; fromStore = !!rr; } catch (_) {}
     }
+    if (rr && !fromStore) {
+      /* a reference in the address bar only counts as a real payment return if this browser started that payment in the last 30 minutes */
+      let fresh = false;
+      try { const pd = JSON.parse(localStorage.getItem('implifyPending') || 'null'); fresh = !!(pd && pd.reference === rr && Date.now() - pd.at < 30 * 60 * 1000); } catch (_) {}
+      fromStore = !fresh;
+    }
     if (rr) { lastReference = rr; verify(rr, 1, false, fromStore); checkLink(); } else show('pay');
+    try { const fn = JSON.parse(localStorage.getItem(FAIL_KEY) || 'null'); if (fn && fn.ref === state.ref && fn.until > Date.now()) note(fn.text, true, fn.until - Date.now(), true); else localStorage.removeItem(FAIL_KEY); } catch (_) {}
   })();
 })();

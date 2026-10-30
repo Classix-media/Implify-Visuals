@@ -149,3 +149,6 @@ html{max-width:100%;overflow-x:clip}body{max-width:100%;overflow-x:clip}
 /* v80: proportional root size: every phone renders the same 412-unit layout */
 html{font-size:calc((16px) * var(--tf,1))}
 @media(max-width:600px){html{font-size:calc((calc(100vw * 16 / 412)) * var(--tf,1))}}
+
+.co-note-timer{font-size:.75rem;color:rgba(255,255,255,.7);margin:6px 0 0;text-align:left}
+.co-note-timer[hidden]{display:none}

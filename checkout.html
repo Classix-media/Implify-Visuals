@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter+Tight:wght@300;400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="booking.css?v=37">
-  <link rel="stylesheet" href="checkout.css?v=37">
+  <link rel="stylesheet" href="checkout.css?v=38">
   <link rel="preload" as="image" href="images/checkout-wallet.jpg">
 <link rel="stylesheet" href="cursor.css?v=20">
 </head>
@@ -75,6 +75,7 @@
 
           <button type="button" class="co-pay co-in" style="--d:320ms" id="coPayBtn"><span class="co-pay-label">Select a payment method</span><i class="co-spin" aria-hidden="true"></i></button>
           <p class="co-note" id="coNote" role="status"></p>
+          <p class="co-note-timer" id="coNoteTimer" hidden></p>
           <div class="co-onsite" id="coOnsite" hidden></div>
           <a class="co-fallback" id="coFallback" hidden target="_self" rel="noopener">Having trouble? Open the secure payment page</a>
 
@@ -137,7 +138,7 @@
 
   <div class="toast" id="toast" role="status"></div>
   <script src="https://js.paystack.co/v2/inline.js" defer></script>
-  <script src="checkout.js?v=21" defer></script>
+  <script src="checkout.js?v=25" defer></script>
 <script src="cursor.js?v=20" defer></script>
 <script>(function(){function m(){try{if(!matchMedia("(max-width: 600px)").matches)return;var p=document.createElement("p");p.style.cssText="position:absolute;visibility:hidden;left:-9999px;top:0;width:300px;margin:0;padding:0;font:40px Arial,Helvetica,sans-serif;line-height:1.2";p.innerHTML="The quick brown fox jumps over the lazy dog and keeps running across the field while the sun goes down slowly behind the hills <span>mmmmmmmmmm</span> and more words follow here to make this a long block of text";document.body.appendChild(p);var w=p.querySelector("span").getBoundingClientRect().width;var c=document.createElement("canvas").getContext("2d");c.font="40px Arial, Helvetica, sans-serif";var r=c.measureText("mmmmmmmmmm").width;document.body.removeChild(p);var f=w/r;if(f>1.03&&f<1.8){document.documentElement.style.setProperty("--tf",(1/f).toFixed(4))}else{document.documentElement.style.removeProperty("--tf")}}catch(e){}}if(document.readyState==="loading")addEventListener("DOMContentLoaded",m);else m();addEventListener("load",m);addEventListener("orientationchange",function(){setTimeout(m,300)})})();</script>
 </body>
