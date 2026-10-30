@@ -190,7 +190,7 @@ function renderPayment() {
   $('paymentCopy').textContent = manual ? 'This currency or project scope uses a manual route. Your quotation remains an estimate until payment is verified.' : `For ${state.currency} bookings, the existing Implify Visuals Paystack workflow initializes the transaction through Make and verifies it before a paid state is shown.`;
   $('paymentCard').innerHTML = manual
     ? `<div class="payment-method"><div><strong>${state.currency} · Manual payment</strong><span>Payment details will be confirmed with Implify Visuals.</span></div><span>REVIEW</span></div><p style="color:#748094;font-size:.8rem;line-height:1.7;margin:0">No automatic Paystack charge is attempted for this route. Continue to prepare the WhatsApp handoff.</p>`
-    : `<div class="payment-method"><div><strong>${state.currency} · Paystack</strong><span>Secure checkout initialized by the existing Make.com workflow. Available payment methods are shown by Paystack, including Apple Pay where eligible.</span></div><span>SECURE</span></div><button type="button" class="primary-action" id="payBtn">Initialize secure payment →</button>`;
+    : `<div class="payment-method"><div><strong>${state.currency} · Paystack</strong><span>Secure checkout initialized by the existing Make.com workflow. Available payment methods are shown by Paystack, including Apple Pay where eligible.</span></div><span>SECURE</span></div><button type="button" class="primary-action" id="payBtn">Make payment →</button>`;
   $('paymentStatus').hidden = true;
   if (!manual) $('payBtn').addEventListener('click', initializePaystack);
 }
@@ -226,7 +226,7 @@ async function initializePaystack() {
   if (!['NGN','USD'].includes(payCurrency) || !Number.isFinite(payAmount) || payAmount <= 0) {
     $('paymentStatus').textContent = 'Please choose a package and billing currency again before paying. No payment was started.';
     toast('Select a package and currency first.');
-    btn.disabled=false; btn.textContent='Initialize secure payment →';
+    btn.disabled=false; btn.textContent='Make payment →';
     return;
   }
   // amount stays in major units (existing contract with Make); amount_minor is an additive helper (kobo / cents) for Paystack.
@@ -250,7 +250,7 @@ async function initializePaystack() {
   } catch (err) {
     $('paymentStatus').textContent = 'The booking could not reach the payment workflow. Check the connection and try again. No payment was marked as paid.';
     toast('Payment connection failed.');
-  } finally { btn.disabled=false; btn.textContent='Initialize secure payment →'; }
+  } finally { btn.disabled=false; btn.textContent='Make payment →'; }
 }
 
 function buildMessage() {

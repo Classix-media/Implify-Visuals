@@ -3162,3 +3162,5 @@ body::before{opacity:.45!important}
 /* v55 marquee tape: blended into the page background */
 .marquee-wrapper{background:transparent!important;border-top:var(--hair,1px) solid rgba(56,189,248,.045)!important;border-bottom:var(--hair,1px) solid rgba(56,189,248,.045)!important}
 .marquee-content,.marquee-content span{color:rgba(96,150,215,.34)!important}
+
+html,body,body *{-webkit-text-size-adjust:none;-moz-text-size-adjust:none;text-size-adjust:none}

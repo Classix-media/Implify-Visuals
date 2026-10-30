@@ -340,3 +340,5 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 body{overflow-x:hidden}
+
+html,body,body *{-webkit-text-size-adjust:none;-moz-text-size-adjust:none;text-size-adjust:none}
