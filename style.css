@@ -3164,3 +3164,5 @@ body::before{opacity:.45!important}
 .marquee-content,.marquee-content span{color:rgba(96,150,215,.34)!important}
 
 html,body,body *{-webkit-text-size-adjust:none;-moz-text-size-adjust:none;text-size-adjust:none}
+
+html{max-width:100%;overflow-x:clip}body{max-width:100%;overflow-x:clip}

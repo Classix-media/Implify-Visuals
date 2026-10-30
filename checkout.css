@@ -143,3 +143,5 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 body{overflow-x:hidden}
 
 html,body,body *{-webkit-text-size-adjust:none;-moz-text-size-adjust:none;text-size-adjust:none}
+
+html{max-width:100%;overflow-x:clip}body{max-width:100%;overflow-x:clip}

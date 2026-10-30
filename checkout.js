@@ -291,7 +291,7 @@ async function downloadInvoice(){
   });
   $('btnDownload').addEventListener('click', () => { openInvoice(); setTimeout(() => downloadInvoice(), 150); });
 
-  async function verify(reference, attempt = 1, soft = false) {
+  async function verify(reference, attempt = 1, soft = false, silent = false) {
     show('verify');
     try {
       const r = await fetch('/api/verify-payment', { method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -304,15 +304,17 @@ async function downloadInvoice(){
       }
       if (r.ok && (out.reason === 'pending' || out.reason === 'ongoing' || out.reason === 'processing') && attempt < 10) {
         $('coVerifyMsg').textContent = 'Your bank is still processing. Checking again…';
-        setTimeout(() => verify(reference, attempt + 1, soft), 3000); return;
+        setTimeout(() => verify(reference, attempt + 1, soft, silent), 3000); return;
       }
       show('pay'); resetBtn(); checkLink();
+      if (silent) { return; }
       if (soft && r.ok && ['abandoned', 'not_found', 'failed'].includes(out.reason)) { note('Payment was not completed and nothing was charged by us. Choose a method to try again. If you did pay, use the box below to unlock your invoice.'); return; }
       note(r.status === 500 && out.error === 'server_not_configured'
         ? 'Payment may have gone through, but automatic confirmation is not set up yet. Please send your reference ' + reference + ' on WhatsApp.'
         : 'We could not confirm this payment automatically (' + (out.reason || out.error || 'unknown') + '). If you were charged, send reference ' + reference + ' on WhatsApp and we will confirm it.', true);
     } catch (e) {
       show('pay'); resetBtn();
+      if (silent) { return; }
       note('Network problem while confirming. If you were charged, send reference ' + reference + ' on WhatsApp and we will confirm it.', true);
     }
   }
@@ -447,12 +449,12 @@ async function downloadInvoice(){
   /* Returning from the payment window (redirect with ?reference=, or the same tab reopened): check with the server and unlock the invoice only if verified */
   (function start() {
     if (isPaidHere) { verify(paid.reference); return; }
-    let rr = '';
+    let rr = '', fromStore = false;
     try { const q = new URLSearchParams(location.search); rr = q.get('reference') || q.get('trxref') || ''; if (rr) history.replaceState(null, '', location.pathname); } catch (_) {}
     if (!/^[A-Za-z0-9_.=-]{6,100}$/.test(rr)) {
       rr = '';
-      try { const pd = JSON.parse(localStorage.getItem('implifyPending') || 'null'); if (pd && pd.ref === state.ref && pd.reference && Date.now() - pd.at < 3 * 3600 * 1000) rr = pd.reference; } catch (_) {}
+      try { const pd = JSON.parse(localStorage.getItem('implifyPending') || 'null'); if (pd && pd.ref === state.ref && pd.reference && Date.now() - pd.at < 3 * 3600 * 1000) rr = pd.reference; fromStore = !!rr; } catch (_) {}
     }
-    if (rr) { lastReference = rr; verify(rr); checkLink(); } else show('pay');
+    if (rr) { lastReference = rr; verify(rr, 1, false, fromStore); checkLink(); } else show('pay');
   })();
 })();
