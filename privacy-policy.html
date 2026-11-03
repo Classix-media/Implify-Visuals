@@ -64,6 +64,7 @@
     /* Favicon auto-refresh: replace images/favicon.png (same name) and it updates within minutes. */
     (function(){var v=Math.floor(Date.now()/600000);document.querySelectorAll('link[rel*="icon"]').forEach(function(l){l.href='images/favicon.png?v='+v})})();
     </script>
+<link rel="stylesheet" href="calm.css?v=3">
 </head>
 
 <body>
@@ -169,6 +170,6 @@
 
     <a class="back" href="/">Back to Implify Visuals</a>
   </main>
-<script>(function(){function m(){try{if(!matchMedia("(max-width: 600px)").matches)return;var p=document.createElement("p");p.style.cssText="position:absolute;visibility:hidden;left:-9999px;top:0;width:300px;margin:0;padding:0;font:40px Arial,Helvetica,sans-serif;line-height:1.2";p.innerHTML="The quick brown fox jumps over the lazy dog and keeps running across the field while the sun goes down slowly behind the hills <span>mmmmmmmmmm</span> and more words follow here to make this a long block of text";document.body.appendChild(p);var w=p.querySelector("span").getBoundingClientRect().width;var c=document.createElement("canvas").getContext("2d");c.font="40px Arial, Helvetica, sans-serif";var r=c.measureText("mmmmmmmmmm").width;document.body.removeChild(p);var f=w/r;if(f>1.03&&f<1.8){document.documentElement.style.setProperty("--tf",(1/f).toFixed(4))}else{document.documentElement.style.removeProperty("--tf")}}catch(e){}}if(document.readyState==="loading")addEventListener("DOMContentLoaded",m);else m();addEventListener("load",m);addEventListener("orientationchange",function(){setTimeout(m,300)})})();</script>
+<script>(function(){function med(a){a.sort(function(x,y){return x-y});return a[Math.floor(a.length/2)]}function m(){try{var d=document.documentElement;if(!matchMedia("(max-width: 600px)").matches){d.style.removeProperty("--tf");return}var c=document.createElement("canvas").getContext("2d"),rs=[],els=document.querySelectorAll("a,span,button,h1,h2,h3,h4,label,strong,li,p,div");for(var i=0;i<els.length&&rs.length<40;i++){var e=els[i];if(e.children.length)continue;var t=(e.textContent||"").trim();if(t.length<6||t.length>40)continue;var cs=getComputedStyle(e);if(cs.display==="none"||cs.visibility==="hidden"||cs.textTransform!=="none"||(cs.letterSpacing!=="normal"&&parseFloat(cs.letterSpacing)!==0))continue;var r=document.createRange();r.selectNodeContents(e);var q=r.getClientRects();if(q.length!==1||q[0].width<20)continue;c.font=cs.fontStyle+" "+cs.fontWeight+" "+cs.fontSize+" "+cs.fontFamily;var cw=c.measureText(t).width;if(cw>0)rs.push(q[0].width/cw)}if(rs.length<5){return}var f=med(rs);d.setAttribute("data-f",f.toFixed(3));if(f>1.04&&f<1.6){d.style.setProperty("--tf",(1/f).toFixed(4))}else{d.style.removeProperty("--tf")}}catch(x){}}function go(){m();setTimeout(m,800);setTimeout(m,2500)}if(document.fonts&&document.fonts.ready)document.fonts.ready.then(go);addEventListener("load",go);addEventListener("orientationchange",function(){setTimeout(m,400)})})();</script>
 </body>
 </html>

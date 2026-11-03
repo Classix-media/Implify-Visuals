@@ -92,6 +92,7 @@ if (reviewTrack && reviewDotsWrap && reviewPrevBtn && reviewNextBtn) {
 
 // Scroll reveal animations — slide up / left / right as sections come into view
 function setupScrollReveal() {
+  return; /* replaced by reveal.js */
   const upTargets = document.querySelectorAll(
     ".stat-card, .about-left, .faq-card, .service-card, .dual-card, .tools-card, .reviews-section, .portfolio-outer-frame, .contact-left, .contact-right"
   );
@@ -297,13 +298,14 @@ setupScrollReveal();
    Glass-safe: .hero-section and .hero-right are deliberately NOT transformed,
    preserving the MP4's existing mix-blend-mode/mask visual treatment. */
 (() => {
+  return; /* replaced by reveal.js */
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduceMotion || !('IntersectionObserver' in window)) return;
 
   const sectionSelectors = [
-    '.stats-section', '.marquee-wrapper', '.about-section',
+    '.idc-section', '.prob-section', '.brand-section', '.marquee-wrapper', '.about-section',
     '.clarity-section', '.tools-elevate-section', '.strategy-section',
-    '.past-projects-section', '.reviews-section', '.portfolio-section',
+    '.past-projects-section', '.reviews-section',
     '.contact-section'
   ];
 
@@ -315,9 +317,8 @@ setupScrollReveal();
   document.querySelectorAll('.hero-left').forEach(el => el.classList.add('scroll-reveal'));
 
   const staggerSelectors = [
-    '.stats-container', '.services-triple-grid', '.tools-pills', '.strategy-cards',
-    '.past-projects-layout',
-    '.reviews-carousel', '.portfolio-outer-frame', '.clarity-grid', '.dual-grid',
+    '.idc-grid', '.brand-grid', '.pj-grid', '.rv-grid', '.tools-pills',
+    '.clarity-grid', '.dual-grid',
     '.contact-grid', '.what-to-expect-column'
   ];
 

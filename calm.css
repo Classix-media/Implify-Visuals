@@ -1,0 +1,198 @@
+/* ===================================================================
+   calm.css  -  shared calm look for every page + new home sections
+   Rules: no glows or shadows, no card outlines, faint neutral lines on
+   small elements only, smaller filled pills, calm cobalt buttons.
+   =================================================================== */
+:root{
+  --cal:#2b4cc2; --cal-h:#3659d4; --cal-d:#1f3a99;
+  --ink:#e8ecf7; --mut:#9aa6c4; --mut2:#6f7ca0;
+  --bg0:#050a1a; --bg1:#070d20; --bg2:#0a1330; --bg3:#0d1738;
+  --card:#0e1732; --card2:#121d3f; --fill:rgba(255,255,255,.055);
+  --line:rgba(255,255,255,.08);
+}
+
+/* ---------- no glow / no shadow anywhere ---------- */
+*,*::before,*::after{box-shadow:none!important;text-shadow:none!important}
+:focus-visible{outline:2px solid rgba(255,255,255,.6)!important;outline-offset:2px}
+body::before{opacity:.28!important}
+
+/* ---------- header (same on every page) ---------- */
+.navbar{padding:.6rem 5%!important;background:rgba(5,10,26,.88)!important;border-bottom:1px solid var(--line)!important;backdrop-filter:blur(10px)}
+.navbar .logo{height:1.75rem!important;width:auto!important}
+.navbar .logo-text{font-size:.95rem!important;font-weight:500!important;letter-spacing:0!important;color:#eef1fa}
+.nav-btn{font-size:.72rem!important;letter-spacing:.08em!important;font-weight:500!important;background:transparent!important;border:0!important;color:var(--mut)!important;padding:.4rem .7rem!important;border-radius:.5rem!important}
+.nav-btn:hover{color:#fff!important}
+.nav-btn.active{background:transparent!important;color:#fff!important;border-bottom:2px solid var(--cal)!important;border-radius:0!important}
+
+/* ---------- buttons: calm, flat, smaller ---------- */
+.btn{border-radius:.7rem!important;padding:.62rem 1.05rem!important;font-size:.8rem!important;font-weight:600!important;letter-spacing:.02em!important;border:0!important;transition:background .2s!important}
+.btn-primary,.btn-primary-sm,.btn-primary-xs,.nav-cta{background:var(--cal)!important;background-image:none!important;color:#fff!important;border:0!important}
+.btn-primary:hover,.btn-primary-sm:hover,.btn-primary-xs:hover{background:var(--cal-h)!important}
+.btn-outline,.btn-outline-sm,.btn-outline-xs,.explore-btn,.pinterest-btn{background:var(--fill)!important;background-image:none!important;color:var(--ink)!important;border:0!important}
+.btn-outline:hover,.btn-outline-sm:hover,.btn-outline-xs:hover{background:rgba(255,255,255,.09)!important}
+
+/* ---------- pills / chips: smaller, filled, faint ---------- */
+.welcome-pill,.flag-chip,.tool-pill{background:var(--fill)!important;background-image:none!important;border:0!important;box-shadow:none!important}
+.flag-chip{padding:.28rem .7rem .28rem .35rem!important;font-size:.78rem!important;border-radius:.7rem!important}
+.tool-pill{padding:.5rem .8rem!important;font-size:.82rem!important;border-radius:.7rem!important;color:var(--ink)!important}
+.trust-label,.section-label,.tools-label{letter-spacing:.14em!important;font-size:.66rem!important;color:var(--mut2)!important}
+
+/* ---------- section surfaces (each one a different calm tone) ---------- */
+.hero-section{background:transparent!important}
+.idc-section{background:var(--bg1)!important}
+.marquee-wrapper{background:var(--bg0)!important;border:0!important}
+.prob-section{background:var(--bg2)!important}
+.brand-section{background:var(--bg1)!important}
+.past-projects-section{background:var(--bg3)!important}
+.workflow-section{background:var(--bg1)!important}
+.promise-section{background:var(--bg2)!important}
+.rv-section{background:var(--bg3)!important}
+.about-section{background:var(--bg1)!important}
+.clarity-section{background:var(--bg2)!important}
+.tools-elevate-section{background:var(--bg3)!important}
+.contact-section{background:var(--bg1)!important}
+.site-footer{background:var(--bg0)!important;border-top:1px solid var(--line)!important}
+section::before,section::after{background:none!important}
+
+/* ---------- cards: no outline, filled ---------- */
+.dual-card,.faq-card,.need-card,.tools-card,.glass-card-sub,.service-card,.quick-message-block,.what-to-expect-block,.wf-step,.pp-card,.contact-card,.contact-form-card{border:0!important;background:var(--card)!important;background-image:none!important}
+.quick-message-box,.expect-item{border:0!important;background:var(--fill)!important;background-image:none!important}
+.service-card{background:linear-gradient(160deg,#233b92,#182a6b)!important}
+input,textarea,select{border:1px solid var(--line)!important;background:rgba(255,255,255,.05)!important;border-radius:.7rem!important}
+input:focus,textarea:focus,select:focus{border-color:rgba(255,255,255,.2)!important;outline:none!important;background:rgba(255,255,255,.07)!important}
+
+/* ---------- shared headings for the new sections ---------- */
+.prob-section h2,.brand-head h2,.pj-title,.rv-section .section-title{font-weight:600;letter-spacing:-.01em;color:#f3f5fb}
+
+/* ---------- 1. four-step approach cards ---------- */
+.idc-section{padding:2.5rem 5% 1rem}
+.idc-grid{display:grid;grid-template-columns:1fr 1fr;gap:.85rem;max-width:72rem;margin:0 auto}
+.idc-card{background:var(--card);border-radius:1.1rem;padding:1.2rem 1.1rem 1.3rem;text-align:left}
+.idc-ic{color:#7f9dff;margin-bottom:.8rem;display:block}
+.idc-card h3{font-size:1.05rem;font-weight:600;margin-bottom:.35rem;color:#f3f5fb}
+.idc-card p{font-size:.86rem;line-height:1.55;color:var(--mut)}
+@media(min-width:700px){.idc-grid{grid-template-columns:repeat(4,1fr);gap:1rem}.idc-card{padding:1.4rem 1.3rem 1.5rem}}
+
+/* ---------- 2. problem ---------- */
+.prob-section{padding:4rem 5% 4.5rem;display:flex;flex-direction:column;align-items:center}
+.prob-fig{width:100%;max-width:58rem;margin:0}
+.prob-fig img{display:block;width:100%;height:auto;border-radius:1.25rem}
+.prob-text{max-width:40rem;margin:2rem auto 0;text-align:center}
+.prob-text h2{font-size:1.7rem;line-height:1.2;margin-bottom:.9rem}
+.prob-text p{font-size:1rem;line-height:1.7;color:var(--mut)}
+@media(min-width:901px){.prob-text h2{font-size:2.2rem}.prob-text p{font-size:1.08rem}}
+
+/* ---------- 3. brand section + gallery ---------- */
+.brand-section{padding:4.5rem 0 4rem;overflow:hidden}
+.brand-head{text-align:center;padding:0 5%;margin-bottom:1.6rem}
+.brand-head h2{font-size:1.7rem;line-height:1.2}
+.brand-grid{display:grid;grid-template-columns:1fr 1fr;gap:.85rem;max-width:72rem;margin:0 auto;padding:0 5%}
+.brand-item{background:var(--card);border-radius:1.1rem;padding:1.1rem 1.1rem 1.25rem}
+.brand-item span{display:block;font-size:.72rem;letter-spacing:.12em;color:var(--mut2);margin-bottom:.7rem}
+.brand-item h3{font-size:1.02rem;font-weight:600;margin-bottom:.3rem;color:#f3f5fb}
+.brand-item p{font-size:.84rem;line-height:1.55;color:var(--mut)}
+.gal-title{text-align:center;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mut2);margin:2.6rem 0 1rem}
+.gal{display:flex;flex-direction:column;gap:.75rem;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%)}
+.gal-row{overflow:hidden}
+.gal-track{display:flex;width:max-content;will-change:transform}
+.gal-left .gal-track{animation:galL 70s linear infinite}
+.gal-right .gal-track{animation:galR 78s linear infinite}
+.gal-set{display:flex;gap:.75rem;padding-right:.75rem}
+.gal-set img{height:8.5rem;width:auto;flex:none;display:block;border-radius:.9rem;user-select:none;-webkit-user-drag:none}
+.gal:hover .gal-track{animation-play-state:paused}
+@keyframes galL{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes galR{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+.brand-cta{display:flex;justify-content:center;margin-top:2.2rem}
+@media(min-width:901px){
+  .brand-head h2{font-size:2.2rem}
+  .brand-grid{grid-template-columns:repeat(4,1fr);gap:1rem}
+  .gal-set img{height:13rem}
+  .gal-set{gap:1rem;padding-right:1rem}
+  .gal{gap:1rem}
+}
+@media(prefers-reduced-motion:reduce){
+  .gal-track{animation:none!important}
+  .gal-row{overflow-x:auto}
+  .gal-set[aria-hidden="true"]{display:none}
+}
+
+/* ---------- 4. past project cards (stacked / 2x2) ---------- */
+.pj-section{padding:4.5rem 5% 4rem}
+.pj-title{text-align:center;font-size:1.7rem;line-height:1.2;margin:0 0 1.6rem}
+.pj-grid{display:grid;grid-template-columns:1fr;gap:1.25rem;max-width:64rem;margin:0 auto}
+.pj-card{display:flex;flex-direction:column;text-decoration:none;color:inherit;background:var(--card);border-radius:1.25rem;overflow:hidden;transition:background .25s}
+.pj-card:hover{background:var(--card2)}
+.pj-card img{display:block;width:100%;height:auto}
+.pj-panel{padding:1.15rem 1.25rem 1.3rem;display:flex;flex-direction:column;flex:1}
+.pj-brand{font-size:.78rem;letter-spacing:.04em;color:var(--mut2);margin-bottom:.25rem}
+.pj-panel h3{font-size:1.2rem;font-weight:600;color:#f3f5fb;margin-bottom:.6rem;padding-bottom:.7rem;border-bottom:1px solid rgba(255,255,255,.06)}
+.pj-panel p{font-size:.9rem;line-height:1.65;color:var(--mut);margin-bottom:1rem}
+.pj-foot{display:flex;align-items:center;justify-content:space-between;gap:.6rem;margin-top:auto;flex-wrap:wrap}
+.pj-tags{display:flex;gap:.4rem;flex-wrap:wrap}
+.pj-tags i{font-style:normal;font-size:.76rem;color:var(--ink);background:var(--fill);padding:.32rem .7rem;border-radius:.6rem}
+.pj-go{font-size:.78rem;color:#8fa8ff}
+.pj-more{display:flex;justify-content:center;align-items:center;gap:1.1rem;flex-wrap:wrap;margin:1.8rem 0 0;font-size:.85rem}
+.pj-more span{color:var(--mut2)}
+.pj-more a{color:var(--ink);text-decoration:none;background:var(--fill);padding:.4rem .85rem;border-radius:.6rem}
+.pj-more a:hover{background:rgba(255,255,255,.1)}
+.pj-call{max-width:64rem;margin:3rem auto 0}
+.pj-call .quick-message-column{display:grid;grid-template-columns:1fr;gap:1rem}
+@media(min-width:601px){.pj-grid{grid-template-columns:1fr 1fr;gap:1.5rem}}
+@media(min-width:901px){.pj-title{font-size:2.2rem}.pj-call .quick-message-column{grid-template-columns:1fr 1fr}}
+
+/* ---------- 5. testimonials: four block cards ---------- */
+.rv-section{padding:4.5rem 5%;text-align:center}
+.rv-section .section-title{font-size:1.7rem;margin:.3rem 0 .6rem}
+.rv-section .section-sub{color:var(--mut);font-size:.95rem;margin:0 auto 1.8rem;max-width:34rem}
+.rv-grid{display:grid;grid-template-columns:1fr;gap:1rem;max-width:64rem;margin:0 auto;text-align:left}
+.rv-card{background:linear-gradient(165deg,#13265e 0%,#0c1738 100%);border-radius:1.25rem;padding:1.5rem 1.4rem 1.4rem;display:flex;flex-direction:column}
+.rv-av{width:3.25rem;height:3.25rem;border-radius:50%;object-fit:cover;display:block;margin-bottom:1rem;background:#1b2a5c}
+.rv-stars{color:rgba(255,255,255,.88);font-size:.95rem;letter-spacing:.2em;margin-bottom:.9rem}
+.rv-q{font-size:.95rem;line-height:1.7;color:#c4cde4;margin:0 0 1.2rem;flex:1}
+.rv-who{border-top:1px solid rgba(255,255,255,.07);padding-top:.9rem;font-size:.92rem;color:#f3f5fb}
+.rv-who strong{font-weight:600}
+.rv-who span{color:#c4cde4}
+.rv-who em{display:block;font-style:normal;color:var(--mut);margin-top:.15rem;font-size:.86rem}
+@media(min-width:601px){.rv-grid{grid-template-columns:1fr 1fr;gap:1.25rem}}
+@media(min-width:901px){.rv-section .section-title{font-size:2.2rem}}
+
+/* ---------- 6. about (moved lower) ---------- */
+.profile-card-wrapper{border:0!important}
+.profile-tag{background:rgba(8,14,34,.72)!important;border:0!important;backdrop-filter:blur(8px)}
+
+/* ---------- final CTA ---------- */
+.elevate-card h3{font-size:1.25rem!important;line-height:1.3!important}
+
+/* visitors with reduced motion still see every section (no reveal animations) */
+@media(prefers-reduced-motion:reduce){
+  .reveal-up,.reveal-left,.reveal-right,.scroll-reveal,.scroll-reveal>*,.scroll-reveal-stagger,.scroll-reveal-stagger>*{opacity:1!important;transform:none!important;filter:none!important;transition:none!important}
+}
+
+/* ================= booking + checkout calm pass ================= */
+.journey-panel .eyebrow{background:none!important;padding:0!important;border-radius:0!important;color:var(--mut2)!important;font-size:.7rem!important;font-weight:500!important;letter-spacing:.12em!important;opacity:.7}
+.eyebrow,.step-kicker,.mini-label{color:var(--mut2)!important;font-weight:500!important;letter-spacing:.12em!important}
+.journey-intro{font-size:.9rem!important;line-height:1.55!important;color:var(--mut)!important}
+/* six tiles become one calm progress capsule */
+.journey-steps{display:flex!important;gap:.35rem!important;align-items:center!important;background:rgba(255,255,255,.05)!important;border-radius:99px!important;padding:.4rem!important;grid-template-columns:none!important}
+.journey-step{flex:1 1 0!important;min-width:0!important;height:.5rem!important;padding:0!important;border:0!important;border-radius:99px!important;background:rgba(255,255,255,.1)!important;overflow:hidden;transition:flex .3s}
+.journey-step b,.journey-step span{display:none!important}
+.journey-step.active{flex:4 1 0!important;height:1.9rem!important;background:var(--cal)!important;display:flex!important;align-items:center;justify-content:center;gap:.4rem}
+.journey-step.active b,.journey-step.active span{display:inline!important;font-size:.74rem!important;color:#fff!important;font-weight:600!important;white-space:nowrap}
+.progress-track{height:.3rem!important;background:rgba(255,255,255,.08)!important;border:0!important}
+.progress-track span,#progressBar{background:var(--cal)!important;box-shadow:none!important}
+.step-card,.panel,.booking-card,.journey-panel,.form-card,.quote-card,.pay-card,.co-panel,.co-card,.co-summary{border:0!important;background-image:none!important}
+.service-option,.pkg-card,.package-card,.option-card,.choice,.co-method,.method{border:1px solid var(--line)!important;background:var(--fill)!important;background-image:none!important}
+.service-option.selected,.pkg-card.selected,.package-card.selected,.option-card.selected,.choice.selected,.co-method.selected,.method.selected,.co-method.on,.method.on{border-color:rgba(255,255,255,.22)!important;background:rgba(255,255,255,.09)!important}
+.field label,label{letter-spacing:.04em!important;text-transform:none!important;font-weight:500!important;font-size:.82rem!important;color:var(--mut)!important}
+.btn-back-ghost,.back-btn,button.ghost,.btn-ghost{background:transparent!important;border:0!important;color:var(--mut)!important}
+.back-link{background:var(--cal)!important;background-image:none!important;border:0!important;font-size:.74rem!important;font-weight:600!important;padding:.4rem .8rem!important;border-radius:.6rem!important;min-height:0!important}
+.journey-step.active{flex-direction:row!important}
+.journey-step.active b,.journey-step.active span{display:inline-block!important;line-height:1}
+.brand,.site-brand,.top .logo-text{font-size:.95rem!important;font-weight:500!important}
+
+/* ================= blur-to-sharp slide-up reveal (light, one-time, GPU friendly) ================= */
+html.rv-on .rv{opacity:0;transform:translate3d(0,1.5rem,0);filter:blur(.5rem);
+  transition:opacity .8s cubic-bezier(.22,.7,.2,1) var(--rd,0ms),transform .8s cubic-bezier(.22,.7,.2,1) var(--rd,0ms),filter .8s ease-out var(--rd,0ms);will-change:opacity,transform,filter}
+html.rv-on .rv.rv-in{opacity:1;transform:translate3d(0,0,0);filter:blur(0)}
+html.rv-on .rv.rv-done{transition:none;will-change:auto;filter:none;transform:none}
+@media(prefers-reduced-motion:reduce){html.rv-on .rv{opacity:1;transform:none;filter:none;transition:none}}
