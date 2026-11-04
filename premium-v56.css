@@ -629,5 +629,5 @@ html,body,body *{-webkit-text-size-adjust:none;-moz-text-size-adjust:none;text-s
 html{max-width:100%;overflow-x:clip}body{max-width:100%;overflow-x:clip}
 
 /* v80: proportional root size: every phone renders the same 412-unit layout */
-html{font-size:calc((16px) * var(--tf,1))}
-@media(max-width:600px){html{font-size:calc((calc(100vw * 16 / 412)) * var(--tf,1))}}
+html{font-size:16px}
+@media(max-width:600px){html{font-size:calc(100vw * 16 / 412)}}

@@ -84,7 +84,8 @@ function restoreBookingState() {
 function setStep(n) {
   state.step = n;
   steps.forEach(s => s.classList.toggle('active', Number(s.dataset.step) === n));
-  journeySteps.forEach((s,i) => s.classList.toggle('active', i === Math.min(n-1,5)));
+  journeySteps.forEach((s,i) => { s.classList.toggle('active', i === Math.min(n-1,5)); s.classList.toggle('done', i < Math.min(n-1,5)); });
+  const jsEl = document.getElementById('journeySteps'); if (jsEl) jsEl.style.setProperty('--p', String(Math.min(n-1,5)/5));
   $('stepCounter').textContent = `${String(n).padStart(2,'0')} / 06`;
   $('progressBar').style.width = `${(n/6)*100}%`;
   backBtn.hidden = n === 1;
