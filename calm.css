@@ -313,3 +313,38 @@ svg,svg *{filter:none!important}
 /* v70: the call column must not be a 2-column grid (it squeezed the Book a call card) */
 .pj-call .quick-message-column,.pj-call .what-to-expect-column{display:block!important;grid-template-columns:none!important}
 .pj-call .quick-message-block,.pj-call .what-to-expect-block{height:100%;box-sizing:border-box}
+
+/* ================= v71 ================= */
+/* hamburger: closing the menu must not jump to the top */
+html.menu-open,body.menu-open{height:auto!important}
+/* headings: Title Case, white + gradient ending (same style as "A Clear Process Behind Every Visual.") */
+.prob-text h2,.pj-title,.rv-section .section-title,.about-left h2,.workflow-section h2,.contact-section h2,.dual-card h3,.elevate-card h3,.prob-text h2 .accent-text{text-transform:capitalize}
+.prob-text h2,.pj-title,.rv-section .section-title,.about-left h2,.contact-section h2,.dual-card h3,.elevate-card h3{color:#fff!important}
+h2 .accent-text,h3 .accent-text{display:inline}
+/* past projects: breathing room at the edges, dark cards on a lighter background */
+.pj-section{padding:3.5rem 6% 3.2rem!important;background:linear-gradient(180deg,#0f2a7a 0%,#0b1f5c 100%)!important}
+.pj-section::before,.pj-section::after{background:none!important}
+.pj-card{background:linear-gradient(160deg,#0a1745 0%,#050c26 100%)!important}
+.pj-card:hover{background:linear-gradient(160deg,#0d1d57 0%,#060e2c 100%)!important}
+.gal-section{padding:2.5rem 0 4rem!important}
+/* book a call + steps: their own section */
+.call-section{padding:3.2rem 6%;background:linear-gradient(180deg,#050b20 0%,#07123a 100%)}
+.call-section .pj-call{margin:0 auto!important}
+.quick-message-block,.what-to-expect-block{background:linear-gradient(165deg,#050c26,#030719)!important}
+.quick-message-box,.expect-item{background:rgba(255,255,255,.06)!important}
+/* FAQ / get started / elevate cards: darker so they read clearly */
+.dual-card,.faq-card,.need-card{background:linear-gradient(165deg,#050c26,#030719)!important}
+/* reviews: gap at the edges, 2 x 2 on PC */
+.rv-section{padding:3rem 6%!important}
+@media(min-width:901px){.rv-grid{grid-template-columns:1fr 1fr!important;max-width:60rem!important}}
+/* booking actions: compact, right-aligned, one row */
+.form-actions{justify-content:space-between!important}
+.form-actions #nextBtn,.primary-action{flex:0 0 auto!important;margin-left:auto!important;width:auto!important}
+.form-actions #backBtn{flex:0 0 auto!important}
+/* back arrow + preview close: no pill on tap */
+@media(max-width:900px){
+  html body .back-link,html body .back-link:hover,html body .back-link:active,html body .back-link:focus{background:transparent!important;-webkit-tap-highlight-color:transparent;outline:none!important}
+  html body .back-link:active{opacity:.6}
+}
+html body .invoice-close,html body .invoice-close:hover,html body .invoice-close:active,html body .invoice-close:focus{background:transparent!important;border:0!important;border-radius:0!important;width:2.6rem!important;height:2.6rem!important;color:#fff!important;-webkit-tap-highlight-color:transparent;outline:none!important}
+html body .invoice-close:active{opacity:.55}

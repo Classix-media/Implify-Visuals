@@ -260,7 +260,7 @@ function buildMessage() {
 }
 
 function renderInvoiceDocument() {
-  const paid = state.paymentStatus === 'Paid';
+  const paid = isPaid();
   $('invoiceTitle').textContent = paid ? 'INVOICE' : 'QUOTATION';
   $('invoiceTitle').textContent = $('invoiceTitle').textContent.toUpperCase();
   $('invoiceTitle').dataset.t = $('invoiceTitle').textContent;
@@ -275,6 +275,7 @@ function renderInvoiceDocument() {
   $('invoiceSubtotal').textContent = money(state.amount,state.currency);
   $('invoiceTotal').textContent = money(state.amount,state.currency);
   $('invoiceStatusLabel').textContent = paid ? 'TOTAL PAID' : 'TOTAL DUE:';
+  { const _p = document.querySelector('.inv-pill'); if (_p && _p.firstChild) _p.firstChild.textContent = isPaid() ? 'Payment received. Thank you. ' : 'Payment is required before project work begins. '; }
   $('invoiceCurrencyNote').textContent = state.currency === 'USD' ? 'USD studio price · fixed reference, not live FX' : 'Currency: ' + state.currency;
 }
 function openInvoice() {
@@ -289,7 +290,7 @@ $('closeInvoice')?.addEventListener('click', closeInvoice);
 document.querySelector('[data-close-invoice]')?.addEventListener('click', closeInvoice);
 $('printInvoiceModal')?.addEventListener('click', () => downloadInvoice());
 $('shareInvoiceModal')?.addEventListener('click', async () => {
-  const shareText = `${state.paymentStatus === 'Paid' ? 'Implify Visuals Invoice' : 'Implify Visuals Project Quotation'} ${state.ref}\n${state.name}\n${state.service}\n${state.packageName}\n${money(state.amount,state.currency)}`;
+  const shareText = `${isPaid() ? 'Implify Visuals Invoice' : 'Implify Visuals Project Quotation'} ${state.ref}\n${state.name}\n${state.service}\n${state.packageName}\n${money(state.amount,state.currency)}`;
   if (navigator.share) await navigator.share({title:`Implify Visuals ${state.ref}`, text:shareText}).catch(()=>{});
   else { await navigator.clipboard?.writeText(shareText); toast('Invoice details copied.'); }
 });
@@ -298,9 +299,9 @@ function renderHandoff() {
   const message = buildMessage();
   $('handoffCard').textContent = message;
   $('whatsappLink').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-  $('invoiceCard').innerHTML = `<div class="invoice-head"><div><h3>Implify Visuals</h3><span>${state.paymentStatus === 'Paid' ? 'PAID INVOICE' : 'PROJECT QUOTATION / ESTIMATE'}</span></div><span>${state.ref}</span></div>
+  $('invoiceCard').innerHTML = `<div class="invoice-head"><div><h3>Implify Visuals</h3><span>${isPaid() ? 'PAID INVOICE' : 'PROJECT QUOTATION / ESTIMATE'}</span></div><span>${state.ref}</span></div>
     <div class="invoice-row"><span>Client</span><strong>${state.name}</strong></div><div class="invoice-row"><span>Service</span><strong>${state.service}</strong></div><div class="invoice-row"><span>Package</span><strong>${state.packageName}</strong></div><div class="invoice-row"><span>Currency</span><strong>${state.currency}</strong></div><div class="invoice-total"><span>Total</span><strong>${money(state.amount,state.currency)}</strong></div>
-    <div class="invoice-actions"><button class="secondary-action" type="button" id="viewInvoice">View ${state.paymentStatus === 'Paid' ? 'Invoice' : 'Quotation'}</button><button class="secondary-action" type="button" id="downloadInvoice">Download / Save PDF</button><button class="secondary-action" type="button" id="shareInvoice">Share</button></div>`;
+    <div class="invoice-actions"><button class="secondary-action" type="button" id="viewInvoice">View ${isPaid() ? 'Invoice' : 'Quotation'}</button><button class="secondary-action" type="button" id="downloadInvoice">Download / Save PDF</button><button class="secondary-action" type="button" id="shareInvoice">Share</button></div>`;
   $('viewInvoice').addEventListener('click', openInvoice);
   $('downloadInvoice').addEventListener('click', () => { openInvoice(); setTimeout(() => downloadInvoice(), 150); });
   $('shareInvoice').addEventListener('click', async () => { const text=buildMessage(); if(navigator.share){await navigator.share({title:`Implify Visuals ${state.ref}`,text}).catch(()=>{});} else {await navigator.clipboard?.writeText(text); toast('Invoice details copied.');} });
@@ -424,7 +425,7 @@ async function drawInvoiceCanvas(){
   // footer
   x.fillStyle='#fff';x.fillRect(0,115.3*u,W,20*u);
   // compact balanced pill (one size, one font)
-  const full=('Payment is required before project work begins. '+T('invoiceCurrencyNote')).trim(),maxW=54-4.4;
+  const full=((isPaid()?'Payment received. Thank you. ':'Payment is required before project work begins. ')+T('invoiceCurrencyNote')).trim(),maxW=54-4.4;
   font(500,1.7);const total=x.measureText(full).width/u,n=Math.max(1,Math.ceil(total/maxW)),lines=wrapTo(full,500,1.7,Math.min(maxW,total/n*1.1+.8));
   const lh=2.4,ph=lines.length*lh+2.8,py=125.3-ph/2;rr(4,py,54,ph,2.6,'#767676');
   lines.forEach((s,i)=>txt(s,31,py+1.4+(i+.5)*lh,{s:1.7,w:500,c:'#fff',a:'center'}));
@@ -507,3 +508,5 @@ async function downloadInvoice(){
   if(d&&window.ResizeObserver)new ResizeObserver(()=>fitDocText()).observe(d);
   if(document.fonts&&document.fonts.addEventListener)document.fonts.addEventListener('loadingdone',()=>fitDocText());
   window.addEventListener('load',()=>setTimeout(fitDocText,50));})();
+
+function isPaid(){ try { if (state.paymentStatus !== 'Paid') return false; const p = JSON.parse(localStorage.getItem('implifyPaid') || 'null'); return !!(p && p.ref === state.ref); } catch (_) { return false; } }

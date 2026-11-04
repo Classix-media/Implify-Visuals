@@ -7,13 +7,15 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
 const navToggle = document.getElementById("navToggle");
 const navLinks = document.getElementById("navLinks");
 if (navToggle && navLinks) {
-  const setMenu = (open) => {
+  const setMenu = (open, keep) => {
+    if (open) window.__menuY = window.pageYOffset || 0;
     navLinks.classList.toggle("open", open);
     navToggle.setAttribute("aria-expanded", open);
     document.documentElement.classList.toggle("menu-open", open);
     document.body.classList.toggle("menu-open", open);
+    if (!open && keep && window.__menuY != null) { const y = window.__menuY; window.scrollTo(0, y); requestAnimationFrame(() => window.scrollTo(0, y)); }
   };
-  navToggle.addEventListener("click", () => setMenu(!navLinks.classList.contains("open")));
+  navToggle.addEventListener("click", () => setMenu(!navLinks.classList.contains("open"), true));
   navLinks.querySelectorAll("a").forEach(link => link.addEventListener("click", () => setMenu(false)));
   navLinks.addEventListener("touchmove", (e) => { if (navLinks.classList.contains("open")) e.preventDefault(); }, { passive: false });
   window.addEventListener("resize", () => { if (window.innerWidth > 900) setMenu(false); });

@@ -32,6 +32,7 @@ function renderInvoiceDocument() {
   $('invoiceSubtotal').textContent = money(state.amount,state.currency);
   $('invoiceTotal').textContent = money(state.amount,state.currency);
   $('invoiceStatusLabel').textContent = paid ? 'TOTAL PAID' : 'TOTAL DUE:';
+  { const _p = document.querySelector('.inv-pill'); if (_p && _p.firstChild) _p.firstChild.textContent = state.paymentStatus === 'Paid' ? 'Payment received. Thank you. ' : 'Payment is required before project work begins. '; }
   $('invoiceCurrencyNote').textContent = state.currency === 'USD' ? 'USD studio price · fixed reference, not live FX' : 'Currency: ' + state.currency;
 }
 function openInvoice() {
@@ -129,7 +130,7 @@ async function drawInvoiceCanvas(){
   // footer
   x.fillStyle='#fff';x.fillRect(0,115.3*u,W,20*u);
   // compact balanced pill (one size, one font)
-  const full=('Payment is required before project work begins. '+T('invoiceCurrencyNote')).trim(),maxW=54-4.4;
+  const full=((state.paymentStatus==='Paid'?'Payment received. Thank you. ':'Payment is required before project work begins. ')+T('invoiceCurrencyNote')).trim(),maxW=54-4.4;
   font(500,1.7);const total=x.measureText(full).width/u,n=Math.max(1,Math.ceil(total/maxW)),lines=wrapTo(full,500,1.7,Math.min(maxW,total/n*1.1+.8));
   const lh=2.4,ph=lines.length*lh+2.8,py=125.3-ph/2;rr(4,py,54,ph,2.6,'#767676');
   lines.forEach((s,i)=>txt(s,31,py+1.4+(i+.5)*lh,{s:1.7,w:500,c:'#fff',a:'center'}));
