@@ -36,22 +36,9 @@ body::before{opacity:.28!important}
 .flag-chip{padding:.28rem .7rem .28rem .35rem!important;font-size:calc((.78rem) * var(--tf,1))!important;border-radius:.7rem!important}
 .trust-label,.tools-label{letter-spacing:.14em!important;font-size:calc((.66rem) * var(--tf,1))!important}
 
-/* ---------- section surfaces (each one a different calm tone) ---------- */
-.hero-section{background:transparent!important}
-.idc-section{background:var(--bg1)!important}
-.marquee-wrapper{background:var(--bg0)!important;border:0!important}
-.prob-section{background:var(--bg2)!important}
-.brand-section{background:var(--bg1)!important}
-.past-projects-section{background:var(--bg3)!important}
-.workflow-section{background:var(--bg1)!important}
-.promise-section{background:var(--bg2)!important}
-.rv-section{background:var(--bg3)!important}
-.about-section{background:var(--bg1)!important}
-.clarity-section{background:var(--bg2)!important}
-.tools-elevate-section{background:var(--bg3)!important}
-.contact-section{background:var(--bg1)!important}
-.site-footer{background:var(--bg0)!important;border-top:1px solid var(--line)!important}
-section::before,section::after{background:none!important}
+/* ---------- section surfaces: original section colours are used; only the new sections need one ---------- */
+.idc-section,.prob-section{background:linear-gradient(180deg,#040a1c,#050d26)}
+.marquee-wrapper{background:transparent!important}
 
 /* ---------- cards: no outline, filled ---------- */
 .glass-card-sub,.wf-step,.pp-card,.contact-card,.contact-form-card{border:0!important;background:var(--card)!important;background-image:none!important}
@@ -266,7 +253,6 @@ svg,svg *{filter:none!important}
 .gal-right .gal-track{animation-duration:52s!important}
 .gal{margin-top:2rem}
 /* past project cards: dark with blue gradient fill */
-.past-projects-section{background:#050a1a!important}
 .pj-card{background:linear-gradient(160deg,#17338a 0%,#0d1f58 45%,#071130 100%)!important}
 .pj-card:hover{background:linear-gradient(160deg,#1d3ca0 0%,#102563 45%,#08143a 100%)!important}
 .pj-panel h3{border-bottom-color:rgba(255,255,255,.12)!important}
@@ -279,15 +265,51 @@ svg,svg *{filter:none!important}
 @media(min-width:901px){.pj-call{grid-template-columns:1fr 1fr!important;align-items:stretch}}
 /* cards that were too light: darker, slightly blue */
 .dual-card,.faq-card,.need-card{background:linear-gradient(165deg,#0a1740,#060d26)!important;border:0!important}
-.clarity-section{background:#0f1e50!important}
-.tools-elevate-section{background:#0f1e50!important}
 .faq-header{color:#fff!important}
 .elevate-card h3{color:var(--sky)!important}
 /* testimonials: portrait cards, blue gradient */
-.rv-section{background:#050a1a!important}
 .rv-grid{max-width:56rem!important}
 .rv-card{aspect-ratio:4/5;justify-content:flex-start;background:linear-gradient(165deg,#1b3b9c 0%,#0e2262 48%,#08122f 100%)!important;padding:1.5rem 1.4rem!important}
 .rv-q{color:#e3e9fb!important;font-size:calc((.9rem) * var(--tf,1))!important;flex:none!important;margin-bottom:auto!important}
 .rv-who{margin-top:1.2rem}
 .rv-who span{color:#dbe3f8!important}
 /* tools card: original cobalt design back */
+
+/* ================= v69 ================= */
+/* four icon tiles: square, richer, bolder icons */
+.idc-section{padding:1.6rem 5% 1rem!important}
+.idc-grid{grid-template-columns:repeat(4,1fr)!important;gap:.7rem!important;max-width:36rem!important;margin:0 auto!important}
+.idc-card{aspect-ratio:1/1;min-height:0!important;padding:0!important;border-radius:1rem!important;position:relative;background:linear-gradient(145deg,#2a55ec,#0f2aa8)!important}
+.idc-card::before{content:"";position:absolute;width:64%;aspect-ratio:1;border-radius:50%;background:rgba(255,255,255,.16)}
+.idc-ic{position:relative;width:2.4rem!important;height:2.4rem!important;stroke-width:2.1}
+@media(min-width:901px){.idc-grid{gap:1rem!important}}
+/* gallery band */
+.gal-section{padding:2.2rem 0 2.6rem;background:transparent}
+/* past projects: full width, no side dead space, dark cards */
+.pj-section{padding:3rem 3% 3rem!important;max-width:none!important;width:100%!important;margin:0!important;border-radius:0!important;box-sizing:border-box}
+.pj-grid{max-width:72rem!important}
+.pj-card{background:linear-gradient(160deg,#0e2268 0%,#091640 55%,#050c26 100%)!important}
+.pj-card:hover{background:linear-gradient(160deg,#132d82 0%,#0b1b4d 55%,#06102e 100%)!important}
+/* call + steps: equal columns on PC, gap on phone */
+.pj-call .quick-message-column,.pj-call .what-to-expect-column{width:100%!important;max-width:none!important;flex:1 1 0!important;margin:0!important;min-width:0!important}
+.pj-call .quick-message-block,.pj-call .what-to-expect-block{width:100%!important;max-width:none!important}
+/* reviews: compact, no dead space */
+.rv-section{padding:3rem 4%!important}
+.rv-grid{grid-template-columns:1fr!important;max-width:72rem!important;gap:1rem!important}
+@media(min-width:601px){.rv-grid{grid-template-columns:1fr 1fr!important}}
+@media(min-width:901px){.rv-grid{grid-template-columns:repeat(4,1fr)!important}}
+.rv-card{aspect-ratio:auto!important;min-height:0!important;padding:1.3rem 1.25rem 1.2rem!important}
+.rv-q{font-size:calc((.95rem) * var(--tf,1))!important;line-height:1.7!important;margin-bottom:1.1rem!important}
+.rv-who{margin-top:auto!important}
+/* booking tracker: check nodes, small number, then the word */
+.journey-step{gap:.15rem!important}
+.journey-step .jn{display:block;width:1.9rem;height:1.9rem;border-radius:50%;background-color:rgba(255,255,255,.14);background-repeat:no-repeat;background-position:center;background-size:58%;opacity:.5;transition:transform .3s,opacity .3s;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7'/%3E%3C/svg%3E")}
+.journey-step.done .jn,.journey-step.active .jn{background-color:#fff;opacity:1;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231a41c8' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7'/%3E%3C/svg%3E")}
+.journey-step.active .jn{transform:scale(1.1)}
+.journey-step b{display:block!important;width:auto!important;height:auto!important;background:none!important;border-radius:0!important;margin-top:.45rem;line-height:1;font-size:calc((.62rem) * var(--tf,1))!important;font-weight:700!important;color:#6f9bff!important;letter-spacing:.04em}
+.journey-step.done b,.journey-step.active b{font-size:calc((.62rem) * var(--tf,1))!important;color:#8fb2ff!important}
+.journey-step.done b::before,.journey-step.active b::before{content:none!important}
+
+/* v70: the call column must not be a 2-column grid (it squeezed the Book a call card) */
+.pj-call .quick-message-column,.pj-call .what-to-expect-column{display:block!important;grid-template-columns:none!important}
+.pj-call .quick-message-block,.pj-call .what-to-expect-block{height:100%;box-sizing:border-box}

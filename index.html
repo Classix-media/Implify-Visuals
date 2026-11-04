@@ -39,7 +39,7 @@
 <link rel="stylesheet" href="premium-v56.css?v=91">
 <script>(function(){if(!/[?&]debug/.test(location.search))return;var b=document.createElement("pre");b.style.cssText="position:fixed;left:6px;bottom:6px;z-index:2147483647;margin:0;padding:8px 10px;background:#000c;color:#7CFC00;font:11px/1.35 monospace;white-space:pre;border-radius:8px;pointer-events:none";function u(){var v=window.visualViewport,d=document.documentElement;b.textContent=["innerW "+innerWidth,"clientW "+d.clientWidth,"screenW "+screen.width,"dpr "+devicePixelRatio,"vvScale "+(v?v.scale.toFixed(3):"n/a"),"vvW "+(v?v.width.toFixed(1):"n/a"),"zoom "+(d.style.zoom||"none"),"hair "+(d.style.getPropertyValue("--hair")||"none"),"vw "+(d.style.getPropertyValue("--vw")||"none"),"meta "+(document.querySelector("meta[name=viewport]")||{}).content,"f "+(d.getAttribute("data-f")||"n/a"),"tf "+(d.style.getPropertyValue("--tf")||"none"),"ua "+(/Instagram/.test(navigator.userAgent)?"instagram":/Chrome/.test(navigator.userAgent)?"chrome":"other")].join("\n")}document.addEventListener("DOMContentLoaded",function(){document.body.appendChild(b);u();setInterval(u,700)})})();</script>
 <script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches&&'IntersectionObserver' in window)document.documentElement.classList.add('rv-on')</script>
-<link rel="stylesheet" href="calm.css?v=6">
+<link rel="stylesheet" href="calm.css?v=8">
 </head>
 <body>
 <script>
@@ -129,22 +129,52 @@ var q=document.querySelectorAll;})();
     </div>
 </section>
 
-<!-- Brand section with gallery -->
-<section id="services" class="brand-section">
-    <div class="brand-head">
-        <h2>What a strong identity is built on</h2>
+<section id="services" class="strategy-section">
+    <div class="strategy-heading">
+        <span class="strategy-label">HOW WE APPROACH THE WORK</span>
+        <h2>A Clear Process Behind<br><span class="accent-text">Every Visual.</span></h2>
+        <p>Good design starts with understanding the problem. Each project moves through a simple, focused process so the final work has purpose behind it.</p>
     </div>
-    <div class="brand-grid">
-        <article class="brand-item"><span>01</span><h3>Logo</h3><p>The core mark every touchpoint builds on.</p></article>
-        <article class="brand-item"><span>02</span><h3>Typography</h3><p>One consistent voice across every message.</p></article>
-        <article class="brand-item"><span>03</span><h3>Colour</h3><p>A recognisable palette that builds familiarity and trust.</p></article>
-        <article class="brand-item"><span>04</span><h3>Moodboard</h3><p>The agreed direction before design begins, so every decision stays aligned.</p></article>
+
+    <div class="strategy-cards">
+        <article class="strategy-card">
+            <span class="strategy-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/><circle cx="11" cy="11" r="2"/></svg></span>
+            <h3>Understand</h3>
+            <p>We start with your goal, audience, message, and context so the design has a clear job to do.</p>
+            <span class="strategy-meta">CLARITY FIRST</span>
+        </article>
+
+        <article class="strategy-card">
+            <span class="strategy-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".8"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></span>
+            <h3>Define</h3>
+            <p>The brief becomes a focused visual direction — the right style, hierarchy, tone, and deliverables.</p>
+            <span class="strategy-meta">DIRECTION &amp; FOCUS</span>
+        </article>
+
+        <article class="strategy-card">
+            <span class="strategy-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 19l7-7-3-3-7 7-1 4z"/><path d="M16 9l-1-5-11 2 2 11 5 1"/><circle cx="10.5" cy="10.5" r="1.2"/></svg></span>
+            <h3>Design</h3>
+            <p>Ideas are developed into polished visuals with attention to composition, detail, consistency, and motion where needed.</p>
+            <span class="strategy-meta">IDEA TO EXECUTION</span>
+        </article>
+
+        <article class="strategy-card">
+            <span class="strategy-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2.1-.1-2.9s-2.1-.8-2.9-.1z"/><path d="M12 15l-3-3a22 22 0 012-4 12.9 12.9 0 0111-5c0 2.7-.8 7.5-5 11a22 22 0 01-4 2z"/><path d="M9 12H4s.6-3 2-4c1.6-1.1 5 0 5 0M12 15v5s3-.6 4-2c1.1-1.6 0-5 0-5"/></svg></span>
+            <h3>Refine &amp; Deliver</h3>
+            <p>Feedback helps shape the final direction, then the finished assets are prepared cleanly for their intended use.</p>
+            <span class="strategy-meta">POLISH &amp; DELIVERY</span>
+        </article>
     </div>
+</section>
+
+<!-- Gallery -->
+<section class="gal-section">
     <div class="gal" aria-label="Selected brand work">
         <div class="gal-row gal-left"><div class="gal-track"><div class="gal-set"><img src="images/g-rita-mug.jpg" alt="Rita's Special Fries mug" width="900" height="675" decoding="async" draggable="false"><img src="images/g-andrea-stationery.jpg" alt="Andrea Bank stationery" width="900" height="722" decoding="async" draggable="false"><img src="images/g-puffy-cup.jpg" alt="Puffy Treats cup" width="900" height="900" decoding="async" draggable="false"><img src="images/g-implify-book.jpg" alt="Implify Visuals landscape book" width="900" height="675" decoding="async" draggable="false"><img src="images/g-andrea-billboard.jpg" alt="Andrea billboard" width="900" height="600" decoding="async" draggable="false"></div><div class="gal-set" aria-hidden="true"><img src="images/g-rita-mug.jpg" alt="" width="900" height="675" decoding="async" draggable="false"><img src="images/g-andrea-stationery.jpg" alt="" width="900" height="722" decoding="async" draggable="false"><img src="images/g-puffy-cup.jpg" alt="" width="900" height="900" decoding="async" draggable="false"><img src="images/g-implify-book.jpg" alt="" width="900" height="675" decoding="async" draggable="false"><img src="images/g-andrea-billboard.jpg" alt="" width="900" height="600" decoding="async" draggable="false"></div></div></div>
         <div class="gal-row gal-right"><div class="gal-track"><div class="gal-set"><img src="images/g-implify-collage.jpg" alt="Implify Visuals brand collage" width="900" height="630" decoding="async" draggable="false"><img src="images/g-puffy-beanie.jpg" alt="Puffy Treats beanie" width="900" height="666" decoding="async" draggable="false"><img src="images/g-andrea-wristbands.jpg" alt="Andrea wristbands" width="900" height="900" decoding="async" draggable="false"><img src="images/g-implify-stationery.jpg" alt="Implify stationery set" width="900" height="506" decoding="async" draggable="false"></div><div class="gal-set" aria-hidden="true"><img src="images/g-implify-collage.jpg" alt="" width="900" height="630" decoding="async" draggable="false"><img src="images/g-puffy-beanie.jpg" alt="" width="900" height="666" decoding="async" draggable="false"><img src="images/g-andrea-wristbands.jpg" alt="" width="900" height="900" decoding="async" draggable="false"><img src="images/g-implify-stationery.jpg" alt="" width="900" height="506" decoding="async" draggable="false"></div></div></div>
     </div>
 </section>
+
 
 <!-- Past projects -->
 <section id="work" class="past-projects-section pj-section" aria-labelledby="pj-title">
@@ -519,7 +549,7 @@ var q=document.querySelectorAll;})();
 /* blur-to-sharp slide-up reveal: each block animates once as it enters the screen */
 (function(){
   var d=document.documentElement;if(!d.classList.contains('rv-on'))return;
-  var sel=['.idc-card','.prob-fig','.prob-text','.brand-head','.brand-item','.gal-title','.gal','.brand-cta','.pj-title','.pj-card','.pj-more','.pj-call .quick-message-block','.pj-call .what-to-expect-block','.workflow-grid > *','.rv-section .section-label','.rv-section .section-title','.rv-section .section-sub','.rv-card','.about-left','.about-right','.clarity-grid > *','.dual-grid > *','.contact-grid > *'];
+  var sel=['.idc-card','.prob-fig','.prob-text','.gal','.pj-title','.pj-card','.pj-more','.pj-call .quick-message-block','.pj-call .what-to-expect-block','.workflow-grid > *','.rv-section .section-label','.rv-section .section-title','.rv-section .section-sub','.rv-card','.about-left','.about-right','.clarity-grid > *','.dual-grid > *','.contact-grid > *'];
   var els=[],seen=new Map();
   sel.forEach(function(s){document.querySelectorAll(s).forEach(function(e){
     if(e.classList.contains('rv'))return;
