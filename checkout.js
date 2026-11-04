@@ -32,7 +32,6 @@ function renderInvoiceDocument() {
   $('invoiceSubtotal').textContent = money(state.amount,state.currency);
   $('invoiceTotal').textContent = money(state.amount,state.currency);
   $('invoiceStatusLabel').textContent = paid ? 'TOTAL PAID' : 'TOTAL DUE:';
-  { const _p = document.querySelector('.inv-pill'); if (_p && _p.firstChild) _p.firstChild.textContent = state.paymentStatus === 'Paid' ? 'Payment received. Thank you. ' : 'Payment is required before project work begins. '; }
   $('invoiceCurrencyNote').textContent = state.currency === 'USD' ? 'USD studio price · fixed reference, not live FX' : 'Currency: ' + state.currency;
 }
 function openInvoice() {
@@ -130,7 +129,7 @@ async function drawInvoiceCanvas(){
   // footer
   x.fillStyle='#fff';x.fillRect(0,115.3*u,W,20*u);
   // compact balanced pill (one size, one font)
-  const full=((state.paymentStatus==='Paid'?'Payment received. Thank you. ':'Payment is required before project work begins. ')+T('invoiceCurrencyNote')).trim(),maxW=54-4.4;
+  const full=('Payment is required before project work begins. '+T('invoiceCurrencyNote')).trim(),maxW=54-4.4;
   font(500,1.7);const total=x.measureText(full).width/u,n=Math.max(1,Math.ceil(total/maxW)),lines=wrapTo(full,500,1.7,Math.min(maxW,total/n*1.1+.8));
   const lh=2.4,ph=lines.length*lh+2.8,py=125.3-ph/2;rr(4,py,54,ph,2.6,'#767676');
   lines.forEach((s,i)=>txt(s,31,py+1.4+(i+.5)*lh,{s:1.7,w:500,c:'#fff',a:'center'}));
@@ -225,7 +224,16 @@ async function downloadInvoice(){
   const cdStart = (until) => { const e = $('coNoteTimer'); if (!e) return; clearInterval(cdTimer); const tick = () => { const left = Math.max(0, Math.round((until - Date.now()) / 1000)); e.hidden = left <= 0; e.textContent = 'This notice clears in ' + Math.floor(left / 60) + ':' + String(left % 60).padStart(2, '0'); if (left <= 0) clearInterval(cdTimer); }; tick(); cdTimer = setInterval(tick, 1000); };
   const note = (t, bad, ms, keep) => { const n = $('coNote'); clearTimeout(noteTimer); cdStop(); n.textContent = t || ''; n.classList.toggle('bad', !!bad); if (!keep) { try { localStorage.removeItem(FAIL_KEY); } catch (_) {} } if (t) { noteTimer = setTimeout(() => { n.textContent = ''; n.classList.remove('bad'); cdStop(); if (bad) { try { localStorage.removeItem(FAIL_KEY); } catch (_) {} } }, ms || 2 * 60 * 1000); if (keep) cdStart(Date.now() + (ms || 0)); } };
   /* failure notices are remembered for 5 minutes in this browser only, so only the person who caused them sees them (also after a refresh) */
-  const failNote = (t) => { note(t, true, FAIL_MS, true); try { localStorage.setItem(FAIL_KEY, JSON.stringify({ ref: state.ref, text: t, until: Date.now() + FAIL_MS })); } catch (_) {} };
+  const SEEN_KEY = 'implifyFailSeen';
+  const failNote = (t) => {
+    let seen = {}; try { seen = JSON.parse(localStorage.getItem(SEEN_KEY) || '{}'); } catch (_) {}
+    const now = Date.now(); if (!seen[state.ref]) seen[state.ref] = now;
+    try { localStorage.setItem(SEEN_KEY, JSON.stringify(seen)); } catch (_) {}
+    const left = seen[state.ref] + FAIL_MS - now;
+    if (left <= 0) { try { localStorage.removeItem(FAIL_KEY); } catch (_) {} return; }
+    note(t, true, left, true);
+    try { localStorage.setItem(FAIL_KEY, JSON.stringify({ ref: state.ref, text: t, until: now + left })); } catch (_) {}
+  };
   const amount = Number(state.currency === 'USD' ? state.usdAmount : state.ngnAmount);
   const payBtn = $('coPayBtn');
 
@@ -326,7 +334,7 @@ async function downloadInvoice(){
     }
   }
 
-  function setPending(r) { try { localStorage.setItem('implifyPending', JSON.stringify({ ref: state.ref, reference: r, at: Date.now() })); } catch (_) {} }
+  function setPending(r) { try { const _s = JSON.parse(localStorage.getItem('implifyFailSeen') || '{}'); delete _s[state.ref]; localStorage.setItem('implifyFailSeen', JSON.stringify(_s)); } catch (_) {} try { localStorage.setItem('implifyPending', JSON.stringify({ ref: state.ref, reference: r, at: Date.now() })); } catch (_) {} }
   function resetBtn() { payBtn.disabled = !selected; payBtn.classList.remove('busy'); }
   function fallback() { if (co.url) { const f = $('coFallback'); f.href = co.url; f.hidden = false; } }
 

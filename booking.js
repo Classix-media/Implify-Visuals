@@ -256,7 +256,7 @@ async function initializePaystack() {
 
 function buildMessage() {
   const amount = money(state.amount, state.currency);
-  return `Hi Implify Visuals, I’m ready to proceed with my project.\n\nProject Reference: ${state.ref}\nName: ${state.name}\nBusiness/Brand: ${state.business || 'Not provided'}\nService: ${state.service}\nPackage: ${state.packageName}\nCurrency: ${state.currency}\nQuoted Amount: ${amount}\nTimeline: ${state.timeline || 'Not provided'}\nProject Brief: ${state.brief}\nPayment Status: ${state.paymentStatus}\n\nI’m sending these details for the next project step.`;
+  return `Hi Implify Visuals, I’m ready to proceed with my project.\n\nProject Reference: ${state.ref}\nName: ${state.name}\nBusiness/Brand: ${state.business || 'Not provided'}\nService: ${state.service}\nPackage: ${state.packageName}\nCurrency: ${state.currency}\nQuoted Amount: ${amount}\nTimeline: ${state.timeline || 'Not provided'}\nProject Brief: ${state.brief}\nPayment Status: Awaiting Payment\n\nI’m sending these details for the next project step.`;
 }
 
 function renderInvoiceDocument() {
@@ -509,4 +509,4 @@ async function downloadInvoice(){
   if(document.fonts&&document.fonts.addEventListener)document.fonts.addEventListener('loadingdone',()=>fitDocText());
   window.addEventListener('load',()=>setTimeout(fitDocText,50));})();
 
-function isPaid(){ try { if (state.paymentStatus !== 'Paid') return false; const p = JSON.parse(localStorage.getItem('implifyPaid') || 'null'); return !!(p && p.ref === state.ref); } catch (_) { return false; } }
+function isPaid(){ return false; } /* page 2 never shows a paid invoice; the paid invoice lives on the payment page */
