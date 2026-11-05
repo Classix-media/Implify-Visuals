@@ -83,7 +83,6 @@ input:focus,textarea:focus,select:focus{border-color:rgba(255,255,255,.2)!import
 .gal-right .gal-track{animation:galR 78s linear infinite}
 .gal-set{display:flex;gap:.75rem;padding-right:.75rem}
 .gal-set img{height:8.5rem;width:auto;flex:none;display:block;border-radius:.9rem;user-select:none;-webkit-user-drag:none}
-.gal:hover .gal-track{animation-play-state:paused}
 @keyframes galL{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @keyframes galR{from{transform:translateX(-50%)}to{transform:translateX(0)}}
 .brand-cta{display:flex;justify-content:center;margin-top:2.2rem}
@@ -373,3 +372,37 @@ html body .invoice-close:active{opacity:.55}
   .pj-tags i{font-size:calc((.64rem) * var(--tf,1))!important;padding:.22rem .5rem!important}
   .pj-go{font-size:calc((.66rem) * var(--tf,1))!important}
 }
+
+/* ================= v74 ================= */
+/* past projects title: uppercase, small, right side */
+.pj-title{text-align:right!important;text-transform:uppercase!important;font-size:calc((.8rem) * var(--tf,1))!important;letter-spacing:.16em!important;font-weight:600!important;max-width:80rem;margin:0 auto 1rem!important;color:#fff!important}
+.pj-title .accent-text{display:inline!important}
+/* tags + instagram icon, smaller text */
+.pj-ig{display:inline-grid;place-items:center;width:1.35rem;height:1.35rem;color:#a9bbea;flex:none}
+.pj-ig svg{width:100%;height:100%}
+.pj-panel p{font-size:calc((.78rem) * var(--tf,1))!important;line-height:1.55!important}
+.pj-panel h3{font-size:calc((.95rem) * var(--tf,1))!important}
+.pj-tags i{font-size:calc((.66rem) * var(--tf,1))!important;padding:.24rem .55rem!important}
+@media(min-width:601px){
+  .pj-grid{gap:1.4rem!important}
+  .pj-panel p{font-size:calc((.7rem) * var(--tf,1))!important}
+}
+/* phone: swipe left/right through the same stacked cards */
+@media(max-width:600px){
+  .pj-section{padding-left:0!important;padding-right:0!important}
+  .pj-title{padding:0 6%}
+  .pj-grid{display:flex!important;gap:1rem!important;overflow-x:auto!important;overflow-y:hidden;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;max-width:none!important;width:100%!important;margin:0!important;padding:0 calc(50% - 8.5rem) .4rem!important;box-sizing:border-box;scrollbar-width:none;overscroll-behavior-x:contain}
+  .pj-grid::-webkit-scrollbar{display:none}
+  .pj-card{flex:0 0 17rem!important;width:17rem!important;max-width:17rem!important;scroll-snap-align:center}
+}
+/* ready to get started: smaller description */
+.clarity-section .dual-card p{font-size:calc((.88rem) * var(--tf,1))!important;line-height:1.55!important}
+/* gallery never pauses and ignores touch / mouse */
+.gal,.gal *{pointer-events:none!important}
+.gal-track{animation-play-state:running!important}
+/* no blur-based glitches on any platform (in-app browsers): no backdrop blur, no blur keyframes, no shimmer sweep */
+*,*::before,*::after{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+.invoice-backdrop{background:rgba(3,7,20,.84)!important}
+@keyframes coIn{from{opacity:0;transform:translate3d(0,1.2rem,0)}to{opacity:1;transform:none}}
+.co-pay::after{display:none!important}
+.co-body *{will-change:auto!important}
