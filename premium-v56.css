@@ -631,3 +631,10 @@ html{max-width:100%;overflow-x:clip}body{max-width:100%;overflow-x:clip}
 /* v80: proportional root size: every phone renders the same 412-unit layout */
 html{font-size:16px}
 @media(max-width:600px){html{font-size:calc(100vw * 16 / 412)}}
+
+/* v85: cobalt blue footer, dark Book a Project pill */
+.site-footer{background:#0047AB!important;border-top:0!important;content-visibility:visible}
+.site-footer .footer-brand p,.site-footer .footer-col a,.site-footer .footer-copy{color:rgba(255,255,255,.82)!important}
+.site-footer .footer-col a:hover{color:#fff!important}
+.site-footer .footer-copy{border-top-color:rgba(255,255,255,.22)!important}
+.site-footer .btn-primary-sm{background:#050c26!important;color:#fff!important;border:0!important;box-shadow:0 .5rem 1.25rem rgba(0,0,0,.35)!important}
