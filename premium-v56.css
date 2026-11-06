@@ -640,3 +640,6 @@ html{font-size:16px}
 .site-footer .btn-primary-sm{background:#06307f!important;color:#fff!important;border:0!important;box-shadow:none!important}
 /* v87: white footer logo */
 .site-footer .footer-logo img{filter:brightness(0) invert(1)!important}
+/* v90: cursor = small solid white dot (no ring), arrow cursor stays */
+.cursor-ring{display:none!important}
+.cursor-dot{width:.875rem;height:.875rem;margin:-.4375rem 0 0 -.4375rem;background:#fff!important;box-shadow:none!important}

@@ -8,4 +8,4 @@
 @media(hover:none),(pointer:coarse){.cursor-dot,.cursor-ring{display:none!important}}
 /* v83: single small solid white dot, no ring, no default pointer */
 .cursor-ring{display:none!important}
-.cursor-dot{width:8px;height:8px;margin:-4px 0 0 -4px;background:#fff;box-shadow:none}
+.cursor-dot{width:14px;height:14px;margin:-7px 0 0 -7px;background:#fff;box-shadow:none}
