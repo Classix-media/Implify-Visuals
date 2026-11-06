@@ -39,7 +39,7 @@
 <link rel="stylesheet" href="premium-v56.css?v=91">
 <script>(function(){if(!/[?&]debug/.test(location.search))return;var b=document.createElement("pre");b.style.cssText="position:fixed;left:6px;bottom:6px;z-index:2147483647;margin:0;padding:8px 10px;background:#000c;color:#7CFC00;font:11px/1.35 monospace;white-space:pre;border-radius:8px;pointer-events:none";function u(){var v=window.visualViewport,d=document.documentElement;b.textContent=["innerW "+innerWidth,"clientW "+d.clientWidth,"screenW "+screen.width,"dpr "+devicePixelRatio,"vvScale "+(v?v.scale.toFixed(3):"n/a"),"vvW "+(v?v.width.toFixed(1):"n/a"),"zoom "+(d.style.zoom||"none"),"hair "+(d.style.getPropertyValue("--hair")||"none"),"vw "+(d.style.getPropertyValue("--vw")||"none"),"meta "+(document.querySelector("meta[name=viewport]")||{}).content,"f "+(d.getAttribute("data-f")||"n/a"),"tf "+(d.style.getPropertyValue("--tf")||"none"),"ua "+(/Instagram/.test(navigator.userAgent)?"instagram":/Chrome/.test(navigator.userAgent)?"chrome":"other")].join("\n")}document.addEventListener("DOMContentLoaded",function(){document.body.appendChild(b);u();setInterval(u,700)})})();</script>
 <script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches&&'IntersectionObserver' in window)document.documentElement.classList.add('rv-on')</script>
-<link rel="stylesheet" href="calm.css?v=16">
+<link rel="stylesheet" href="calm.css?v=17">
 </head>
 <body>
 <script>
@@ -67,6 +67,7 @@ var q=document.querySelectorAll;})();
 
 <!-- Hero Section -->
 <section class="hero-section">
+    <div class="hero-aurora" aria-hidden="true"><i class="au a1"></i><i class="au a2"></i><i class="au a3"></i></div>
     <div class="hero-left">
         <div class="welcome-pill"><img src="images/miracle-avatar.jpg" alt="Miracle" width="40" height="40"><span>Welcome! Make yourself at home <i aria-hidden="true">👋</i></span></div>
         <h1>Ideas, <span class="accent-text">Made Visuals.</span></h1>
@@ -571,20 +572,22 @@ var q=document.querySelectorAll;})();
 </script>
 <script>
 /* mobile: endless swipe carousel for the project cards. A full set of copies sits on both sides, so there is never an empty end. Centre card active, sides faded, auto-advance every 4s */
-(function(){var g=document.querySelector('.pj-grid');if(!g)return;var mq=matchMedia('(max-width: 600px)'),rm=matchMedia('(prefers-reduced-motion: reduce)'),pause=0,step=0,m=0,tk=0,tm=0;
+(function(){var g=document.querySelector('.pj-grid');if(!g)return;var mq=matchMedia('(max-width: 600px)'),rm=matchMedia('(prefers-reduced-motion: reduce)'),pause=0,step=0,m=0,tk=0,tm=0,touching=0;
 function measure(){var c=g.querySelector('.pj-card');if(!c)return;var gp=parseFloat(getComputedStyle(g).columnGap)||16;step=c.offsetWidth+gp}
 function idx(){return Math.round(g.scrollLeft/step)}
-function paint(){var mid=g.scrollLeft+g.clientWidth/2,best=null,bd=1e9;[].forEach.call(g.children,function(el){var d=Math.abs(el.offsetLeft+el.offsetWidth/2-mid);if(d<bd){bd=d;best=el}});[].forEach.call(g.children,function(el){el.classList.toggle('is-active',el===best)});return best}
-function jump(by){g.style.scrollSnapType='none';g.scrollLeft+=by;requestAnimationFrame(function(){g.style.scrollSnapType='';paint()})}
-function recentre(){var i=idx(),n=g.children.length;if(i<m)jump(m*step);else if(i>=2*m)jump(-m*step)}
+function paint(){var mid=g.scrollLeft+g.clientWidth/2,best=null,bd=1e9;[].forEach.call(g.children,function(el){var d=Math.abs(el.offsetLeft+el.offsetWidth/2-mid);if(d<bd){bd=d;best=el}});[].forEach.call(g.children,function(el){var on=el===best;if(el.classList.contains('is-active')!==on)el.classList.toggle('is-active',on)});return best}
+function jump(by){g.classList.add('no-tr');g.scrollLeft+=by;paint();requestAnimationFrame(function(){requestAnimationFrame(function(){g.classList.remove('no-tr')})})}
+function recentre(){if(touching)return;var i=idx();if(i<m)jump(m*step);else if(i>=2*m)jump(-m*step)}
 function setup(){if(!mq.matches||g.dataset.ready)return;var o=[].slice.call(g.querySelectorAll('.pj-card'));m=o.length;if(m<2)return;g.dataset.ready='1';
  function cl(c){var x=c.cloneNode(true);x.classList.remove('rv','rv-in','rv-done');x.style.removeProperty('--rd');x.classList.add('pj-clone');x.setAttribute('aria-hidden','true');x.setAttribute('tabindex','-1');var im=x.querySelector('img');if(im)im.removeAttribute('loading');return x}
  var before=document.createDocumentFragment(),after=document.createDocumentFragment();o.forEach(function(c){before.appendChild(cl(c));after.appendChild(cl(c))});
- g.insertBefore(before,g.firstChild);g.appendChild(after);measure();g.style.scrollSnapType='none';g.scrollLeft=(m+2)*step;requestAnimationFrame(function(){g.style.scrollSnapType='';paint()})}
-g.addEventListener('scroll',function(){if(!g.dataset.ready)return;if(!tk){tk=1;requestAnimationFrame(function(){tk=0;paint();var i=idx(),n=g.children.length;if(i<=1||i>=n-2)recentre()})}
- clearTimeout(tm);tm=setTimeout(recentre,100)},{passive:true});
-['touchstart','pointerdown','wheel'].forEach(function(e){g.addEventListener(e,function(){pause=Date.now()+7000},{passive:true})});
-function next(){if(!mq.matches||rm.matches||document.hidden||Date.now()<pause||!g.dataset.ready)return;var r=g.getBoundingClientRect();if(r.bottom<0||r.top>innerHeight)return;measure();g.scrollTo({left:(idx()+1)*step,behavior:'smooth'})}
+ g.insertBefore(before,g.firstChild);g.appendChild(after);measure();g.classList.add('no-tr');g.scrollLeft=(m+2)*step;paint();requestAnimationFrame(function(){requestAnimationFrame(function(){g.classList.remove('no-tr')})})}
+g.addEventListener('scroll',function(){if(!g.dataset.ready)return;if(!tk){tk=1;requestAnimationFrame(function(){tk=0;paint();var i=idx(),n=g.children.length;if(!touching&&(i<=0||i>=n-1))recentre()})}
+ clearTimeout(tm);tm=setTimeout(recentre,140)},{passive:true});
+g.addEventListener('touchstart',function(){touching=1;pause=Date.now()+7000},{passive:true});
+['touchend','touchcancel'].forEach(function(e){g.addEventListener(e,function(){touching=0;pause=Date.now()+7000;clearTimeout(tm);tm=setTimeout(recentre,220)},{passive:true})});
+['pointerdown','wheel'].forEach(function(e){g.addEventListener(e,function(){pause=Date.now()+7000},{passive:true})});
+function next(){if(!mq.matches||rm.matches||document.hidden||touching||Date.now()<pause||!g.dataset.ready)return;var r=g.getBoundingClientRect();if(r.bottom<0||r.top>innerHeight)return;measure();g.scrollTo({left:(idx()+1)*step,behavior:'smooth'})}
 setup();addEventListener('load',setup);setInterval(next,4000)})();
 </script>
 <script src="script.js?v=38" defer></script>
