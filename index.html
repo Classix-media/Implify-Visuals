@@ -39,7 +39,7 @@
 <link rel="stylesheet" href="premium-v56.css?v=91">
 <script>(function(){if(!/[?&]debug/.test(location.search))return;var b=document.createElement("pre");b.style.cssText="position:fixed;left:6px;bottom:6px;z-index:2147483647;margin:0;padding:8px 10px;background:#000c;color:#7CFC00;font:11px/1.35 monospace;white-space:pre;border-radius:8px;pointer-events:none";function u(){var v=window.visualViewport,d=document.documentElement;b.textContent=["innerW "+innerWidth,"clientW "+d.clientWidth,"screenW "+screen.width,"dpr "+devicePixelRatio,"vvScale "+(v?v.scale.toFixed(3):"n/a"),"vvW "+(v?v.width.toFixed(1):"n/a"),"zoom "+(d.style.zoom||"none"),"hair "+(d.style.getPropertyValue("--hair")||"none"),"vw "+(d.style.getPropertyValue("--vw")||"none"),"meta "+(document.querySelector("meta[name=viewport]")||{}).content,"f "+(d.getAttribute("data-f")||"n/a"),"tf "+(d.style.getPropertyValue("--tf")||"none"),"ua "+(/Instagram/.test(navigator.userAgent)?"instagram":/Chrome/.test(navigator.userAgent)?"chrome":"other")].join("\n")}document.addEventListener("DOMContentLoaded",function(){document.body.appendChild(b);u();setInterval(u,700)})})();</script>
 <script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches&&'IntersectionObserver' in window)document.documentElement.classList.add('rv-on')</script>
-<link rel="stylesheet" href="calm.css?v=14">
+<link rel="stylesheet" href="calm.css?v=15">
 </head>
 <body>
 <script>
@@ -123,7 +123,6 @@ var q=document.querySelectorAll;})();
 <section id="problem" class="prob-section">
     <figure class="prob-fig"><img src="images/problem-laptop.jpg" alt="A designer reviewing brand work on a laptop" width="1400" height="934" loading="lazy" decoding="async"></figure>
     <div class="prob-text">
-        <h2>Without Identity, A Brand <span class="accent-text">Stays Invisible.</span></h2>
         <p>When a business looks different on every platform, customers struggle to recognise it, remember it or trust it. Stronger competitors take the space it should own.</p>
     </div>
 </section>
@@ -189,7 +188,7 @@ var q=document.querySelectorAll;})();
             </div>
         </a>
         <a class="pj-card" href="https://www.instagram.com/p/DbgXLohDFms/" target="_blank" rel="noopener noreferrer" aria-label="Rita's Special Fries, Pap with Akara: view on Instagram">
-            <img src="images/images2.jpg" alt="Rita's Special Fries Pap with Akara" width="1100" height="1376" decoding="async" loading="lazy" draggable="false">
+            <img src="images/images2.jpg" alt="Rita's Special Fries Pap with Akara" width="1100" height="1376" decoding="async" draggable="false">
             <div class="pj-panel">
                 <span class="pj-brand">Rita's Special Fries</span>
                 <h3>Pap with Akara</h3>
@@ -198,7 +197,7 @@ var q=document.querySelectorAll;})();
             </div>
         </a>
         <a class="pj-card" href="https://www.instagram.com/p/Da-5rOBDBcD/?img_index=2" target="_blank" rel="noopener noreferrer" aria-label="Darien's Note, Brand Identity: view on Instagram">
-            <img src="images/images3.jpg" alt="Darien's Note Brand Identity" width="1100" height="1376" decoding="async" loading="lazy" draggable="false">
+            <img src="images/images3.jpg" alt="Darien's Note Brand Identity" width="1100" height="1376" decoding="async" draggable="false">
             <div class="pj-panel">
                 <span class="pj-brand">Darien's Note</span>
                 <h3>Brand Identity</h3>
@@ -207,7 +206,7 @@ var q=document.querySelectorAll;})();
             </div>
         </a>
         <a class="pj-card" href="https://www.instagram.com/p/DbOU5n5DKrI/" target="_blank" rel="noopener noreferrer" aria-label="Pond's White Beauty, Daily Glowing: view on Instagram">
-            <img src="images/images4.jpg" alt="Pond's White Beauty Daily Glowing" width="1100" height="1376" decoding="async" loading="lazy" draggable="false">
+            <img src="images/images4.jpg" alt="Pond's White Beauty Daily Glowing" width="1100" height="1376" decoding="async" draggable="false">
             <div class="pj-panel">
                 <span class="pj-brand">Pond's White Beauty</span>
                 <h3>Daily Glowing</h3>
@@ -571,19 +570,21 @@ var q=document.querySelectorAll;})();
 })();
 </script>
 <script>
-/* mobile: endless swipe carousel for the project cards (cards on both sides, never an empty end). Centre card active, sides faded, auto-advance every 4s */
-(function(){var g=document.querySelector('.pj-grid');if(!g)return;var mq=matchMedia('(max-width: 600px)'),rm=matchMedia('(prefers-reduced-motion: reduce)'),pause=0,step=0,m=0,K=2,tk=0,tm=0;
+/* mobile: endless swipe carousel for the project cards. A full set of copies sits on both sides, so there is never an empty end. Centre card active, sides faded, auto-advance every 4s */
+(function(){var g=document.querySelector('.pj-grid');if(!g)return;var mq=matchMedia('(max-width: 600px)'),rm=matchMedia('(prefers-reduced-motion: reduce)'),pause=0,step=0,m=0,tk=0,tm=0;
 function measure(){var c=g.querySelector('.pj-card');if(!c)return;var gp=parseFloat(getComputedStyle(g).columnGap)||16;step=c.offsetWidth+gp}
-function active(){var mid=g.scrollLeft+g.clientWidth/2,best=null,bd=1e9;[].forEach.call(g.children,function(el){var d=Math.abs(el.offsetLeft+el.offsetWidth/2-mid);if(d<bd){bd=d;best=el}});[].forEach.call(g.children,function(el){el.classList.toggle('is-active',el===best)});return best}
-function jump(i){g.style.scrollSnapType='none';g.scrollLeft=i*step;requestAnimationFrame(function(){g.style.scrollSnapType='';active()})}
+function idx(){return Math.round(g.scrollLeft/step)}
+function paint(){var mid=g.scrollLeft+g.clientWidth/2,best=null,bd=1e9;[].forEach.call(g.children,function(el){var d=Math.abs(el.offsetLeft+el.offsetWidth/2-mid);if(d<bd){bd=d;best=el}});[].forEach.call(g.children,function(el){el.classList.toggle('is-active',el===best)});return best}
+function jump(by){g.style.scrollSnapType='none';g.scrollLeft+=by;requestAnimationFrame(function(){g.style.scrollSnapType='';paint()})}
+function recentre(){var i=idx(),n=g.children.length;if(i<m)jump(m*step);else if(i>=2*m)jump(-m*step)}
 function setup(){if(!mq.matches||g.dataset.ready)return;var o=[].slice.call(g.querySelectorAll('.pj-card'));m=o.length;if(m<2)return;g.dataset.ready='1';
  function cl(c){var x=c.cloneNode(true);x.classList.add('pj-clone');x.setAttribute('aria-hidden','true');x.setAttribute('tabindex','-1');var im=x.querySelector('img');if(im)im.removeAttribute('loading');return x}
- for(var i=0;i<K;i++){g.insertBefore(cl(o[(m-1-i+m)%m]),g.firstChild);g.appendChild(cl(o[i%m]))}
- measure();jump(K)}
-g.addEventListener('scroll',function(){if(!g.dataset.ready)return;if(!tk){tk=1;requestAnimationFrame(function(){tk=0;active()})}
- clearTimeout(tm);tm=setTimeout(function(){var a=active();if(!a)return;var i=[].indexOf.call(g.children,a);if(i<K)jump(i+m);else if(i>=m+K)jump(i-m)},120)},{passive:true});
+ var before=document.createDocumentFragment(),after=document.createDocumentFragment();o.forEach(function(c){before.appendChild(cl(c));after.appendChild(cl(c))});
+ g.insertBefore(before,g.firstChild);g.appendChild(after);measure();g.style.scrollSnapType='none';g.scrollLeft=m*step;requestAnimationFrame(function(){g.style.scrollSnapType='';paint()})}
+g.addEventListener('scroll',function(){if(!g.dataset.ready)return;if(!tk){tk=1;requestAnimationFrame(function(){tk=0;paint();var i=idx(),n=g.children.length;if(i<=1||i>=n-2)recentre()})}
+ clearTimeout(tm);tm=setTimeout(recentre,100)},{passive:true});
 ['touchstart','pointerdown','wheel'].forEach(function(e){g.addEventListener(e,function(){pause=Date.now()+7000},{passive:true})});
-function next(){if(!mq.matches||rm.matches||document.hidden||Date.now()<pause||!g.dataset.ready)return;var r=g.getBoundingClientRect();if(r.bottom<0||r.top>innerHeight)return;measure();g.scrollTo({left:(Math.round(g.scrollLeft/step)+1)*step,behavior:'smooth'})}
+function next(){if(!mq.matches||rm.matches||document.hidden||Date.now()<pause||!g.dataset.ready)return;var r=g.getBoundingClientRect();if(r.bottom<0||r.top>innerHeight)return;measure();g.scrollTo({left:(idx()+1)*step,behavior:'smooth'})}
 setup();addEventListener('load',setup);setInterval(next,4000)})();
 </script>
 <script src="script.js?v=38" defer></script>

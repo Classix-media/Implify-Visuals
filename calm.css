@@ -427,3 +427,6 @@ html body .invoice-close:active{opacity:.55}
 @media(max-width:600px){.pj-title{margin-right:6%!important}}
 /* name pill on the photo keeps its blur so the text stays readable */
 .profile-tag{-webkit-backdrop-filter:blur(14px)!important;backdrop-filter:blur(14px)!important;background:rgba(14,22,48,.58)!important}
+
+/* v77 */
+.prob-text{margin-top:1.6rem!important}
