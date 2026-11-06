@@ -39,7 +39,7 @@
 <link rel="stylesheet" href="premium-v56.css?v=91">
 <script>(function(){if(!/[?&]debug/.test(location.search))return;var b=document.createElement("pre");b.style.cssText="position:fixed;left:6px;bottom:6px;z-index:2147483647;margin:0;padding:8px 10px;background:#000c;color:#7CFC00;font:11px/1.35 monospace;white-space:pre;border-radius:8px;pointer-events:none";function u(){var v=window.visualViewport,d=document.documentElement;b.textContent=["innerW "+innerWidth,"clientW "+d.clientWidth,"screenW "+screen.width,"dpr "+devicePixelRatio,"vvScale "+(v?v.scale.toFixed(3):"n/a"),"vvW "+(v?v.width.toFixed(1):"n/a"),"zoom "+(d.style.zoom||"none"),"hair "+(d.style.getPropertyValue("--hair")||"none"),"vw "+(d.style.getPropertyValue("--vw")||"none"),"meta "+(document.querySelector("meta[name=viewport]")||{}).content,"f "+(d.getAttribute("data-f")||"n/a"),"tf "+(d.style.getPropertyValue("--tf")||"none"),"ua "+(/Instagram/.test(navigator.userAgent)?"instagram":/Chrome/.test(navigator.userAgent)?"chrome":"other")].join("\n")}document.addEventListener("DOMContentLoaded",function(){document.body.appendChild(b);u();setInterval(u,700)})})();</script>
 <script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches&&'IntersectionObserver' in window)document.documentElement.classList.add('rv-on')</script>
-<link rel="stylesheet" href="calm.css?v=15">
+<link rel="stylesheet" href="calm.css?v=16">
 </head>
 <body>
 <script>
@@ -553,7 +553,7 @@ var q=document.querySelectorAll;})();
 /* blur-to-sharp slide-up reveal: each block animates once as it enters the screen */
 (function(){
   var d=document.documentElement;if(!d.classList.contains('rv-on'))return;
-  var sel=['.idc-card','.prob-fig','.prob-text','.gal','.pj-title','.pj-card','.pj-more','.pj-call .quick-message-block','.pj-call .what-to-expect-block','.workflow-grid > *','.rv-section .section-label','.rv-section .section-title','.rv-section .section-sub','.rv-card','.about-left','.about-right','.clarity-grid > *','.dual-grid > *','.contact-grid > *'];
+  var sel=['.idc-card','.prob-fig','.prob-text','.gal','.pj-title','.pj-grid','.pj-more','.pj-call .quick-message-block','.pj-call .what-to-expect-block','.workflow-grid > *','.rv-section .section-label','.rv-section .section-title','.rv-section .section-sub','.rv-card','.about-left','.about-right','.clarity-grid > *','.dual-grid > *','.contact-grid > *'];
   var els=[],seen=new Map();
   sel.forEach(function(s){document.querySelectorAll(s).forEach(function(e){
     if(e.classList.contains('rv'))return;
@@ -578,9 +578,9 @@ function paint(){var mid=g.scrollLeft+g.clientWidth/2,best=null,bd=1e9;[].forEac
 function jump(by){g.style.scrollSnapType='none';g.scrollLeft+=by;requestAnimationFrame(function(){g.style.scrollSnapType='';paint()})}
 function recentre(){var i=idx(),n=g.children.length;if(i<m)jump(m*step);else if(i>=2*m)jump(-m*step)}
 function setup(){if(!mq.matches||g.dataset.ready)return;var o=[].slice.call(g.querySelectorAll('.pj-card'));m=o.length;if(m<2)return;g.dataset.ready='1';
- function cl(c){var x=c.cloneNode(true);x.classList.add('pj-clone');x.setAttribute('aria-hidden','true');x.setAttribute('tabindex','-1');var im=x.querySelector('img');if(im)im.removeAttribute('loading');return x}
+ function cl(c){var x=c.cloneNode(true);x.classList.remove('rv','rv-in','rv-done');x.style.removeProperty('--rd');x.classList.add('pj-clone');x.setAttribute('aria-hidden','true');x.setAttribute('tabindex','-1');var im=x.querySelector('img');if(im)im.removeAttribute('loading');return x}
  var before=document.createDocumentFragment(),after=document.createDocumentFragment();o.forEach(function(c){before.appendChild(cl(c));after.appendChild(cl(c))});
- g.insertBefore(before,g.firstChild);g.appendChild(after);measure();g.style.scrollSnapType='none';g.scrollLeft=m*step;requestAnimationFrame(function(){g.style.scrollSnapType='';paint()})}
+ g.insertBefore(before,g.firstChild);g.appendChild(after);measure();g.style.scrollSnapType='none';g.scrollLeft=(m+2)*step;requestAnimationFrame(function(){g.style.scrollSnapType='';paint()})}
 g.addEventListener('scroll',function(){if(!g.dataset.ready)return;if(!tk){tk=1;requestAnimationFrame(function(){tk=0;paint();var i=idx(),n=g.children.length;if(i<=1||i>=n-2)recentre()})}
  clearTimeout(tm);tm=setTimeout(recentre,100)},{passive:true});
 ['touchstart','pointerdown','wheel'].forEach(function(e){g.addEventListener(e,function(){pause=Date.now()+7000},{passive:true})});
