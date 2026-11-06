@@ -637,4 +637,6 @@ html{font-size:16px}
 .site-footer .footer-brand p,.site-footer .footer-col a,.site-footer .footer-copy{color:rgba(255,255,255,.82)!important}
 .site-footer .footer-col a:hover{color:#fff!important}
 .site-footer .footer-copy{border-top-color:rgba(255,255,255,.22)!important}
-.site-footer .btn-primary-sm{background:#050c26!important;color:#fff!important;border:0!important;box-shadow:0 .5rem 1.25rem rgba(0,0,0,.35)!important}
+.site-footer .btn-primary-sm{background:#06307f!important;color:#fff!important;border:1px solid rgba(255,255,255,.28)!important;box-shadow:0 .5rem 1.25rem rgba(0,20,70,.35)!important}
+/* v87: white footer logo */
+.site-footer .footer-logo img{filter:brightness(0) invert(1)!important}
