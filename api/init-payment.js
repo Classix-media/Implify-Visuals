@@ -12,9 +12,9 @@ const METHODS = {
   apple_pay: { channels: ['apple_pay'], currencies: ['NGN', 'USD'] },
   zap: { channels: null, currencies: ['NGN'] },                         // Zap has no documented channel code: Paystack shows its normal method list
   bank_transfer: { channels: ['bank_transfer'], currencies: ['NGN'] },
-  ussd: { channels: ['ussd'], currencies: ['NGN', 'USD'] },
+  ussd: { channels: ['ussd'], currencies: ['NGN'] },
   bank: { channels: ['bank'], currencies: ['NGN'] },
-  payattitude: { channels: ['qr'], currencies: ['NGN', 'USD'] },               // PayAttitude is the QR channel
+  payattitude: { channels: ['payattitude'], currencies: ['NGN'] },     // official Paystack channel code (Naira only)
   opay: { channels: ['bank'], currencies: ['NGN'] },                    // OPay is listed inside Pay with Bank
 };
 
@@ -37,14 +37,21 @@ module.exports = async function handler(req, res) {
   const base = (req.headers.origin || (process.env.ALLOWED_ORIGINS || 'https://implify-visuals.vercel.app').split(',')[0].trim()).replace(/\/+$/, '');
   const reference = safeRef(ref) + '-p' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
   try {
-    const r = await fetch('https://api.paystack.co/transaction/initialize', {
-      method: 'POST', signal: AbortSignal.timeout(10000),
-      headers: { Authorization: 'Bearer ' + key, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, amount: price * 100, currency, reference, callback_url: base + '/checkout.html', ...(m.channels ? { channels: m.channels } : {}),
-        metadata: { project_id: ref, service, package: pkg, client_name: name, method } }),
-    });
-    const j = await r.json().catch(() => ({}));
-    if (!r.ok || !j.status || !j.data || !j.data.access_code) {
+    const call = async (withChannels) => {
+      const r = await fetch('https://api.paystack.co/transaction/initialize', {
+        method: 'POST', signal: AbortSignal.timeout(10000),
+        headers: { Authorization: 'Bearer ' + key, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, amount: price * 100, currency, reference, callback_url: base + '/checkout.html', ...(withChannels && m.channels ? { channels: m.channels } : {}),
+          metadata: { project_id: ref, service, package: pkg, client_name: name, method } }),
+      });
+      const j = await r.json().catch(() => ({}));
+      return { r, j, ok: r.ok && j.status && j.data && j.data.access_code };
+    };
+    let t = await call(true);
+    // If Paystack refuses the restricted channel (e.g. not enabled on the account), retry once with Paystack's normal method list so the customer can still pay.
+    if (!t.ok && m.channels && (method === 'ussd' || method === 'payattitude')) t = await call(false);
+    const { r, j } = t;
+    if (!t.ok) {
       console.error('init-payment: paystack refused', r.status, j && j.message);
       return res.status(502).json({ error: 'init_failed', message: String((j && j.message) || '').slice(0, 160) });
     }
