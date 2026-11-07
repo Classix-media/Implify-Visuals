@@ -339,7 +339,7 @@ async function downloadInvoice(){
   function fallback() { if (co.url) { const f = $('coFallback'); f.href = co.url; f.hidden = false; } }
 
   /* ----- selectable payment methods (all map to real Paystack channels; Google Pay and OPay are not Paystack channels so they are not offered) ----- */
-  const NGN_ONLY = ['zap', 'bank_transfer', 'bank', 'opay'];
+  const NGN_ONLY = ['zap', 'bank_transfer', 'bank', 'opay', 'ussd', 'payattitude'];
   const INFO = {
     zap: ['Zap', 'Opens the secure payment window where you can pay with Zap or choose any other method it lists.'],
     card: ['Card or Google Pay', 'Opens the secure card window directly. Pay with a Visa, Mastercard or Verve card, or Google Pay where your device supports it. Your bank may ask for a PIN, OTP or 3D Secure approval.'],
@@ -360,10 +360,10 @@ async function downloadInvoice(){
     const m = b.dataset.method;
     /* Apple Pay only exists on Safari with Apple Wallet: hide it elsewhere so Android/Chrome users are not sent to a method that cannot work */
     try { if (m === 'apple_pay' && !(window.ApplePaySession && ApplePaySession.canMakePayments())) { b.hidden = true; b.style.display = 'none'; } } catch (_) { b.hidden = true; b.style.display = 'none'; }
-    if (state.currency !== 'NGN' && NGN_ONLY.includes(m)) { b.hidden = true; b.style.display = 'none'; }
+    if (state.currency !== 'NGN' && NGN_ONLY.includes(m)) { if (m === 'ussd' || m === 'payattitude') { b.classList.add('off'); b.setAttribute('aria-disabled', 'true'); } else { b.hidden = true; b.style.display = 'none'; } }
     b.addEventListener('click', () => {
       if (busy) return;
-      if (b.classList.contains('off')) { note(NAMES[m] + ' is for NGN bookings only. Please choose Card' + (m === 'apple_pay' ? '' : ' or Apple Pay') + '.', true); return; }
+      if (b.classList.contains('off')) { note(NAMES[m] + ' is available for NGN (Naira) payments only. Please choose Card' + (m === 'apple_pay' ? '' : ' or Apple Pay') + ' for USD.', true); return; }
       selected = m; note('');
       methodBtns.forEach((x) => x.setAttribute('aria-checked', String(x === b)));
       info.innerHTML = '<strong></strong><span></span><ul><li></li><li></li></ul>';
