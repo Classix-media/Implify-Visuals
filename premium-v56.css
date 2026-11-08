@@ -662,3 +662,5 @@ html{font-size:16px}
 .batt b{font-size:.5rem;font-weight:800;line-height:1;color:#05102e;letter-spacing:-.02em}
 .workflow-copy>p{font-size:calc((.95rem) * var(--tf,1))!important;line-height:1.6!important}
 @media(max-width:900px){.workflow-copy>p{font-size:calc((.86rem) * var(--tf,1))!important}}
+/* v100: no glow on phone status bar */
+.phone-status{background:transparent!important;box-shadow:none!important}
