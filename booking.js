@@ -90,7 +90,7 @@ function setStep(n) {
   $('progressBar').style.width = `${(n/6)*100}%`;
   backBtn.hidden = n === 1;
   nextBtn.hidden = n === 6;
-  nextBtn.textContent = n === 4 ? (state.amount && ['NGN','USD'].includes(state.currency) ? 'Continue to payment →' : 'Continue →') : n === 5 ? 'Prepare WhatsApp handoff →' : 'Continue →';
+  nextBtn.textContent = n === 4 ? (state.amount && ['NGN','USD'].includes(state.currency) ? 'Continue to payment →' : 'Continue →') : n === 5 ? (isManualPay() ? 'Prepare WhatsApp handoff →' : 'Make payment →') : 'Continue →';
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
@@ -185,15 +185,16 @@ function renderQuote() {
     <div class="quote-total"><span>Total</span><strong>${money(state.amount, state.currency)}</strong></div>`;
 }
 
+function isManualPay() { return state.amount == null || !['NGN','USD'].includes(state.currency); }
+
 function renderPayment() {
-  const manual = state.amount == null || !['NGN','USD'].includes(state.currency);
+  const manual = isManualPay();
   $('paymentTitle').textContent = manual ? 'Choose the approved payment route.' : 'Secure your project slot.';
-  $('paymentCopy').textContent = manual ? 'This option is paid manually and confirmed by us.' : 'Pay securely with Paystack. Your invoice is sent to your WhatsApp automatically.';
+  $('paymentCopy').textContent = manual ? 'This option is paid manually and confirmed by us.' : 'Pay securely and instantly. Your invoice is sent to your WhatsApp automatically.';
   $('paymentCard').innerHTML = manual
     ? `<div class="payment-method"><div><strong>${state.currency} · Manual payment</strong><span>We will confirm payment details with you.</span></div><span>REVIEW</span></div><p style="color:#748094;font-size:.8rem;line-height:1.7;margin:0">Continue to message us on WhatsApp.</p>`
-    : `<div class="payment-method"><div><strong>${state.currency} · Paystack</strong><span>Card, transfer, USSD and more.</span></div><span>SECURE</span></div><button type="button" class="primary-action" id="payBtn">Make payment →</button>`;
+    : `<div class="payment-method"><div><strong>${state.currency} · Secure payment</strong><span>Card, transfer, USSD and more.</span></div></div><p style="color:#748094;font-size:.8rem;line-height:1.7;margin:0">Secured by Paystack. Tap Make payment to start.</p>`;
   $('paymentStatus').hidden = true;
-  if (!manual) $('payBtn').addEventListener('click', initializePaystack);
 }
 
 function findCheckoutUrl(value) {
@@ -217,7 +218,7 @@ function findCheckoutUrlInText(text) {
 }
 
 async function initializePaystack() {
-  const btn = $('payBtn'); if (!btn) return;
+  const btn = nextBtn; if (!btn) return;
   btn.disabled = true; btn.textContent = 'Connecting…';
   $('paymentStatus').hidden = false;
   $('paymentStatus').textContent = 'Starting secure checkout…';
@@ -328,6 +329,7 @@ nextBtn.addEventListener('click', () => {
   if (state.step===3 && ['NGN','USD'].includes(state.currency) && Number.isFinite(state.amount) && !setAmountValidation()) { toast('Enter the exact selected amount before continuing.'); return; }
   if (state.step===3) renderQuote();
   if (state.step===4) renderPayment();
+  if (state.step===5 && !isManualPay()) { initializePaystack(); return; }
   if (state.step===5) { renderHandoff(); }
   setStep(Math.min(6,state.step+1));
 });

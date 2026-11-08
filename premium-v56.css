@@ -650,3 +650,15 @@ html{font-size:16px}
 .nav-links .nav-btn.active{background:#0055ff!important;color:#fff!important;border:0!important;border-bottom:0!important;border-radius:999px!important;box-shadow:none!important}
 .nav-links .nav-btn.active::after,.nav-links .nav-btn::after{display:none!important}
 }
+
+/* v97: iOS 26 style island + camera, iOS 18 battery, richer status bar, smaller workflow subtitle */
+.phone-status{height:2.6rem!important;padding:.65rem 1.375rem 0!important;align-items:flex-start;line-height:1.2rem;background:linear-gradient(180deg,rgba(60,120,255,.30) 0%,rgba(20,50,140,.14) 55%,rgba(5,10,28,0) 100%);box-shadow:inset 0 -1px 0 rgba(255,255,255,.04)}
+.phone-notch{top:.65rem!important;width:4.75rem!important;height:1.2rem!important;border-radius:62.4375rem!important;background:radial-gradient(120% 160% at 30% 0,#1b1f2b 0%,#000 55%)!important;box-shadow:inset 0 .0625rem .0625rem rgba(255,255,255,.14),0 .0625rem .375rem rgba(0,0,0,.6)}
+.phone-notch .pn-cam{position:absolute;right:.4rem;top:50%;width:.62rem;height:.62rem;margin-top:-.31rem;border-radius:50%;background:radial-gradient(circle at 35% 30%,#6d7bff 0%,#1a1f5a 38%,#05060f 72%);box-shadow:0 0 0 .075rem #0c0e1a,inset 0 0 .15rem rgba(120,140,255,.6)}
+.phone-notch .pn-dot{position:absolute;right:1.2rem;top:50%;width:.26rem;height:.26rem;margin-top:-.13rem;border-radius:50%;background:#1d2236;box-shadow:inset 0 0 .1rem rgba(160,180,255,.5)}
+.ps-r{display:flex;align-items:center;gap:.4rem}
+.batt{position:relative;width:1.35rem;height:.66rem;border-radius:.22rem;background:#f2f5ff;display:grid;place-items:center;margin-right:.18rem}
+.batt::after{content:"";position:absolute;right:-.16rem;top:50%;width:.1rem;height:.26rem;margin-top:-.13rem;border-radius:0 .1rem .1rem 0;background:rgba(242,245,255,.6)}
+.batt b{font-size:.5rem;font-weight:800;line-height:1;color:#05102e;letter-spacing:-.02em}
+.workflow-copy>p{font-size:calc((.95rem) * var(--tf,1))!important;line-height:1.6!important}
+@media(max-width:900px){.workflow-copy>p{font-size:calc((.86rem) * var(--tf,1))!important}}
