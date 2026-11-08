@@ -643,3 +643,10 @@ html{font-size:16px}
 /* v90: cursor = small solid white dot (no ring), arrow cursor stays */
 .cursor-ring{display:none!important}
 .cursor-dot{width:.875rem;height:.875rem;margin:-.4375rem 0 0 -.4375rem;background:#fff!important;box-shadow:none!important}
+
+/* v96: desktop nav - active link is a blue pill, no underline */
+@media(min-width:901px){
+.nav-links .nav-btn{border-bottom:0!important;border-radius:999px!important;padding:.45rem 1rem!important;transition:background .2s,color .2s}
+.nav-links .nav-btn.active{background:#0055ff!important;color:#fff!important;border:0!important;border-bottom:0!important;border-radius:999px!important;box-shadow:none!important}
+.nav-links .nav-btn.active::after,.nav-links .nav-btn::after{display:none!important}
+}
