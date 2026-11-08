@@ -348,3 +348,8 @@ html{max-width:100%;overflow-x:clip}body{max-width:100%;overflow-x:clip}
 /* v80: proportional root size: every phone renders the same 412-unit layout */
 html{font-size:16px}
 @media(max-width:600px){html{font-size:calc(100vw * 16 / 412)}}
+
+/* v102: invoice logo in cobalt blue to match invoice blue */
+.inv-logo img{opacity:0!important;position:absolute;pointer-events:none}
+.inv-logo{position:relative}
+.inv-logo::before{content:"";display:block;width:calc(13 * var(--u,0.4375rem));height:calc(13 * var(--u,0.4375rem));background:#005fff;-webkit-mask:url(images/logo.png) center/contain no-repeat;mask:url(images/logo.png) center/contain no-repeat}
