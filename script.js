@@ -17,6 +17,8 @@ if (navToggle && navLinks) {
   };
   navToggle.addEventListener("click", () => setMenu(!navLinks.classList.contains("open"), true));
   navLinks.querySelectorAll("a").forEach(link => link.addEventListener("click", () => setMenu(false)));
+  const menuBd = document.getElementById("menuBackdrop");
+  if (menuBd) menuBd.addEventListener("click", () => setMenu(false, true));
   navLinks.addEventListener("touchmove", (e) => { if (navLinks.classList.contains("open")) e.preventDefault(); }, { passive: false });
   window.addEventListener("resize", () => { if (window.innerWidth > 900) setMenu(false); });
 }
