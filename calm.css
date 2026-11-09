@@ -456,10 +456,12 @@ html body .invoice-close:active{opacity:.55}
 }
 
 /* v20 process cards: fresh gradient cards (no outline) + coloured 3D icons */
-.strategy-card{border:0!important;outline:0!important;background:radial-gradient(circle at 100% 0%,rgba(0,100,255,.34),transparent 58%),linear-gradient(160deg,#13307f 0%,#0a1a55 52%,#050d2b 100%)!important}
+.strategy-card{border:0!important;outline:0!important;background:radial-gradient(130% 75% at 50% 112%,rgba(0,90,255,.30) 0%,transparent 70%),linear-gradient(180deg,#060b22 0%,#071436 100%)!important}
 .strategy-card::after{display:none!important}
 .strategy-icon{width:3.5rem!important;height:3.5rem!important;padding:0!important;margin-bottom:1.1rem!important;border:0!important;border-radius:50%!important;background:none!important;box-shadow:none!important;display:block!important}
-.strategy-icon svg{width:100%!important;height:100%!important;stroke:none!important;fill:none!important;display:block;overflow:visible;filter:drop-shadow(0 .55rem .9rem rgba(var(--ic,0,95,255),.5))}
+.strategy-icon svg{width:100%!important;height:100%!important;stroke:none!important;fill:none!important;display:block;overflow:visible}
 .strategy-section.scroll-reveal>.strategy-cards,.strategy-section.scroll-reveal:not(.is-visible)>.strategy-cards{opacity:1!important;filter:none!important;transform:none!important;transition:none!important}
 html.rv-on .strategy-card.rv:not(.rv-in){filter:blur(.5rem)!important}
 @media(max-width:600px){.strategy-icon{width:3rem!important;height:3rem!important}}
+
+.strategy-card .strategy-meta{color:#fff!important}
