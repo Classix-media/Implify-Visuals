@@ -454,3 +454,12 @@ html body .invoice-close:active{opacity:.55}
  body.menu-open .navbar .nav-links.open a:not(.nav-book).active,body.menu-open .navbar .nav-links.open a:not(.nav-book):hover,body.menu-open .navbar .nav-links.open a:not(.nav-book):active{background:transparent!important;color:#fff!important}
  body.menu-open .navbar .nav-links.open .nav-book{display:flex!important;justify-content:center;align-items:center;background:linear-gradient(180deg,#2f7bff 0%,#0047e6 100%)!important;color:#fff!important;border:1px solid rgba(255,255,255,.22)!important;border-radius:.5rem!important;padding:.65rem 1rem!important;margin:1.1rem 0 0!important;font-size:calc(1rem * var(--tf,1))!important;font-weight:500!important;text-transform:none!important;letter-spacing:0!important;text-decoration:none;text-shadow:none!important;box-shadow:none!important}
 }
+
+/* v20 process cards: fresh gradient cards (no outline) + coloured 3D icons */
+.strategy-card{border:0!important;outline:0!important;background:radial-gradient(circle at 100% 0%,rgba(0,100,255,.34),transparent 58%),linear-gradient(160deg,#13307f 0%,#0a1a55 52%,#050d2b 100%)!important}
+.strategy-card::after{display:none!important}
+.strategy-icon{width:3.5rem!important;height:3.5rem!important;padding:0!important;margin-bottom:1.1rem!important;border:0!important;border-radius:50%!important;background:none!important;box-shadow:none!important;display:block!important}
+.strategy-icon svg{width:100%!important;height:100%!important;stroke:none!important;fill:none!important;display:block;overflow:visible;filter:drop-shadow(0 .55rem .9rem rgba(var(--ic,0,95,255),.5))}
+.strategy-section.scroll-reveal>.strategy-cards,.strategy-section.scroll-reveal:not(.is-visible)>.strategy-cards{opacity:1!important;filter:none!important;transform:none!important;transition:none!important}
+html.rv-on .strategy-card.rv:not(.rv-in){filter:blur(.5rem)!important}
+@media(max-width:600px){.strategy-icon{width:3rem!important;height:3rem!important}}
