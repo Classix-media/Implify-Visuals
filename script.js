@@ -9,6 +9,7 @@ const navLinks = document.getElementById("navLinks");
 if (navToggle && navLinks) {
   const setMenu = (open, keep) => {
     if (open) window.__menuY = window.pageYOffset || 0;
+    if (open) { const hd = navToggle.closest("header"); if (hd) navLinks.style.setProperty("--nav-h", hd.offsetHeight + "px"); }
     navLinks.classList.toggle("open", open);
     navToggle.setAttribute("aria-expanded", open);
     document.documentElement.classList.toggle("menu-open", open);
