@@ -464,3 +464,7 @@ html.rv-on .strategy-card.rv:not(.rv-in){filter:blur(.5rem)!important}
 @media(max-width:600px){.strategy-icon{width:2.65rem!important;height:2.65rem!important}}
 
 .strategy-card .strategy-meta{color:#fff!important}
+
+/* v24 landscape problem image: keep full landscape, no crop, curved edges */
+.prob-fig{overflow:hidden;border-radius:1.5rem}
+.prob-fig img{width:100%;height:auto;aspect-ratio:1675/816;object-fit:cover;border-radius:1.5rem}
