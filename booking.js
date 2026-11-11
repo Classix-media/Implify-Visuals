@@ -190,7 +190,7 @@ function isManualPay() { return state.amount == null || !['NGN','USD'].includes(
 function renderPayment() {
   const manual = isManualPay();
   $('paymentTitle').textContent = manual ? 'Choose the approved payment route.' : 'Secure your project slot.';
-  $('paymentCopy').textContent = manual ? 'This option is paid manually and confirmed by us.' : 'Pay securely and instantly. Your invoice is sent to your WhatsApp automatically.';
+  $('paymentCopy').textContent = manual ? 'This option is paid manually and confirmed by us.' : 'Pay securely. Your paid invoice arrives automatically; project details go to WhatsApp.';
   $('paymentCard').innerHTML = manual
     ? `<div class="payment-method"><div><strong>${state.currency} · Manual payment</strong><span>We will confirm payment details with you.</span></div><span>REVIEW</span></div><p style="color:#748094;font-size:.8rem;line-height:1.7;margin:0">Continue to message us on WhatsApp.</p>`
     : `<div class="payment-method"><div><strong>${state.currency} · Secure payment</strong><span>Card, transfer, USSD and more.</span></div></div><p style="color:#748094;font-size:.8rem;line-height:1.7;margin:0">Secured by Paystack. Tap Make payment to start.</p>`;
