@@ -468,3 +468,6 @@ html.rv-on .strategy-card.rv:not(.rv-in){filter:blur(.5rem)!important}
 /* v24 landscape problem image: keep full landscape, no crop, curved edges */
 .prob-fig{overflow:hidden;border-radius:1.5rem}
 .prob-fig img{width:100%;height:auto;aspect-ratio:1675/816;object-fit:cover;border-radius:1.5rem}
+
+/* v25 memoji avatar */
+.welcome-pill img{object-position:50% 50%!important}
