@@ -538,3 +538,16 @@ html.rv-on .strategy-card.rv:not(.rv-in){filter:blur(.5rem)!important}
 .fv-pill{white-space:nowrap;border:0!important;background:linear-gradient(160deg,#0a1745 0%,#050c26 100%)!important;box-shadow:none!important}
 .fv-frame{border:0!important;background:linear-gradient(160deg,#0a1745 0%,#050c26 100%)!important;box-shadow:none!important}
 .site-footer .btn-primary-sm{background:linear-gradient(160deg,#0a1745 0%,#050c26 100%)!important}
+
+/* ===== v28: logo tape styled like the reference (faded logos, fading lines top and bottom, soft left/right blend, never pauses) ===== */
+.marquee-wrapper.brand-tape{position:relative;padding:1.15rem 0!important;margin:1.4rem 0 0!important;background:transparent!important;border:0!important;-webkit-mask-image:none!important;mask-image:none!important;pointer-events:none}
+.brand-tape::before,.brand-tape::after{content:"";position:absolute;left:0;right:0;height:1px;pointer-events:none}
+.brand-tape::before{top:0;left:4%;right:4%;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.2) 22%,rgba(255,255,255,.2) 78%,rgba(255,255,255,0))}
+.brand-tape::after{bottom:0;background:rgba(255,255,255,.09)}
+.brand-tape .tape-viewport{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 14%,#000 86%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 14%,#000 86%,transparent 100%)}
+.brand-tape .marquee-track,.marquee-wrapper.brand-tape:hover .marquee-track,.marquee-wrapper.brand-tape:active .marquee-track{animation-play-state:running!important}
+.brand-tape .marquee-content img{height:3.1rem!important;opacity:.5!important}
+@media(min-width:901px){.brand-tape .marquee-content img{height:3.8rem!important}}
+
+/* v29: Andrea motion card darker so it stands apart from the section background */
+.motion-glass{background:linear-gradient(160deg,#050d2b 0%,#02061a 55%,#010412 100%)!important;box-shadow:0 1.6rem 3.2rem -1.2rem rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.04)!important}
