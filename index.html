@@ -42,7 +42,7 @@
 <link rel="stylesheet" href="premium-v56.css?v=95">
 <script>(function(){if(!/[?&]debug/.test(location.search))return;var b=document.createElement("pre");b.style.cssText="position:fixed;left:6px;bottom:6px;z-index:2147483647;margin:0;padding:8px 10px;background:#000c;color:#7CFC00;font:11px/1.35 monospace;white-space:pre;border-radius:8px;pointer-events:none";function u(){var v=window.visualViewport,d=document.documentElement;b.textContent=["innerW "+innerWidth,"clientW "+d.clientWidth,"screenW "+screen.width,"dpr "+devicePixelRatio,"vvScale "+(v?v.scale.toFixed(3):"n/a"),"vvW "+(v?v.width.toFixed(1):"n/a"),"zoom "+(d.style.zoom||"none"),"hair "+(d.style.getPropertyValue("--hair")||"none"),"vw "+(d.style.getPropertyValue("--vw")||"none"),"meta "+(document.querySelector("meta[name=viewport]")||{}).content,"f "+(d.getAttribute("data-f")||"n/a"),"tf "+(d.style.getPropertyValue("--tf")||"none"),"ua "+(/Instagram/.test(navigator.userAgent)?"instagram":/Chrome/.test(navigator.userAgent)?"chrome":"other")].join("\n")}document.addEventListener("DOMContentLoaded",function(){document.body.appendChild(b);u();setInterval(u,700)})})();</script>
 <script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches&&'IntersectionObserver' in window)document.documentElement.classList.add('rv-on')</script>
-<link rel="stylesheet" href="calm.css?v=31">
+<link rel="stylesheet" href="calm.css?v=32">
 </head>
 <body>
 <script>
@@ -284,7 +284,7 @@ var q=document.querySelectorAll;})();
         <p>A clear process, calm communication and design with a reason behind every choice, so working with us feels easy and the results speak for themselves.</p>
     </div>
     <div class="why-grid">
-        <article class="why-card rv-card">
+        <article class="why-card">
             <div class="why-img"><img src="images/why-1.jpg" alt="A designer carefully reviewing a client brief at her desk" width="900" height="1059" loading="lazy" decoding="async" style="object-position:50% 38%"><span class="why-chip">01 · Strategy first</span></div>
             <div class="why-body">
                 <h3>Every Detail, Reviewed</h3>
@@ -292,7 +292,7 @@ var q=document.querySelectorAll;})();
                 <div class="why-tags"><span>Strategy-led</span><span>Brand-first</span></div>
             </div>
         </article>
-        <article class="why-card rv-card">
+        <article class="why-card">
             <div class="why-img"><img src="images/why-2.jpg" alt="A confident creative working calmly on a laptop against a cobalt blue wall" width="900" height="945" loading="lazy" decoding="async" style="object-position:50% 55%"><span class="why-chip">02 · Focused craft</span></div>
             <div class="why-body">
                 <h3>Crafted With Calm Focus</h3>
@@ -300,7 +300,7 @@ var q=document.querySelectorAll;})();
                 <div class="why-tags"><span>Dedicated creative</span><span>Polished finish</span></div>
             </div>
         </article>
-        <article class="why-card rv-card">
+        <article class="why-card">
             <div class="why-img"><img src="images/why-3.jpg" alt="A client and designer shaking hands after agreeing the direction" width="900" height="900" loading="lazy" decoding="async" style="object-position:35% 30%"><span class="why-chip">03 · Real partnership</span></div>
             <div class="why-body">
                 <h3>Partners, Not Just Providers</h3>
@@ -616,7 +616,7 @@ var q=document.querySelectorAll;})();
 /* blur-to-sharp slide-up reveal: each block animates once as it enters the screen */
 (function(){
   var d=document.documentElement;if(!d.classList.contains('rv-on'))return;
-  var sel=['.idc-card','.prob-fig','.prob-text','.gal','.pj-title','.pj-grid','.pj-more','.pj-call .quick-message-block','.pj-call .what-to-expect-block','.workflow-grid > *','.rv-section .section-label','.rv-section .section-title','.rv-section .section-sub','.rv-card','.strategy-card','.about-left','.about-right','.clarity-grid > *','.dual-grid > *','.contact-grid > *'];
+  var sel=['.idc-card','.prob-fig','.prob-text','.gal','.pj-title','.pj-grid','.pj-more','.pj-call .quick-message-block','.pj-call .what-to-expect-block','.workflow-grid > *','.rv-section .section-label','.rv-section .section-title','.rv-section .section-sub','.rv-card','.strategy-card','.why-card','.about-left','.about-right','.clarity-grid > *','.dual-grid > *','.contact-grid > *'];
   var els=[],seen=new Map();
   sel.forEach(function(s){document.querySelectorAll(s).forEach(function(e){
     if(e.classList.contains('rv'))return;

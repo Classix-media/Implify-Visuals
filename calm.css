@@ -582,3 +582,13 @@ html.rv-on .strategy-card.rv:not(.rv-in){filter:blur(.5rem)!important}
 .why-tags{display:flex;flex-wrap:wrap;gap:.45rem}
 .why-tags span{padding:.38rem .75rem;border-radius:99px;font-size:calc((.6rem) * var(--tf,1));font-weight:500;color:#cfe0ff;background:rgba(0,95,255,.16)}
 @media(max-width:900px){.why-grid{grid-template-columns:1fr;max-width:30rem}.why-img{aspect-ratio:4/3.9}}
+
+/* ===== v32: slimmer Why cards (same edge gap as the Andrea card), Andrea card + footer cards not too dark ===== */
+.why-card{padding:.9rem!important;background:radial-gradient(110% 70% at 0% 0%,rgba(0,100,255,.26),transparent 62%),linear-gradient(160deg,#07123a 0%,#030a26 60%,#020618 100%)!important;border:0!important}
+.why-img{aspect-ratio:4/3.45!important}
+.why-body{padding:1.05rem .8rem 0!important}
+.why-body p{margin:0 0 .85rem!important}
+@media(max-width:900px){.why-grid{max-width:28rem!important}.why-img{aspect-ratio:4/3.25!important}}
+.motion-glass{background:radial-gradient(110% 70% at 0% 0%,rgba(0,100,255,.28),transparent 62%),linear-gradient(160deg,#07123a 0%,#030a26 60%,#020618 100%)!important;box-shadow:0 1.4rem 3rem -1.4rem rgba(0,0,0,.6)!important}
+.fv-pill,.fv-frame{background:linear-gradient(160deg,#0b3fa6 0%,#06297a 100%)!important;border:1px solid rgba(255,255,255,.14)!important}
+.site-footer .btn-primary-sm{background:linear-gradient(160deg,#0b3fa6 0%,#06297a 100%)!important;border:1px solid rgba(255,255,255,.14)!important}
