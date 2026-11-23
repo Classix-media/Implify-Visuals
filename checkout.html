@@ -7,12 +7,15 @@
   <meta name="theme-color" content="#03050a">
   <title>Secure Checkout | Implify Visuals</title>
   <meta name="robots" content="noindex,nofollow">
-  <link rel="icon" type="image/png" sizes="any" href="images/favicon.png?v=3">
-    <link rel="shortcut icon" href="images/favicon.png?v=3">
-    <link rel="apple-touch-icon" href="images/favicon.png?v=3">
+  <link rel="icon" type="image/png" sizes="48x48" href="images/favicon-48.png?v=4">
+    <link rel="icon" type="image/png" sizes="96x96" href="images/favicon-96.png?v=4">
+    <link rel="icon" type="image/png" sizes="192x192" href="images/favicon-192.png?v=4">
+    <link rel="icon" type="image/png" sizes="512x512" href="images/favicon.png?v=4">
+    <link rel="shortcut icon" href="favicon.ico?v=4">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png?v=4">
     <script>
     /* Favicon auto-refresh: replace images/favicon.png (same name) and it updates within minutes. */
-    (function(){var v=Math.floor(Date.now()/600000);document.querySelectorAll('link[rel*="icon"]').forEach(function(l){l.href='images/favicon.png?v='+v})})();
+    (function(){var v=Math.floor(Date.now()/600000);document.querySelectorAll('link[rel*="icon"]').forEach(function(l){l.href=l.getAttribute('href').split('?')[0]+'?v='+v})})();
     </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,12 +24,12 @@
   <link rel="stylesheet" href="checkout.css?v=38">
   <link rel="preload" as="image" href="images/checkout-wallet.jpg">
 <link rel="stylesheet" href="cursor.css?v=20">
-<link rel="stylesheet" href="calm.css?v=16">
+<link rel="stylesheet" href="calm.css?v=17">
 </head>
 <body class="co-body">
   <header class="booking-nav">
     <a class="booking-brand" href="index.html" aria-label="Back to Implify Visuals home">
-      <img src="images/logo.png" alt="" width="38" height="38">
+      <img src="images/logo.png?v=4" alt="" width="38" height="38">
       <span>Implify Visuals</span>
     </a>
     <a class="back-link" href="booking.html" aria-label="Back to booking"><span class="bl-ic">←</span><span class="bl-tx"> Back to booking</span></a>
@@ -122,7 +125,7 @@
       <button class="invoice-close" type="button" id="closeInvoice" aria-label="Close invoice">×</button>
       <div class="inv-doc"><div class="inv-white">
       <header class="inv-top">
-        <div class="inv-logo"><img src="images/logo.png" alt="Implify Visuals"><strong>Implify Visuals</strong></div>
+        <div class="inv-logo"><img src="images/logo.png?v=4" alt="Implify Visuals"><strong>Implify Visuals</strong></div>
         <div class="inv-blue"><div class="inv-meta"><span class="inv-ref" id="invoiceRef"></span><div class="inv-dates"><span>ISSUED:<b id="invoiceDate"></b></span><span>DUE:<b id="invoiceDue"></b></span></div></div><strong id="invoiceTitle">INVOICE</strong></div>
       </header>
       <div class="invoice-client-block"><span>INVOICE TO:</span><strong id="invoiceClient"></strong><small id="invoiceContact"></small></div>

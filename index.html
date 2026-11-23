@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" type="image/png" sizes="any" href="images/favicon.png?v=3">
-    <link rel="shortcut icon" href="images/favicon.png?v=3">
-    <link rel="apple-touch-icon" href="images/favicon.png?v=3">
+    <link rel="icon" type="image/png" sizes="48x48" href="images/favicon-48.png?v=4">
+    <link rel="icon" type="image/png" sizes="96x96" href="images/favicon-96.png?v=4">
+    <link rel="icon" type="image/png" sizes="192x192" href="images/favicon-192.png?v=4">
+    <link rel="icon" type="image/png" sizes="512x512" href="images/favicon.png?v=4">
+    <link rel="shortcut icon" href="favicon.ico?v=4">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png?v=4">
     <script>
     /* Favicon auto-refresh: replace images/favicon.png (same name) and it updates within minutes. */
-    (function(){var v=Math.floor(Date.now()/600000);document.querySelectorAll('link[rel*="icon"]').forEach(function(l){l.href='images/favicon.png?v='+v})})();
+    (function(){var v=Math.floor(Date.now()/600000);document.querySelectorAll('link[rel*="icon"]').forEach(function(l){l.href=l.getAttribute('href').split('?')[0]+'?v='+v})})();
     </script>
 
 <meta charset="UTF-8">
@@ -21,15 +24,15 @@
 <meta property="og:title" content="Implify Visuals | Creative Agency">
 <meta property="og:description" content="Explore our work, see clear pricing and book your project online.">
 <meta property="og:url" content="https://implify-visuals.vercel.app/">
-<meta property="og:image" content="https://implify-visuals.vercel.app/images/og-image.png">
+<meta property="og:image" content="https://implify-visuals.vercel.app/images/og-image.png?v=4">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Implify Visuals | Creative Agency">
 <meta name="twitter:description" content="Explore our work, see clear pricing and book your project online.">
-<meta name="twitter:image" content="https://implify-visuals.vercel.app/images/og-image.png">
+<meta name="twitter:image" content="https://implify-visuals.vercel.app/images/og-image.png?v=4">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://implify-visuals.vercel.app/#website","url":"https://implify-visuals.vercel.app/","name":"Implify Visuals","alternateName":["Implify Visuals Creative Agency"]},{"@type":"Organization","@id":"https://implify-visuals.vercel.app/#org","name":"Implify Visuals","url":"https://implify-visuals.vercel.app/","logo":"https://implify-visuals.vercel.app/images/favicon.png","image":"https://implify-visuals.vercel.app/images/og-image.png","sameAs":["https://www.instagram.com/implify_visuals/"]}]}</script>
-<link rel="preload" as="image" href="images/logo.png">
+<link rel="preload" as="image" href="images/logo-white.png?v=4">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
@@ -39,7 +42,7 @@
 <link rel="stylesheet" href="premium-v56.css?v=95">
 <script>(function(){if(!/[?&]debug/.test(location.search))return;var b=document.createElement("pre");b.style.cssText="position:fixed;left:6px;bottom:6px;z-index:2147483647;margin:0;padding:8px 10px;background:#000c;color:#7CFC00;font:11px/1.35 monospace;white-space:pre;border-radius:8px;pointer-events:none";function u(){var v=window.visualViewport,d=document.documentElement;b.textContent=["innerW "+innerWidth,"clientW "+d.clientWidth,"screenW "+screen.width,"dpr "+devicePixelRatio,"vvScale "+(v?v.scale.toFixed(3):"n/a"),"vvW "+(v?v.width.toFixed(1):"n/a"),"zoom "+(d.style.zoom||"none"),"hair "+(d.style.getPropertyValue("--hair")||"none"),"vw "+(d.style.getPropertyValue("--vw")||"none"),"meta "+(document.querySelector("meta[name=viewport]")||{}).content,"f "+(d.getAttribute("data-f")||"n/a"),"tf "+(d.style.getPropertyValue("--tf")||"none"),"ua "+(/Instagram/.test(navigator.userAgent)?"instagram":/Chrome/.test(navigator.userAgent)?"chrome":"other")].join("\n")}document.addEventListener("DOMContentLoaded",function(){document.body.appendChild(b);u();setInterval(u,700)})})();</script>
 <script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches&&'IntersectionObserver' in window)document.documentElement.classList.add('rv-on')</script>
-<link rel="stylesheet" href="calm.css?v=25">
+<link rel="stylesheet" href="calm.css?v=26">
 </head>
 <body>
 <script>
@@ -51,7 +54,7 @@ var q=document.querySelectorAll;})();
 <!-- Header / Navigation -->
 <header class="navbar">
     <div class="logo-container">
-        <img src="images/logo-white.png" alt="Implify Visuals" class="logo" width="38" height="38" decoding="async">
+        <img src="images/logo-white.png?v=4" alt="Implify Visuals" class="logo" width="38" height="38" decoding="async">
         <span class="logo-text">Implify Visuals</span>
     </div>
     <nav class="nav-links" id="navLinks">
@@ -87,6 +90,7 @@ var q=document.querySelectorAll;})();
         <video class="glass-hero-img" id="heroVideo" autoplay loop muted defaultMuted playsinline webkit-playsinline preload="auto" controls="false" disablepictureinpicture disableremoteplayback x-webkit-airplay="deny" tabindex="-1" aria-hidden="true">
             <source src="images/hand-icons-v2.mp4" type="video/mp4">
         </video>
+        <script>if(matchMedia("(max-width: 900px)").matches){var hv=document.getElementById("heroVideo");if(hv){hv.removeAttribute("autoplay");hv.preload="none";hv.querySelectorAll("source").forEach(function(s){s.removeAttribute("src")});hv.load()}}</script>
         <div class="gx-card" aria-hidden="true">
             <div class="gx-head"><div><span class="gx-eyebrow">GROWTH SPARK</span><strong>Let's grow together</strong></div><span class="gx-badge"><svg viewBox="0 0 12 12" width="11" height="11"><path d="M2 9l3-3 2 2 3-4M7.5 4H10v2.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Rising</span></div>
             <div class="gx-chart">
@@ -171,8 +175,8 @@ var q=document.querySelectorAll;})();
 <!-- Gallery -->
 <section class="gal-section">
     <div class="gal" aria-label="Selected brand work">
-        <div class="gal-row gal-left"><div class="gal-track"><div class="gal-set"><img src="images/g-rita-mug.jpg" alt="Rita's Special Fries mug" width="900" height="675" decoding="async" draggable="false"><img src="images/g-andrea-stationery.jpg" alt="Andrea Bank stationery" width="900" height="722" decoding="async" draggable="false"><img src="images/g-puffy-cup.jpg" alt="Puffy Treats cup" width="900" height="900" decoding="async" draggable="false"><img src="images/g-implify-book.jpg" alt="Implify Visuals landscape book" width="900" height="675" decoding="async" draggable="false"><img src="images/g-andrea-billboard.jpg" alt="Andrea billboard" width="900" height="600" decoding="async" draggable="false"></div><div class="gal-set" aria-hidden="true"><img src="images/g-rita-mug.jpg" alt="" width="900" height="675" decoding="async" draggable="false"><img src="images/g-andrea-stationery.jpg" alt="" width="900" height="722" decoding="async" draggable="false"><img src="images/g-puffy-cup.jpg" alt="" width="900" height="900" decoding="async" draggable="false"><img src="images/g-implify-book.jpg" alt="" width="900" height="675" decoding="async" draggable="false"><img src="images/g-andrea-billboard.jpg" alt="" width="900" height="600" decoding="async" draggable="false"></div></div></div>
-        <div class="gal-row gal-right"><div class="gal-track"><div class="gal-set"><img src="images/g-implify-collage.jpg" alt="Implify Visuals brand collage" width="900" height="630" decoding="async" draggable="false"><img src="images/g-puffy-beanie.jpg" alt="Puffy Treats beanie" width="900" height="666" decoding="async" draggable="false"><img src="images/g-andrea-wristbands.jpg" alt="Andrea wristbands" width="900" height="900" decoding="async" draggable="false"><img src="images/g-implify-stationery.jpg" alt="Implify stationery set" width="900" height="506" decoding="async" draggable="false"></div><div class="gal-set" aria-hidden="true"><img src="images/g-implify-collage.jpg" alt="" width="900" height="630" decoding="async" draggable="false"><img src="images/g-puffy-beanie.jpg" alt="" width="900" height="666" decoding="async" draggable="false"><img src="images/g-andrea-wristbands.jpg" alt="" width="900" height="900" decoding="async" draggable="false"><img src="images/g-implify-stationery.jpg" alt="" width="900" height="506" decoding="async" draggable="false"></div></div></div>
+        <div class="gal-row gal-left"><div class="gal-track"><div class="gal-set"><img src="images/g-rita-mug.jpg" alt="Rita's Special Fries mug" width="900" height="675" decoding="async" draggable="false"><img src="images/g-andrea-stationery.jpg" alt="Andrea Bank stationery" width="900" height="722" decoding="async" draggable="false"><img src="images/g-puffy-cup.jpg" alt="Puffy Treats cup" width="900" height="900" decoding="async" draggable="false"><img src="images/g-implify-book.jpg?v=4" alt="Implify Visuals poster campaign" width="900" height="559" decoding="async" draggable="false"><img src="images/g-andrea-billboard.jpg?v=4" alt="Praise From Height event ticket design" width="900" height="506" decoding="async" draggable="false"></div><div class="gal-set" aria-hidden="true"><img src="images/g-rita-mug.jpg" alt="" width="900" height="675" decoding="async" draggable="false"><img src="images/g-andrea-stationery.jpg" alt="" width="900" height="722" decoding="async" draggable="false"><img src="images/g-puffy-cup.jpg" alt="" width="900" height="900" decoding="async" draggable="false"><img src="images/g-implify-book.jpg?v=4" alt="Implify Visuals poster campaign" width="900" height="559" decoding="async" draggable="false"><img src="images/g-andrea-billboard.jpg?v=4" alt="Praise From Height event ticket design" width="900" height="506" decoding="async" draggable="false"></div></div></div>
+        <div class="gal-row gal-right"><div class="gal-track"><div class="gal-set"><img src="images/g-implify-collage.jpg?v=4" alt="Implify Visuals brand collage" width="900" height="630" decoding="async" draggable="false"><img src="images/g-puffy-beanie.jpg" alt="Puffy Treats beanie" width="900" height="666" decoding="async" draggable="false"><img src="images/g-andrea-wristbands.jpg" alt="Andrea wristbands" width="900" height="900" decoding="async" draggable="false"><img src="images/g-implify-stationery.jpg?v=4" alt="Implify Visuals stationery and brand system" width="900" height="900" decoding="async" draggable="false"></div><div class="gal-set" aria-hidden="true"><img src="images/g-implify-collage.jpg?v=4" alt="Implify Visuals brand collage" width="900" height="630" decoding="async" draggable="false"><img src="images/g-puffy-beanie.jpg" alt="" width="900" height="666" decoding="async" draggable="false"><img src="images/g-andrea-wristbands.jpg" alt="" width="900" height="900" decoding="async" draggable="false"><img src="images/g-implify-stationery.jpg?v=4" alt="Implify Visuals stationery and brand system" width="900" height="900" decoding="async" draggable="false"></div></div></div>
     </div>
 </section>
 
@@ -295,7 +299,7 @@ var q=document.querySelectorAll;})();
                 <div class="phone-screen">
                     <div class="phone-notch"><i class="pn-dot"></i><i class="pn-cam"></i></div>
                     <div class="phone-status"><span>9:41</span><span class="ps-r"><span>5G</span><span class="batt" aria-label="Battery 100%"><b>100</b></span></span></div>
-                    <div class="chat-head"><img src="images/chat-avatar.png" alt="" width="32" height="32"><div><b>Implify Visuals</b><small>online</small></div></div>
+                    <div class="chat-head"><img src="images/chat-avatar.png?v=4" alt="" width="32" height="32"><div><b>Implify Visuals</b><small>online</small></div></div>
                     <div class="chat-body" aria-live="off"></div>
                     <div class="chat-input" aria-hidden="true"><span>Let’s talk about your brand…</span><em>➤</em></div>
                 </div>
@@ -404,7 +408,7 @@ var q=document.querySelectorAll;})();
                 <a href="https://forms.gle/1AbKCTyBQ4nzsjRT8" target="_blank" class="btn btn-outline-sm">FILL PROJECT FORM</a>
             </div>
             <div class="process-img-box">
-                <img class="process-gif" src="images/process.jpg" alt="Implify Visuals project process" width="800" height="458" loading="lazy" decoding="async">
+                <img class="process-gif" src="images/process.jpg?v=4" alt="Implify Visuals project process" width="800" height="496" loading="lazy" decoding="async">
             </div>
         </div>
     </div>
@@ -422,6 +426,24 @@ var q=document.querySelectorAll;})();
             <h2>03 ★★★</h2>
             <p>Check Out on Our<br><strong>Social Media Designs</strong></p>
         </a>
+        <a href="https://www.instagram.com/p/DgDThVFjBKs/?img_index=6&amp;cnvx=MXZkb2szajBpczkxdg==" target="_blank" rel="noopener" class="service-card">
+            <h2>04 ★★★</h2>
+            <p>Check Out on Our<br><strong>Church Flyer Designs</strong></p>
+        </a>
+    </div>
+    <div class="motion-wrap">
+        <div class="motion-glass">
+            <div class="motion-stage vid-card">
+                <video preload="none" playsinline poster="images/andrea-bank-poster.jpg?v=1" aria-label="Motion graphics for Andrea Bank"><source src="images/andrea-bank.mp4" type="video/mp4"></video>
+                <button type="button" class="vid-play" aria-label="Play motion graphics video"></button>
+            </div>
+            <div class="motion-info">
+                <span class="motion-eyebrow">MOTION GRAPHICS</span>
+                <h3>Motion Graphics for Andrea Bank</h3>
+                <p>From declined payments to rewards and live dashboards, a fast, clear story that makes banking feel simple and gets people to watch to the end.</p>
+                <div class="motion-rate" aria-label="Rated 5 out of 5"><span class="stars">★★★★★</span><b>5.0</b><em>Client rating</em></div>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -444,7 +466,7 @@ var q=document.querySelectorAll;})();
         </div>
         <div class="dual-card elevate-card">
             <h3>Ready To Elevate Your Brand</h3>
-            <img class="dual-gif" src="images/elevate.jpg" alt="Implify Visuals elevate graphic" width="800" height="456" loading="lazy" decoding="async">
+            <img class="dual-gif" src="images/elevate.jpg?v=4" alt="Implify Visuals elevate graphic" width="800" height="450" loading="lazy" decoding="async">
             <div class="elevate-btns">
                 <a href="booking.html" class="btn btn-primary-xs">Book A Project</a>
                 <a href="https://www.instagram.com/implify_visuals/" target="_blank" class="btn btn-outline-xs">View Instagram</a>
@@ -503,7 +525,7 @@ var q=document.querySelectorAll;})();
 <footer class="site-footer">
     <div class="footer-grid">
         <div class="footer-brand">
-            <div class="footer-logo"><img src="images/logo.png" alt="Implify Visuals" width="34" height="34" loading="lazy" decoding="async"><span>Implify Visuals</span></div>
+            <div class="footer-logo"><img src="images/logo-mono-white.png?v=4" alt="Implify Visuals" width="34" height="34" loading="lazy" decoding="async"><span>Implify Visuals</span></div>
             <p>We solve brand problems with visual identities and visual storytelling that make your business clear, consistent and memorable.</p>
             <a href="booking.html" class="btn btn-primary-sm">BOOK A PROJECT</a>
         </div>
@@ -521,6 +543,13 @@ var q=document.querySelectorAll;})();
             <a href="mailto:implifyvisuals@gmail.com">Email</a>
             <a href="https://wa.me/2348121986430" target="_blank" rel="noopener">WhatsApp</a>
             <a href="https://forms.gle/1AbKCTyBQ4nzsjRT8" target="_blank" rel="noopener">Fill Project Form</a>
+        </div>
+        <div class="footer-video">
+            <span class="fv-pill">Brands worked with – <strong>Over 50</strong></span>
+            <div class="fv-frame"><div class="fv-stage vid-card">
+                <video preload="none" playsinline poster="images/creative-direction-poster.jpg?v=1" aria-label="What is creative direction? Video"><source src="images/creative-direction.mp4" type="video/mp4"></video>
+                <button type="button" class="vid-play" aria-label="Play video"></button>
+            </div></div>
         </div>
     </div>
     <p class="footer-copy">© <span id="year"></span> Implify Visuals. All rights reserved.</p>
@@ -594,6 +623,7 @@ setup();addEventListener('load',setup);setInterval(next,4000)})();
 </script>
 <script src="script.js?v=40" defer></script>
 <script src="premium-v56.js?v=61" defer></script>
+<script src="extras.js?v=1" defer></script>
 <script>(function(){function m(){try{var d=document.documentElement;if(!matchMedia("(max-width: 600px)").matches){d.style.removeProperty("--tf");return}var box=document.createElement("div");box.style.cssText="position:static;height:0;overflow:hidden;opacity:0;pointer-events:none;width:300px;line-height:1;font-family:Arial,Helvetica,sans-serif";box.innerHTML='<p style="margin:0;font-size:100px">The quick brown fox jumps over the lazy dog and keeps running across the open field while the sun goes down behind the hills and the evening grows quiet <span>mmmmmmmmmm</span> and more words follow so this block is long enough to count</p>';document.body.insertBefore(box,document.body.firstChild);var sp=box.querySelector("span"),comp=parseFloat(getComputedStyle(sp).fontSize),w=sp.getBoundingClientRect().width;var c=document.createElement("canvas").getContext("2d");c.font="100px Arial, Helvetica, sans-serif";var r=c.measureText("mmmmmmmmmm").width;document.body.removeChild(box);var f=Math.max(comp/100,r>0?w/r:1);d.setAttribute("data-f",f.toFixed(3));var ua=navigator.userAgent,inApp=/Instagram|FBAN|FBAV|FB_IAB|Line\/|Twitter|Snapchat|MicroMessenger|TikTok|; wv\)/i.test(ua),cr=/Chrome\/\d/.test(ua)&&!inApp&&/Mobile|Android/.test(ua);d.classList.toggle("is-chrome",cr);if(f>1.04&&f<1.8){d.style.setProperty("--tf",(1/f).toFixed(4))}else if(cr){d.style.setProperty("--tf","0.9")}else{d.style.removeProperty("--tf")}}catch(x){}}function go(){m();setTimeout(m,800);setTimeout(m,2500)}if(document.readyState==="loading")addEventListener("DOMContentLoaded",go);else go();addEventListener("load",go);addEventListener("orientationchange",function(){setTimeout(m,400)})})();</script>
 </body>
 </html>

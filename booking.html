@@ -6,19 +6,22 @@
 <script>(function(){var d=document.documentElement;function n(){try{var s=Math.min(screen.width,screen.height),p=matchMedia("(orientation: portrait)").matches;d.style.setProperty("--vh",(innerHeight/100)+"px");if(s<=600&&p){d.style.setProperty("--hair",(1.05/(devicePixelRatio||1))+"px")}else{d.style.removeProperty("--hair")}}catch(e){}}n();addEventListener("resize",n);addEventListener("orientationchange",n)})();</script>
   <meta name="theme-color" content="#03050a">
   <title>Book a Project | Implify Visuals</title>
-  <link rel="icon" type="image/png" sizes="any" href="images/favicon.png?v=3">
-    <link rel="shortcut icon" href="images/favicon.png?v=3">
-    <link rel="apple-touch-icon" href="images/favicon.png?v=3">
+  <link rel="icon" type="image/png" sizes="48x48" href="images/favicon-48.png?v=4">
+    <link rel="icon" type="image/png" sizes="96x96" href="images/favicon-96.png?v=4">
+    <link rel="icon" type="image/png" sizes="192x192" href="images/favicon-192.png?v=4">
+    <link rel="icon" type="image/png" sizes="512x512" href="images/favicon.png?v=4">
+    <link rel="shortcut icon" href="favicon.ico?v=4">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png?v=4">
     <script>
     /* Favicon auto-refresh: replace images/favicon.png (same name) and it updates within minutes. */
-    (function(){var v=Math.floor(Date.now()/600000);document.querySelectorAll('link[rel*="icon"]').forEach(function(l){l.href='images/favicon.png?v='+v})})();
+    (function(){var v=Math.floor(Date.now()/600000);document.querySelectorAll('link[rel*="icon"]').forEach(function(l){l.href=l.getAttribute('href').split('?')[0]+'?v='+v})})();
     </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter+Tight:wght@300;400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="booking.css?v=37">
 <link rel="stylesheet" href="cursor.css?v=20">
-<link rel="stylesheet" href="calm.css?v=16">
+<link rel="stylesheet" href="calm.css?v=17">
 </head>
 <body>
   <div class="booking-orbit orbit-a"></div>
@@ -26,7 +29,7 @@
 
   <header class="booking-nav">
     <a class="booking-brand" href="index.html" aria-label="Back to Implify Visuals home">
-      <img src="images/logo.png" alt="" width="38" height="38">
+      <img src="images/logo.png?v=4" alt="" width="38" height="38">
       <span>Implify Visuals</span>
     </a>
     <a class="back-link" href="index.html" aria-label="Back to studio"><span class="bl-ic">←</span><span class="bl-tx"> Back to studio</span></a>
@@ -149,7 +152,7 @@
       <button class="invoice-close" type="button" id="closeInvoice" aria-label="Close invoice">×</button>
       <div class="inv-doc"><div class="inv-white">
       <header class="inv-top">
-        <div class="inv-logo"><img src="images/logo.png" alt="Implify Visuals"><strong>Implify Visuals</strong></div>
+        <div class="inv-logo"><img src="images/logo.png?v=4" alt="Implify Visuals"><strong>Implify Visuals</strong></div>
         <div class="inv-blue"><div class="inv-meta"><span class="inv-ref" id="invoiceRef"></span><div class="inv-dates"><span>ISSUED:<b id="invoiceDate"></b></span><span>DUE:<b id="invoiceDue"></b></span></div></div><strong id="invoiceTitle">INVOICE</strong></div>
       </header>
       <div class="invoice-client-block"><span>INVOICE TO:</span><strong id="invoiceClient"></strong><small id="invoiceContact"></small></div>
@@ -166,6 +169,7 @@
 
   <div class="toast" id="toast" role="status"></div>
   <script src="booking.js?v=28" defer></script>
+  <script src="liquid.js?v=1" defer></script>
 <script src="cursor.js?v=20" defer></script>
 <script>(function(){function m(){try{var d=document.documentElement;if(!matchMedia("(max-width: 600px)").matches){d.style.removeProperty("--tf");return}var box=document.createElement("div");box.style.cssText="position:static;height:0;overflow:hidden;opacity:0;pointer-events:none;width:300px;line-height:1;font-family:Arial,Helvetica,sans-serif";box.innerHTML='<p style="margin:0;font-size:100px">The quick brown fox jumps over the lazy dog and keeps running across the open field while the sun goes down behind the hills and the evening grows quiet <span>mmmmmmmmmm</span> and more words follow so this block is long enough to count</p>';document.body.insertBefore(box,document.body.firstChild);var sp=box.querySelector("span"),comp=parseFloat(getComputedStyle(sp).fontSize),w=sp.getBoundingClientRect().width;var c=document.createElement("canvas").getContext("2d");c.font="100px Arial, Helvetica, sans-serif";var r=c.measureText("mmmmmmmmmm").width;document.body.removeChild(box);var f=Math.max(comp/100,r>0?w/r:1);d.setAttribute("data-f",f.toFixed(3));var ua=navigator.userAgent,inApp=/Instagram|FBAN|FBAV|FB_IAB|Line\/|Twitter|Snapchat|MicroMessenger|TikTok|; wv\)/i.test(ua),cr=/Chrome\/\d/.test(ua)&&!inApp&&/Mobile|Android/.test(ua);d.classList.toggle("is-chrome",cr);if(f>1.04&&f<1.8){d.style.setProperty("--tf",(1/f).toFixed(4))}else if(cr){d.style.setProperty("--tf","0.9")}else{d.style.removeProperty("--tf")}}catch(x){}}function go(){m();setTimeout(m,800);setTimeout(m,2500)}if(document.readyState==="loading")addEventListener("DOMContentLoaded",go);else go();addEventListener("load",go);addEventListener("orientationchange",function(){setTimeout(m,400)})})();</script>
 </body>

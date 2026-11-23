@@ -57,14 +57,17 @@
       text-decoration: none;
     }
   </style>
-<link rel="icon" type="image/png" sizes="any" href="images/favicon.png?v=3">
-    <link rel="shortcut icon" href="images/favicon.png?v=3">
-    <link rel="apple-touch-icon" href="images/favicon.png?v=3">
+<link rel="icon" type="image/png" sizes="48x48" href="images/favicon-48.png?v=4">
+    <link rel="icon" type="image/png" sizes="96x96" href="images/favicon-96.png?v=4">
+    <link rel="icon" type="image/png" sizes="192x192" href="images/favicon-192.png?v=4">
+    <link rel="icon" type="image/png" sizes="512x512" href="images/favicon.png?v=4">
+    <link rel="shortcut icon" href="favicon.ico?v=4">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png?v=4">
     <script>
     /* Favicon auto-refresh: replace images/favicon.png (same name) and it updates within minutes. */
-    (function(){var v=Math.floor(Date.now()/600000);document.querySelectorAll('link[rel*="icon"]').forEach(function(l){l.href='images/favicon.png?v='+v})})();
+    (function(){var v=Math.floor(Date.now()/600000);document.querySelectorAll('link[rel*="icon"]').forEach(function(l){l.href=l.getAttribute('href').split('?')[0]+'?v='+v})})();
     </script>
-<link rel="stylesheet" href="calm.css?v=16">
+<link rel="stylesheet" href="calm.css?v=17">
 </head>
 
 <body>

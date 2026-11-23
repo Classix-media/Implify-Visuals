@@ -87,11 +87,11 @@ async function drawInvoiceCanvas(){
     let size=o.s||2;const max=o.max;if(max){while(x.measureText(s).width>max*u&&size>0.8){size-=.1;font(o.w||400,size,o.f);}}x.fillText(s,px*u,py*u);};
   const rr=(px,py,w,h,r,fill)=>{x.beginPath();x.roundRect?x.roundRect(px*u,py*u,w*u,h*u,r*u):x.rect(px*u,py*u,w*u,h*u);x.fillStyle=fill;x.fill();};
   const wrapTo=(s,w,sz,mw)=>{font(w,sz);const out=[];let l='';s.split(/\s+/).filter(Boolean).forEach(t=>{const k=l?l+' '+t:t;if(x.measureText(k).width>mw*u&&l){out.push(l);l=t;}else l=k;});if(l)out.push(l);return out;};
-  const img=await new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.onerror=()=>r(null);i.src='images/logo.png';});
+  const img=await new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.onerror=()=>r(null);i.src='images/logo.png?v=4';});
   x.fillStyle=BL;x.fillRect(0,0,W,H);
   x.fillStyle='#fff';x.fillRect(5.4*u,7.3*u,89.2*u,128*u);
   x.beginPath();x.moveTo(34.7*u,0);x.lineTo(W,0);x.lineTo(W,33.9*u);x.lineTo(43.7*u,33.9*u);x.arcTo(34.7*u,33.9*u,34.7*u,24.9*u,9*u);x.lineTo(34.7*u,0);x.fillStyle=BL;x.fill();
-  if(img)x.drawImage(img,13.55*u,12*u,13*u,13*u);
+  if(img){const lc=document.createElement('canvas');lc.width=lc.height=Math.round(13*u);const lx=lc.getContext('2d');lx.drawImage(img,0,0,lc.width,lc.height);lx.globalCompositeOperation='source-in';lx.fillStyle='#005fff';lx.fillRect(0,0,lc.width,lc.height);x.drawImage(lc,13.55*u,12*u,13*u,13*u);}
   txt('Implify Visuals',20.05,28.3,{s:2.2,w:400,a:'center'});
   // ref pill + dates
   const ref=T('invoiceRef');font(500,3.8);const rw=x.measureText(ref).width/u+6.4;
