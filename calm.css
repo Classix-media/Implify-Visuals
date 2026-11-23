@@ -551,3 +551,13 @@ html.rv-on .strategy-card.rv:not(.rv-in){filter:blur(.5rem)!important}
 
 /* v29: Andrea motion card darker so it stands apart from the section background */
 .motion-glass{background:linear-gradient(160deg,#050d2b 0%,#02061a 55%,#010412 100%)!important;box-shadow:0 1.6rem 3.2rem -1.2rem rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.04)!important}
+
+/* v30: Andrea card text smaller, more breathing room from the edges */
+.motion-info{padding:1.1rem .85rem 0!important}
+.motion-eyebrow{font-size:calc((.52rem) * var(--tf,1))!important;margin-bottom:.4rem!important}
+.motion-info h3{font-size:calc((1.02rem) * var(--tf,1))!important;margin:0 0 .4rem!important}
+.motion-info p{font-size:calc((.7rem) * var(--tf,1))!important;line-height:1.55!important;margin:0 0 .75rem!important}
+.motion-rate{gap:.45rem!important}
+.motion-rate .stars{font-size:calc((.8rem) * var(--tf,1))!important}
+.motion-rate b{font-size:calc((.74rem) * var(--tf,1))!important}
+.motion-rate em{font-size:calc((.64rem) * var(--tf,1))!important}
