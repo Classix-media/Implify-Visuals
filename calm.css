@@ -592,3 +592,6 @@ html.rv-on .strategy-card.rv:not(.rv-in){filter:blur(.5rem)!important}
 .motion-glass{background:radial-gradient(110% 70% at 0% 0%,rgba(0,100,255,.28),transparent 62%),linear-gradient(160deg,#07123a 0%,#030a26 60%,#020618 100%)!important;box-shadow:0 1.4rem 3rem -1.4rem rgba(0,0,0,.6)!important}
 .fv-pill,.fv-frame{background:linear-gradient(160deg,#0b3fa6 0%,#06297a 100%)!important;border:1px solid rgba(255,255,255,.14)!important}
 .site-footer .btn-primary-sm{background:linear-gradient(160deg,#0b3fa6 0%,#06297a 100%)!important;border:1px solid rgba(255,255,255,.14)!important}
+
+/* v33: the three Why cards keep their original blue gradient colour (only size/edge gap changed) */
+.why-card{background:linear-gradient(165deg,#1b3b9c 0%,#0e2262 48%,#08122f 100%)!important}
